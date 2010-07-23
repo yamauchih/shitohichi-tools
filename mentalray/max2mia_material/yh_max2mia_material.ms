@@ -1,6 +1,6 @@
 --
 -- convert 3dsmax shaders to mia_material (Arch&Design) shader
--- Author:  Shitohich Umaya
+-- Author:  Yamauchi Hitoshi
 -- Created: 12.4.2010
 --
 -- based on Zap's V-Ray material converter

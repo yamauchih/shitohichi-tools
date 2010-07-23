@@ -1,6 +1,6 @@
 --
 -- material object map creation.
--- Author:  Shitohich Umaya
+-- Author:  Yamauchi Hitoshi
 -- Created: 15.4.2010
 --
 
