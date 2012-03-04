@@ -18,9 +18,14 @@
 <script type="text/javascript" src="./ex03.js"></script>
 </head>
 
+<!-- if you do setUpTangle() call here, don't do it in js file. You will -->
+<!-- see strange TKAdjustableNumber (duplication) effect. -->
+<body onload="setUpTangle();">
+
 <p>Example 03.</p>
 
-<h1>Drag a point</h1>
+<h1>Drag a point (non-BVTouchable version)</h1>
+
 <div>
 <canvas id="canvas" width="300" height="300">It seems this browser
 doesn't support the canvas element. This demo doesn't work in that case.</canvas>

@@ -1,9 +1,11 @@
-// This doesn't work unfortunately
+//
+// based on bezier example.
+//
 
-// import image
-var pointImage = new Image();
-pointImage.onload = setUpTangle;
-pointImage.src = "point.png";
+// import image: If you do this, don't do <body onload="setUpTangle();"> in html file
+//var pointImage = new Image();
+//pointImage.onload = setUpTangle;
+//pointImage.src = "point.png";
 
 function setUpTangle () {
 
@@ -67,7 +69,7 @@ function setUpTangle () {
         }
         // console.log('Mouse: ' + mouseX + ' x ' + mouseY + " / " + e.clientX + ' x ' + e.clientY);
         if(mouseDrag){
-            console.log('starting drag on ' + mouseTarget);
+            // console.log('starting drag on ' + mouseTarget);
             // what am I dragging?
             switch(mouseTarget){
             case '0':

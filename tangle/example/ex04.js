@@ -4,12 +4,6 @@
 //  Control/Draw a point using Tangle (http://worrydream.com/Tangle/).
 //  (C) 2012 Hitoshi Yamauchi.  New BSD license.
 //
-//
-
-// import image
-// var pointImage = new Image();
-// pointImage.onload = setUpTangle;
-// pointImage.src = "point.png";
 
 function setUpTangle () {
 
@@ -36,7 +30,7 @@ function setUpTangle () {
 //  Drag a point.
 //
 
-var isAnyAdjustableNumberDragging = false;  // hack for dragging one value over another one
+    var isAnyAdjustableNumberDragging = false;  // hack for dragging one value over another one
 
 Tangle.classes.TKCanvasPoint = {
 
@@ -51,7 +45,7 @@ Tangle.classes.TKCanvasPoint = {
 
         // this.initializeHover();
         // this.initializeHelp();
-        this.initializeDrag();
+        // this.initializeDrag();
     },
 
 
@@ -132,4 +126,6 @@ Tangle.classes.TKCanvasPoint = {
         this.updateRolloverEffects();
         this.updateStyle();
     }
+};
+
 };
