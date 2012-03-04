@@ -243,8 +243,6 @@ function setUpTangle () {
         }
     }
 
-
-
     function eventMouseUp(event) {
         mouseDrag = false;
         mouseTarget = null;

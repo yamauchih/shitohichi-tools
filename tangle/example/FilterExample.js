@@ -183,7 +183,7 @@ Tangle.classes.FilterKnob = {
 
         var knobStyle = "position:absolute; display:none; ";
         var knobWidth = 36, knobHeight = 36;
-        var knobEl = new Element("img", { style:knobStyle, src:"Images/FilterParamsKnob.png", width:knobWidth, height:knobHeight });
+        var knobEl = new Element("img", { style:knobStyle, src:"FilterParamsKnob.png", width:knobWidth, height:knobHeight });
         el.grab(knobEl, "bottom");
 
         var helpEl = new Element("div", { "class": "FilterKnobHelp" });
@@ -246,7 +246,7 @@ Tangle.classes.FilterKnob = {
                 knobYAtMouseDown = knobY;
                 isDragging = true;
                 didDrag = true;
-                knobEl.set("src", "Images/FilterParamsKnobDrag.png");
+                knobEl.set("src", "FilterParamsKnobDrag.png");
                 updateRolloverEffects();
                 updateDynamicLabelsShowing();
                 tangle.setValue("index", index);
@@ -268,7 +268,7 @@ Tangle.classes.FilterKnob = {
 
             touchDidGoUp: function (touches) {
                 isDragging = false;
-                knobEl.set("src", "Images/FilterParamsKnob.png");
+                knobEl.set("src", "FilterParamsKnob.png");
                 helpEl.setStyle("display", "none");
                 updateRolloverEffects();
                 updateDynamicLabelsShowing();

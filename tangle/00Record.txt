@@ -1,0 +1,3 @@
+
+TKAdjustableNumber が一番簡単な example のようだ．他の example は複雑す
+ぎて javascript 初心者にはわからない．

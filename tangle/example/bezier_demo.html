@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Tangle & canvas demo</title>
+
+    <!-- Tangle -->
+    <script type="text/javascript" src="../Tangle/Tangle.js"></script>
+
+    <!-- TangleKit -->
+    <link rel="stylesheet" href="../Tangle/TangleKit/TangleKit.css" type="text/css">
+    <script type="text/javascript" src="../Tangle/TangleKit/mootools.js"></script>
+    <script type="text/javascript" src="../Tangle/TangleKit/sprintf.js"></script>
+    <script type="text/javascript" src="../Tangle/TangleKit/BVTouchable.js"></script>
+    <script type="text/javascript" src="../Tangle/TangleKit/TangleKit.js"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.0.4/modernizr.min.js"></script>
+
+    <!-- bezier curve example -->
+    <script type="text/javascript" src="./ex03_bezier.js"></script>
+    <link rel="stylesheet" href="style.css" type="text/css"/>
+</head>
+
+<body>
+    <h1>Bezier curves explained (Hopefully) using Tangle.js and HTML 5 Canvas</h1>
+    <p>First draft: more satisfactory explanation is to come.</p>
+    <div>
+        <canvas id="canvas" width="500" height="530">Oops! You need a browser that can support the canvas element to view this demo.</canvas>
+    </div>
+    <div id="formulas">
+        <strong>Points</strong>
+        <table>
+            <thead>
+                <tr>
+                    <th>Start(0)</th><th>1st Handle(1)</th><th>2nd Handle(2)</th><th>End(3)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>[<span class="TKAdjustableNumber" data-var="p0x" data-min="0" data-max="490"></span>, <span class="TKAdjustableNumber" data-var="p0y" data-min="0" data-max="490"></span>]</td>
+                    <td>[<span class="TKAdjustableNumber" data-var="p1x" data-min="0" data-max="490"></span>, <span class="TKAdjustableNumber" data-var="p1y" data-min="0" data-max="490"></span>]</td>
+                    <td>[<span class="TKAdjustableNumber" data-var="p2x" data-min="0" data-max="490"></span>, <span class="TKAdjustableNumber" data-var="p2y" data-min="0" data-max="490"></span>]</td>
+                    <td>[<span class="TKAdjustableNumber" data-var="p3x" data-min="0" data-max="490"></span>, <span class="TKAdjustableNumber" data-var="p3y" data-min="0" data-max="490"></span>]</td>
+                </tr>
+            </tbody>
+        </table>
+        <br/>
+        <strong>t Value: </strong><span class="TKAdjustableNumber" data-var="t" data-min="0" data-max="1" data-step=".01" data-format="%.2f"></span>
+        
+        <p><strong>Formulas</strong></p>
+        
+        <p><em>The Coefficients</em><br/>
+            cx = 3* (p1.x -p0.x)<br/>
+            cx = 3* (<span data-var="p1x"></span> - <span data-var="p0x"></span>) = <span data-var="cx"></span></p>
+            
+            <p>bx = 3 * (p2.x - p1.x) -cx<br/>
+               bx = 3 * (<span data-var="p2x"></span> - <span data-var="p1x"></span>) - <span data-var="cx"></span> = <span data-var="bx"></span></p>
+            
+            <p>ax = p3.x - p0.x - cx - bx<br/>
+            ax = <span data-var="p3x"></span> - <span data-var="p0x"></span> - <span data-var="cx"></span> - <span data-var="bx"></span> = <span data-var="ax"></span></p>
+
+            <p>cy = 3* (p1.y -p0.y) = <span data-var="cy"></span></p>
+            <p>by = 3 * (p2.y -p1.y) -cy = <span data-var="by"></span></p>
+            <p>ay = p3.y - p0.y - cy - by = <span data-var="ay"></span></p>
+            
+            
+            <p><em>Calculating x and y coordinates for a given t value</em><br/>
+                xt = ax*t<sup>3</sup> + bx*t<sup>2</sup> + cx*t + p0.x<br/>
+            xt = <span data-var="ax"></span>*(<span data-var="tCube" data-format="%.2f"></span>) + <span data-var="bx"></span>*(<span data-var="tSqr" data-format="%.2f"></span>) + <span data-var="bx"></span>*<span data-var="t" data-format="%.2f"></span> + <span data-var="p0x"></span> = <span data-var="xt" data-format="%.2f"></span></p>
+            <p>yt = ay*t<sup>3</sup> + by*t<sup>2</sup> + cy*t + p0.y = <span data-var="yt" data-format="%.2f"></span></p>
+    </div>
+    <div id="hints">
+        <strong>Hints</strong>
+        <p>Text with a <span style="border-bottom: 1px dashed #46F;">blue underline</span> is adjustable. Click on it then drag to the left or right to adjust it's value.</p>
+        <p>The red points in the image are dragable as well. You can click and drag them, and both the image and it's text will update.</p>
+        <p>The black dot along the line represents the "t" value, a value between 0 and 1. Adjust the "t Value" on the right to watch it move along the bezier curve.</p>
+    </div>
+</body>
+</html>
