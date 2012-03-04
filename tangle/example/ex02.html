@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Example 02</title>
+
+<!-- Tangle -->
+<script type="text/javascript" src="../Tangle/Tangle.js"></script>
+
+<!-- TangleKit (optional) -->
+<link rel="stylesheet" href="../Tangle/TangleKit/TangleKit.css" type="text/css">
+<script type="text/javascript" src="../Tangle/TangleKit/mootools.js"></script>
+<script type="text/javascript" src="../Tangle/TangleKit/sprintf.js"></script>
+<script type="text/javascript" src="../Tangle/TangleKit/BVTouchable.js"></script>
+<script type="text/javascript" src="../Tangle/TangleKit/TangleKit.js"></script>
+
+<!-- example -->
+<script type="text/javascript">
+function setUpTangle () {
+    var element = document.getElementById("example");
+
+    var tangle = new Tangle(element, {
+        initialize: function () {
+            this.tesla_count = 1;
+            this.watt_per_tesla = 225;
+            this.message = "";
+        },
+        update: function () {
+            this.watt_total = this.tesla_count * this.watt_per_tesla;
+            if(this.tesla_count == 0){
+                this.message = "";
+            }
+            else if(this.tesla_count == 1){
+                this.message = "Wow.";
+            }
+            else if(this.tesla_count == 2){
+                this.message = "Hot.";
+            }
+            else if(this.tesla_count == 3){
+                this.message = "<font color=\"red\"><strong>Hot</strong></font>.";
+            }
+            else{
+                this.message =
+                "<font color=\"red\"><strong>Hot, Hot</strong></font>. I feel so much power.";
+            }
+        }
+    });
+}
+</script>
+</head>
+
+<body onload="setUpTangle();">
+
+<p>Example 02.</p>
+
+<p id="example">
+If your computer has <span data-var="tesla_count" class="TKAdjustableNumber"
+data-min="0" data-max="4"> Tesla M2090</span>, you will consume
+maximal <span data-var="watt_total"></span> Watts. <span data-var="message"></span>
+</p>
+
+<p>
+TDP (Thermal design power). see <a
+href="http://www.nvidia.com/object/tesla_product_literature.html">
+www.nvidia.com/object/tesla_product_literature</a> from NVidia.)
+</p>
+
+
+</body>
+</html>
