@@ -344,8 +344,10 @@ Tangle.classes.FilterFreqPlot = {
 
 //----------------------------------------------------------
 //
-//  FilterTimePlot: It seems this is simpler. Try this.
+//  FilterTimePlot
+//    the signal output
 //
+
 
 Tangle.classes.FilterTimePlot = {
 
@@ -395,6 +397,7 @@ Tangle.classes.FilterTimePlot = {
 //----------------------------------------------------------
 //
 //  FilterStepPlot
+//    filter input
 //
 
 Tangle.classes.FilterStepPlot = {
@@ -424,6 +427,7 @@ Tangle.classes.FilterStepPlot = {
 //----------------------------------------------------------
 //
 //  FilterPolePlot
+//     polar plot right next to the eqations.
 //
 
 Tangle.classes.FilterPolePlot = {

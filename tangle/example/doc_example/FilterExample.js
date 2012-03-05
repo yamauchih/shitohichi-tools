@@ -64,10 +64,10 @@ window.addEvent('domready', function () {
 
             // take recipricol to get z
 
-            this.pole1Real =  root1Real / (root1Real * root1Real + root1Imag * root1Imag);
-            this.pole1Imag = -root1Imag / (root1Real * root1Real + root1Imag * root1Imag);
-            this.pole2Real =  root2Real / (root2Real * root2Real + root2Imag * root2Imag);
-            this.pole2Imag = -root2Imag / (root2Real * root2Real + root2Imag * root2Imag);
+            // this.pole1Real =  root1Real / (root1Real * root1Real + root1Imag * root1Imag);
+            // this.pole1Imag = -root1Imag / (root1Real * root1Real + root1Imag * root1Imag);
+            // this.pole2Real =  root2Real / (root2Real * root2Real + root2Imag * root2Imag);
+            // this.pole2Imag = -root2Imag / (root2Real * root2Real + root2Imag * root2Imag);
 
             // stable
 
@@ -117,29 +117,29 @@ window.addEvent('domready', function () {
 //            ^                                      |
 //            '----(-1)------------------------------'
 
-function chamberlinResponse (kf,kq,N,x) {
-    if (!N) { N = 512; }
+// function chamberlinResponse (kf,kq,N,x) {
+//     if (!N) { N = 512; }
 
-    var output = [];
-    var lp = 0, bp = 0, input = 1;
+//     var output = [];
+//     var lp = 0, bp = 0, input = 1;
 
-    for (var i = 0; i < N; i++) {
-        bp += kf * (input - lp - kq*bp);
-        lp += kf * bp;
-        output[i] = lp;
-        input = x;
-    }
+//     for (var i = 0; i < N; i++) {
+//         bp += kf * (input - lp - kq*bp);
+//         lp += kf * bp;
+//         output[i] = lp;
+//         input = x;
+//     }
 
-    return output;
-}
+//     return output;
+// }
 
-function chamberlinImpulseResponse (kf,kq,N) {
-    return chamberlinResponse(kf,kq,N,0);
-}
+// function chamberlinImpulseResponse (kf,kq,N) {
+//     return chamberlinResponse(kf,kq,N,0);
+// }
 
-function chamberlinStepResponse (kf,kq,N) {
-    return chamberlinResponse(kf,kq,N,1);
-}
+// function chamberlinStepResponse (kf,kq,N) {
+//     return chamberlinResponse(kf,kq,N,1);
+// }
 
 
 
@@ -225,6 +225,8 @@ Tangle.classes.FilterKnob = {
             else { body.removeClass("cursorDrag"); }
         }
 
+        // sidebar text control
+        // All the overlay text show
         function updateDynamicLabelsShowing () {
             tangle.element.getElements(".showOnDrag").each( function (hideEl) {
                 hideEl.setStyle("display", isDragging ? "block" : "none");
@@ -295,36 +297,45 @@ Tangle.classes.FilterFreqPlot = {
         var canvasHeight = el.get("height");
         var ctx = el.getContext("2d");
 
-        var fs = this.tangle.getValue("fs");
-        var unstable = this.tangle.getValue("unstable");
+        // var fs = this.tangle.getValue("fs");
+        // var unstable = this.tangle.getValue("unstable");
 
-        var N = 2048;
-        var impulseResponse = chamberlinImpulseResponse(kf,kq,N);
+        // var N = 2048;
+        // var impulseResponse = chamberlinImpulseResponse(kf,kq,N);
 
-        var fft = new RFFT(N, fs);
-        fft.forward(impulseResponse);
-        var values = fft.spectrum;
+        // var fft = new RFFT(N, fs);
+        // fft.forward(impulseResponse);
+        // var values = fft.spectrum;
 
-        var maxValue = 0;
-        for (var i = 0; i < N; i++) { maxValue = Math.max(maxValue, values[i]); }
-        maxValue = values[0];
+        // var maxValue = 0;
+        // for (var i = 0; i < N; i++) { maxValue = Math.max(maxValue, values[i]); }
+        // maxValue = values[0];
 
         ctx.fillStyle = "#fff";
         ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 
-        ctx.fillStyle = unstable ? "#f00" : "#555";
-        for (var x = 0; x < canvasWidth; x++) {
-            var base = 100;
+        // ctx.fillStyle = unstable ? "#f00" : "#555";
+        // for (var x = 0; x < canvasWidth; x++) {
+        //     var base = 100;
 
-            var i = N * this.getNormalizedFrequencyForX(x, canvasWidth);  // log-scale x
-            var fracI = i - Math.floor(i);
-            var lowV = values[Math.floor(i)];
-            var highV = values[Math.ceil(i)];
+        //     var i = N * this.getNormalizedFrequencyForX(x, canvasWidth);  // log-scale x
+        //     var fracI = i - Math.floor(i);
+        //     var lowV = values[Math.floor(i)];
+        //     var highV = values[Math.ceil(i)];
 
-            var value = lowV + fracI * (highV - lowV);
-            var y = (value > 0) ? Math.max(0, canvasHeight/2 + 32*Math.log(value/maxValue)) : 0;  // log-scale y
-            ctx.fillRect(x, canvasHeight - y, 1, y);
-        }
+        //     var value = lowV + fracI * (highV - lowV);
+        //     var y = (value > 0) ? Math.max(0, canvasHeight/2 + 32*Math.log(value/maxValue)) : 0;  // log-scale y
+        //     ctx.fillRect(x, canvasHeight - y, 1, y);
+        // }
+
+        // draw a line
+        ctx.strokeStyle = "#00FF00";
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(100, 100);
+        ctx.stroke();
+        ctx.closePath();
     },
 
     getFrequencyLogScaleBase: function () { return 100; },
@@ -347,146 +358,146 @@ Tangle.classes.FilterFreqPlot = {
 //  FilterTimePlot: It seems this is simpler. Try this.
 //
 
-Tangle.classes.FilterTimePlot = {
+// Tangle.classes.FilterTimePlot = {
 
-    initialize: function (el, options, tangle) {
-        this.tangle = tangle;
-    },
+//     initialize: function (el, options, tangle) {
+//         this.tangle = tangle;
+//     },
 
-    update: function (el, kf, kq) {
-        var canvasWidth = el.get("width");
-        var canvasHeight = el.get("height");
-        var ctx = el.getContext("2d");
+//     update: function (el, kf, kq) {
+//         var canvasWidth = el.get("width");
+//         var canvasHeight = el.get("height");
+//         var ctx = el.getContext("2d");
 
-        var fs = this.tangle.getValue("fs");
-        var unstable = this.tangle.getValue("unstable");
-        var widthBeforeStep = this.getWidthBeforeStep();
+//         var fs = this.tangle.getValue("fs");
+//         var unstable = this.tangle.getValue("unstable");
+//         var widthBeforeStep = this.getWidthBeforeStep();
 
-        var N = 256;
-        var values = chamberlinStepResponse(kf,kq,N);
+//         var N = 256;
+//         var values = chamberlinStepResponse(kf,kq,N);
 
-        ctx.fillStyle = "#fff";
-        ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+//         ctx.fillStyle = "#fff";
+//         ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 
-        ctx.strokeStyle = unstable ? "#f00" : "#00f";
-        ctx.lineWidth = 2;
-        ctx.beginPath();
+//         ctx.strokeStyle = unstable ? "#f00" : "#00f";
+//         ctx.lineWidth = 2;
+//         ctx.beginPath();
 
-        ctx.moveTo(0, canvasHeight-1);
-        ctx.lineTo(widthBeforeStep, canvasHeight-1);
+//         ctx.moveTo(0, canvasHeight-1);
+//         ctx.lineTo(widthBeforeStep, canvasHeight-1);
 
-        for (var x = widthBeforeStep; x < canvasWidth; x++) {
-            var i = x - widthBeforeStep;
-            var fracI = i - Math.floor(i);
-            var lowV = values[Math.floor(i)];
-            var highV = values[Math.ceil(i)];
-            var value = lowV + fracI * (highV - lowV);
-            var y = value * canvasHeight/2;
-            ctx.lineTo(x, canvasHeight - y);
-        }
+//         for (var x = widthBeforeStep; x < canvasWidth; x++) {
+//             var i = x - widthBeforeStep;
+//             var fracI = i - Math.floor(i);
+//             var lowV = values[Math.floor(i)];
+//             var highV = values[Math.ceil(i)];
+//             var value = lowV + fracI * (highV - lowV);
+//             var y = value * canvasHeight/2;
+//             ctx.lineTo(x, canvasHeight - y);
+//         }
 
-        ctx.stroke();
-    },
+//         ctx.stroke();
+//     },
 
-    getWidthBeforeStep: function () { return 16; }
-};
-
-
-//----------------------------------------------------------
-//
-//  FilterStepPlot
-//
-
-Tangle.classes.FilterStepPlot = {
-
-    initialize: function (el) {
-        var canvasWidth = el.get("width");
-        var canvasHeight = el.get("height");
-        var ctx = el.getContext("2d");
-        var widthBeforeStep = Tangle.classes.FilterTimePlot.getWidthBeforeStep();
-
-        ctx.fillStyle = "#fff";
-        ctx.fillRect(0, 0, canvasWidth, canvasHeight);
-
-        ctx.strokeStyle = "#00f";
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-
-        ctx.moveTo(0,canvasHeight-1);
-        ctx.lineTo(widthBeforeStep,canvasHeight-1);
-        ctx.lineTo(widthBeforeStep,canvasHeight/2);
-        ctx.lineTo(canvasWidth,canvasHeight/2);
-        ctx.stroke();
-    }
-};
+//     getWidthBeforeStep: function () { return 16; }
+// };
 
 
 //----------------------------------------------------------
 //
-//  FilterPolePlot
+//  FilterStepPlot: filter input
 //
 
-Tangle.classes.FilterPolePlot = {
+// Tangle.classes.FilterStepPlot = {
 
-    initialize: function (el, options, tangle) {
-        this.tangle = tangle;
-    },
+//     initialize: function (el) {
+//         var canvasWidth = el.get("width");
+//         var canvasHeight = el.get("height");
+//         var ctx = el.getContext("2d");
+//         var widthBeforeStep = Tangle.classes.FilterTimePlot.getWidthBeforeStep();
 
-    update: function (el, pole1Real, pole1Imag, pole2Real, pole2Imag) {
-        var pole1Inside = this.tangle.getValue("pole1Inside");
-        var pole2Inside = this.tangle.getValue("pole2Inside");
+//         ctx.fillStyle = "#fff";
+//         ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 
-        var canvasWidth = el.get("width");
-        var canvasHeight = el.get("height");
-        var ctx = el.getContext("2d");
-        var unitRadius = canvasWidth * 1/4;
+//         ctx.strokeStyle = "#00f";
+//         ctx.lineWidth = 2;
+//         ctx.beginPath();
 
-        // draw arena
+//         ctx.moveTo(0,canvasHeight-1);
+//         ctx.lineTo(widthBeforeStep,canvasHeight-1);
+//         ctx.lineTo(widthBeforeStep,canvasHeight/2);
+//         ctx.lineTo(canvasWidth,canvasHeight/2);
+//         ctx.stroke();
+//     }
+// };
 
-        ctx.fillStyle = "#fff";
-        ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 
-        ctx.fillStyle = "#f4f4f4";
-        ctx.beginPath();
-        ctx.arc(canvasWidth/2, canvasHeight/2, unitRadius, 0, Math.PI * 2, false);
-        ctx.fill();
+//----------------------------------------------------------
+//
+//  FilterPolePlot: Next to the exation's polar plot
+//
 
-        ctx.strokeStyle = "#fff";
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.moveTo(canvasWidth/2 - unitRadius, canvasHeight/2);
-        ctx.lineTo(canvasWidth/2 + unitRadius, canvasHeight/2);
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.moveTo(canvasWidth/2, canvasHeight/2 - unitRadius);
-        ctx.lineTo(canvasWidth/2, canvasHeight/2 + unitRadius);
-        ctx.stroke();
+// Tangle.classes.FilterPolePlot = {
 
-        // draw poles
+//     initialize: function (el, options, tangle) {
+//         this.tangle = tangle;
+//     },
 
-        ctx.strokeStyle = pole1Inside ? "#00f" : "#f00";
-        drawCrossAtPoint(canvasWidth/2 + unitRadius * pole1Real,
-                         canvasHeight/2 + unitRadius * pole1Imag);
+//     update: function (el, pole1Real, pole1Imag, pole2Real, pole2Imag) {
+//         var pole1Inside = this.tangle.getValue("pole1Inside");
+//         var pole2Inside = this.tangle.getValue("pole2Inside");
 
-        ctx.strokeStyle = pole2Inside ? "#00f" : "#f00";
-        drawCrossAtPoint(canvasWidth/2 + unitRadius * pole2Real,
-                         canvasHeight/2 + unitRadius * pole2Imag);
+//         var canvasWidth = el.get("width");
+//         var canvasHeight = el.get("height");
+//         var ctx = el.getContext("2d");
+//         var unitRadius = canvasWidth * 1/4;
 
-        function drawCrossAtPoint(x,y) {
-            var crossRadius = 3;
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            ctx.moveTo(x - crossRadius, y - crossRadius);
-            ctx.lineTo(x + crossRadius, y + crossRadius);
-            ctx.stroke();
-            ctx.beginPath();
-            ctx.moveTo(x - crossRadius, y + crossRadius);
-            ctx.lineTo(x + crossRadius, y - crossRadius);
-            ctx.stroke();
-        }
-    }
+//         // draw arena
 
-};
+//         ctx.fillStyle = "#fff";
+//         ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+
+//         ctx.fillStyle = "#f4f4f4";
+//         ctx.beginPath();
+//         ctx.arc(canvasWidth/2, canvasHeight/2, unitRadius, 0, Math.PI * 2, false);
+//         ctx.fill();
+
+//         ctx.strokeStyle = "#fff";
+//         ctx.lineWidth = 2;
+//         ctx.beginPath();
+//         ctx.moveTo(canvasWidth/2 - unitRadius, canvasHeight/2);
+//         ctx.lineTo(canvasWidth/2 + unitRadius, canvasHeight/2);
+//         ctx.stroke();
+//         ctx.beginPath();
+//         ctx.moveTo(canvasWidth/2, canvasHeight/2 - unitRadius);
+//         ctx.lineTo(canvasWidth/2, canvasHeight/2 + unitRadius);
+//         ctx.stroke();
+
+//         // draw poles
+
+//         ctx.strokeStyle = pole1Inside ? "#00f" : "#f00";
+//         drawCrossAtPoint(canvasWidth/2 + unitRadius * pole1Real,
+//                          canvasHeight/2 + unitRadius * pole1Imag);
+
+//         ctx.strokeStyle = pole2Inside ? "#00f" : "#f00";
+//         drawCrossAtPoint(canvasWidth/2 + unitRadius * pole2Real,
+//                          canvasHeight/2 + unitRadius * pole2Imag);
+
+//         function drawCrossAtPoint(x,y) {
+//             var crossRadius = 3;
+//             ctx.lineWidth = 1;
+//             ctx.beginPath();
+//             ctx.moveTo(x - crossRadius, y - crossRadius);
+//             ctx.lineTo(x + crossRadius, y + crossRadius);
+//             ctx.stroke();
+//             ctx.beginPath();
+//             ctx.moveTo(x - crossRadius, y + crossRadius);
+//             ctx.lineTo(x + crossRadius, y - crossRadius);
+//             ctx.stroke();
+//         }
+//     }
+
+// };
 
 
 })();
