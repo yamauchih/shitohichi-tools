@@ -5,10 +5,13 @@
 //  (C) 2012 Hitoshi Yamauchi.  New BSD license.
 //
 
-function setUpTangle () {
+(function () {
+
+// MooTools: when DOM is ready, this is called
+window.addEvent('domready', function () {
 
     // <div id="point_position"> in ex4.html
-    var element = document.getElementById("point_position");
+    var element = document.getElementById("point");
     var points  = new Array();
     var mycanvas  = document.getElementById("canvas");
     var cxt       = mycanvas.getContext('2d');
@@ -20,9 +23,10 @@ function setUpTangle () {
             this.py = 30;
         },
         update: function () {
-            this.log("updated")
+            console.log("updated")
         }
     });
+});
 
 //----------------------------------------------------------
 //
@@ -30,14 +34,17 @@ function setUpTangle () {
 //  Drag a point.
 //
 
-    var isAnyAdjustableNumberDragging = false;  // hack for dragging one value over another one
+var isAnyAdjustableNumberDragging = false;  // hack for dragging one value over another one
 
 Tangle.classes.TKCanvasPoint = {
 
-    initialize: function (element, options, tangle, variable) {
+    initialize: function (element, options, tangle, px, py) {
         this.element = element;
         this.tangle  = tangle;
-        this.variable = variable;
+        this.px = px;
+        this.py = py;
+
+        console.log("px: " + px + ", py: " + py)
 
         // this.min = (options.min !== undefined) ? parseFloat(options.min) : 1;
         // this.max = (options.max !== undefined) ? parseFloat(options.max) : 10;
@@ -45,7 +52,7 @@ Tangle.classes.TKCanvasPoint = {
 
         // this.initializeHover();
         // this.initializeHelp();
-        // this.initializeDrag();
+        this.initializeDrag();
     },
 
 
@@ -56,29 +63,31 @@ Tangle.classes.TKCanvasPoint = {
     //     this.element.addEvent("mouseleave", (function () { this.isHovering = false; this.updateRolloverEffects(); }).bind(this));
     // },
 
-    updateRolloverEffects: function () {
-        this.updateStyle();
-        this.updateCursor();
-        this.updateHelp();
-    },
+    // updateRolloverEffects: function () {
+    //     // this.updateStyle();
+    //     // this.updateCursor();
+    //     // this.updateHelp();
+    //     tangle.log("updateRolloverEffects")
+    // },
 
-    isActive: function () {
-        return this.isDragging || (this.isHovering && !isAnyAdjustableNumberDragging);
-    },
 
-    updateStyle: function () {
-        if (this.isDragging) { this.element.addClass("TKAdjustableNumberDown"); }
-        else { this.element.removeClass("TKAdjustableNumberDown"); }
+    // isActive: function () {
+    //     return this.isDragging || (this.isHovering && !isAnyAdjustableNumberDragging);
+    // },
 
-        if (!this.isDragging && this.isActive()) { this.element.addClass("TKAdjustableNumberHover"); }
-        else { this.element.removeClass("TKAdjustableNumberHover"); }
-    },
+    // updateStyle: function () {
+    //     if (this.isDragging) { this.element.addClass("TKAdjustableNumberDown"); }
+    //     else { this.element.removeClass("TKAdjustableNumberDown"); }
 
-    updateCursor: function () {
-        var body = document.getElement("body");
-        if (this.isActive()) { body.addClass("TKCursorDragHorizontal"); }
-        else { body.removeClass("TKCursorDragHorizontal"); }
-    },
+    //     if (!this.isDragging && this.isActive()) { this.element.addClass("TKAdjustableNumberHover"); }
+    //     else { this.element.removeClass("TKAdjustableNumberHover"); }
+    // },
+
+    // updateCursor: function () {
+    //     var body = document.getElement("body");
+    //     if (this.isActive()) { body.addClass("TKCursorDragHorizontal"); }
+    //     else { body.removeClass("TKCursorDragHorizontal"); }
+    // },
 
 
     // help
@@ -128,4 +137,6 @@ Tangle.classes.TKCanvasPoint = {
     }
 };
 
-};
+
+
+})();

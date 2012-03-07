@@ -9,7 +9,7 @@
 
 (function () {
 
-
+// MooTools: when DOM is ready, this is called
 window.addEvent('domready', function () {
 
     var container = document.getElementById("filterExample");
