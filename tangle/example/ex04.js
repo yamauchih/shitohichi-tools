@@ -74,6 +74,7 @@ Tangle.classes.TKCanvasPoint = {
         new BVTouchable(this.element, {
             touchDidGoDown: function (touches) {
                 console.log("BVTouchable: touchDidGoDown")
+                tangle.setValue("px", Math.random())
             },
             touchDidMove: function (touches) {
                 console.log("BVTouchable: touchDidMove")
@@ -81,6 +82,7 @@ Tangle.classes.TKCanvasPoint = {
             },
             touchDidGoUp: function (touches) {
                 console.log("BVTouchable: touchDidGoUp")
+                tangle.setValue("px", Math.random())
             }
         });                     // new BVTouchable
     }                           // initialize function

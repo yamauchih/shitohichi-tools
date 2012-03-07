@@ -1,5 +1,8 @@
 * TODO Tangle
 
+* Tangle tutorial
+** Example 05 draw a point at the mouse position.
+
 * Normal transform fail example
 ** show the 2d line image
 ** scale (x) direction input

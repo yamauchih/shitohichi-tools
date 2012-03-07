@@ -177,6 +177,7 @@ Tangle.classes.FilterKnob = {
         var canvasWidth = canvasEl.get("width");
         var canvasHeight = canvasEl.get("height");
 
+        // draw a line in the absolute position
         var lineStyle = "position:absolute; display:block; border-left:1px dotted #00f; pointer-events:none; width:1px; height:" + canvasHeight + "px;";
         var lineEl = new Element("div", { style:lineStyle });
         el.grab(lineEl, "bottom");
