@@ -26,20 +26,25 @@
 <p>Example 04</p>
 
 <h1>Drag a point (BVTouchable version)</h1>
-<div>
 
-<canvas id="canvas" class="TKCanvasPoint" data-var="px py"
-width="300" height="300">It seems this browser doesn't support
-the canvas element. This demo doesn't work in that case.</canvas>
+<!-- div is division of the page. It's a kind of section. Use this -->
+<!-- section for id to lookup from JavaScript. -->
+<div id="point_drag_example">
+  <div id="point_drag_canvas">
+  <canvas class="TKCanvasPoint" data-var="px0 py0"
+  width="300" height="300">It seems this browser doesn't support
+  the canvas element. This demo doesn't work in that case.
+  </canvas>
+  </div>                        <!-- point_drag_canvas -->
 
- </div>
-
-<p id="point">
-Point [
-<span class="TKAdjustableNumber" data-var="px" data-min="0" data-max="300"></span>,
-<span class="TKAdjustableNumber" data-var="py" data-min="0" data-max="300"></span>
-]
-</p>
+  <!-- Here id is in the p tag. -->
+  <p id="point_dynamic_text">
+  Point [
+  <span class="TKAdjustableNumber" data-var="px" data-min="0" data-max="300"></span>,
+  <span class="TKAdjustableNumber" data-var="py" data-min="0" data-max="300"></span>
+  ]
+  </p>
+</div>                          <!-- point_drag_example -->
 
 </body>
 </html>

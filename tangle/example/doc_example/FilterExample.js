@@ -199,7 +199,7 @@ Tangle.classes.FilterKnob = {
             knobEl.setStyles( { left:knobX - knobWidth/2, top:knobY - knobHeight/2 } );
             lineEl.setStyles( { left:knobX });
             helpEl.setStyles( { left:knobX - knobWidth/2 - 22, top:knobY - knobHeight/2 + 8 } );
-        };
+        };                      // update function
 
 
         // rollover effects
@@ -231,7 +231,7 @@ Tangle.classes.FilterKnob = {
             tangle.element.getElements(".showOnDrag").each( function (hideEl) {
                 hideEl.setStyle("display", isDragging ? "block" : "none");
             });
-            tangle.element.getElement(".filterSidebar").setStyle("display", isDragging ? "none" : "block");
+            // tangle.element.getElement(".filterSidebar").setStyle("display", isDragging ? "none" : "block");
         }
 
 
@@ -275,9 +275,9 @@ Tangle.classes.FilterKnob = {
                 updateRolloverEffects();
                 updateDynamicLabelsShowing();
             }
-        });
-    }
-};
+        });                     // new BVTouchable
+    }                           // function initialize
+};                              // FilterKnob
 
 
 
@@ -336,6 +336,7 @@ Tangle.classes.FilterFreqPlot = {
         ctx.lineTo(100, 100);
         ctx.stroke();
         ctx.closePath();
+        console.log("FilterFreqPlot: update");
     },
 
     getFrequencyLogScaleBase: function () { return 100; },

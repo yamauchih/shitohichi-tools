@@ -5,27 +5,32 @@
 //  (C) 2012 Hitoshi Yamauchi.  New BSD license.
 //
 
+
+//
+//  Element structure
+//    point_drag_example
+//      + point_drag_canvas
+//      + point_dynamic_text
+//
+
 (function () {
 
 // MooTools: when DOM is ready, this is called
 window.addEvent('domready', function () {
 
-    // <div id="point_position"> in ex4.html
-    var element = document.getElementById("point");
-    var points  = new Array();
-    var mycanvas  = document.getElementById("canvas");
-    var cxt       = mycanvas.getContext('2d');
-    var maxHeight = mycanvas.height;
-
-    var tangle = new Tangle(element, {
+    // <div id="point_drag_example"> in ex4.html
+    // This should contains all of this elements: canvas and point texts
+    var container = document.getElementById("point_drag_example");
+    var tangle = new Tangle(container, {
         initialize: function () {
             this.px = 30;
             this.py = 30;
         },
         update: function () {
-            console.log("updated")
+            console.log("tangle updated")
         }
     });
+    tangle.setValue("px", 40);
 });
 
 //----------------------------------------------------------
@@ -36,107 +41,49 @@ window.addEvent('domready', function () {
 
 var isAnyAdjustableNumberDragging = false;  // hack for dragging one value over another one
 
+// This Tangle is a global variable defined in Tangle.js
 Tangle.classes.TKCanvasPoint = {
 
     initialize: function (element, options, tangle, px, py) {
         this.element = element;
         this.tangle  = tangle;
-        this.px = px;
-        this.py = py;
+        this.px = 0;
+        this.py = 0;
 
-        console.log("px: " + px + ", py: " + py)
+        // point_drag_example
+        var mycanvas     = element.getParent().getElement("canvas");
+        var cxt          = mycanvas.getContext("2d");
+        var canvasWidth  = mycanvas.width;
+        var canvasHeight = mycanvas.height;
+        console.log("canvas w: " + canvasWidth + ", h: " + canvasHeight);
 
-        // this.min = (options.min !== undefined) ? parseFloat(options.min) : 1;
-        // this.max = (options.max !== undefined) ? parseFloat(options.max) : 10;
-        // this.step = (options.step !== undefined) ? parseFloat(options.step) : 1;
+        // update
+        this.update = function(el, px, py) {
+            console.log("TKCanvasPoint updated: ");
+        }
 
-        // this.initializeHover();
-        // this.initializeHelp();
-        this.initializeDrag();
-    },
+        // Hovering event
+        mycanvas.addEvent("mouseenter", function () {
+            console.log("TKCanvasPoint mouse enter event. " + tangle.getValue("px"));
+        });
+        mycanvas.addEvent("mouseleave", function () {
+            console.log("TKCanvasPoint mouse leave event. " + tangle.getValue("px"));
+        });
 
-
-    // hover
-    // initializeHover: function () {
-    //     this.isHovering = false;
-    //     this.element.addEvent("mouseenter", (function () { this.isHovering = true;  this.updateRolloverEffects(); }).bind(this));
-    //     this.element.addEvent("mouseleave", (function () { this.isHovering = false; this.updateRolloverEffects(); }).bind(this));
-    // },
-
-    // updateRolloverEffects: function () {
-    //     // this.updateStyle();
-    //     // this.updateCursor();
-    //     // this.updateHelp();
-    //     tangle.log("updateRolloverEffects")
-    // },
-
-
-    // isActive: function () {
-    //     return this.isDragging || (this.isHovering && !isAnyAdjustableNumberDragging);
-    // },
-
-    // updateStyle: function () {
-    //     if (this.isDragging) { this.element.addClass("TKAdjustableNumberDown"); }
-    //     else { this.element.removeClass("TKAdjustableNumberDown"); }
-
-    //     if (!this.isDragging && this.isActive()) { this.element.addClass("TKAdjustableNumberHover"); }
-    //     else { this.element.removeClass("TKAdjustableNumberHover"); }
-    // },
-
-    // updateCursor: function () {
-    //     var body = document.getElement("body");
-    //     if (this.isActive()) { body.addClass("TKCursorDragHorizontal"); }
-    //     else { body.removeClass("TKCursorDragHorizontal"); }
-    // },
-
-
-    // help
-
-    // initializeHelp: function () {
-    //     this.helpElement = (new Element("div", { "class": "TKAdjustableNumberHelp" })).inject(this.element, "top");
-    //     this.helpElement.setStyle("display", "none");
-    //     this.helpElement.set("text", "drag");
-    // },
-
-    // updateHelp: function () {
-    //     var size = this.element.getSize();
-    //     var top = -size.y + 7;
-    //     var left = Math.round(0.5 * (size.x - 20));
-    //     var display = (this.isHovering && !isAnyAdjustableNumberDragging) ? "block" : "none";
-    //     this.helpElement.setStyles({ left:left, top:top, display:display });
-    // },
-
-
-    // drag
-    initializeDrag: function () {
-        this.isDragging = false;
-        new BVTouchable(this.element, this);
-    },
-
-    touchDidGoDown: function (touches) {
-        this.valueAtMouseDown = this.tangle.getValue(this.variable);
-        this.isDragging = true;
-        isAnyAdjustableNumberDragging = true;
-        this.updateRolloverEffects();
-        this.updateStyle();
-    },
-
-    touchDidMove: function (touches) {
-        var value = this.valueAtMouseDown + touches.translation.x / 5 * this.step;
-        value = ((value / this.step).round() * this.step).limit(this.min, this.max);
-        this.tangle.setValue(this.variable, value);
-        this.updateHelp();
-    },
-
-    touchDidGoUp: function (touches) {
-        this.helpElement.setStyle("display", "none");
-        this.isDragging = false;
-        isAnyAdjustableNumberDragging = false;
-        this.updateRolloverEffects();
-        this.updateStyle();
-    }
-};
-
-
+        // Dragging via BVTouchable
+        new BVTouchable(this.element, {
+            touchDidGoDown: function (touches) {
+                console.log("BVTouchable: touchDidGoDown")
+            },
+            touchDidMove: function (touches) {
+                console.log("BVTouchable: touchDidMove")
+                tangle.setValue("px", Math.random())
+            },
+            touchDidGoUp: function (touches) {
+                console.log("BVTouchable: touchDidGoUp")
+            }
+        });                     // new BVTouchable
+    }                           // initialize function
+};                              // TKCanvasPoint
 
 })();
