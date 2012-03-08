@@ -1,5 +1,5 @@
 //
-//  ex04.js
+//  ex05.js
 //
 //  Control/Draw a point using Tangle (http://worrydream.com/Tangle/).
 //  (C) 2012 Hitoshi Yamauchi.  New BSD license.

@@ -2,6 +2,8 @@
 
 * Tangle tutorial
 ** Example 05 draw a point at the mouse position.
+** Example 06 draw a line.
+
 
 * Normal transform fail example
 ** show the 2d line image
