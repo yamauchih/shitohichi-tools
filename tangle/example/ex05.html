@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Example 04</title>
+<title>Example 05</title>
 
 <!-- Basic style -->
 <link rel="stylesheet" href="style.css" type="text/css">
@@ -19,6 +19,7 @@
 
 
 <link rel="stylesheet" href="ex04_style.css" type="text/css">
+<link rel="stylesheet" href="ex05_style.css" type="text/css">
 
 <!-- example 05 canvas -->
 <script type="text/javascript" src="./ex05.js"></script>
@@ -45,12 +46,13 @@
   <!-- In point_drag_example, one tangle there. if the -->
   <!-- point_dynamic_text is outside of this div, then these are not
   <!-- shared the tangle. -->
-  <div id="point_drag_canvas">
-  <canvas class="TKCanvasPoint" data-var="px py"
-  width="300" height="300">It seems this browser doesn't support
-  the canvas element. This demo doesn't work in that case.
-  </canvas>
-  </div>                        <!-- point_drag_canvas -->
+  <div class="TKCanvasArea" id="point_drag_canvas">
+      <!-- View panel -->
+      <canvas class="TKCanvasControl" data-var="px py"
+       width="300" height="300">This browser doesn't support a canvas.
+      </canvas>
+  </div>
+  <!-- point_drag_canvas -->
   <!-- Here id is in the p tag. -->
   <p id="point_dynamic_text">
   Point [

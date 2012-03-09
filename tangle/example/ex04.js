@@ -47,10 +47,11 @@ Tangle.classes.TKCanvasPoint = {
 
         // point_drag_example
         var mycanvas     = element.getParent().getElement("canvas");
-        var cxt          = mycanvas.getContext("2d");
-        var canvasWidth  = mycanvas.width;
-        var canvasHeight = mycanvas.height;
-        console.log("canvas w: " + canvasWidth + ", h: " + canvasHeight);
+        // var cxt          = mycanvas.getContext("2d");
+        // var canvasWidth  = mycanvas.width;
+        // var canvasHeight = mycanvas.height;
+        // console.log("canvas w: " + canvasWidth + ", h: " + canvasHeight);
+        // DELETEME
 
         // update
         this.update = function(el, px, py) {
