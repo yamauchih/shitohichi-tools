@@ -41,14 +41,16 @@ window.addEvent('domready', function () {
 //    FilterKnob). I try to follow that idea here.
 //
 
+// I don't know how to pass this control state.
+// via Tangle with data-var sounds wrong since these should be a model.
+var isDragging = false;
+
 // This Tangle is a global variable defined in Tangle.js
 Tangle.classes.TKCanvasControl = {
 
     initialize: function (element, options, tangle, px, py) {
         this.element = element;
         this.tangle  = tangle;
-        this.px = 0;
-        this.py = 0;
 
         // point_drag_example
         var mycanvas     = element.getParent().getElement("canvas");
@@ -61,23 +63,21 @@ Tangle.classes.TKCanvasControl = {
             console.log("TKCanvasControl mouse leave event. " + tangle.getValue("px"));
         });
 
-        var pointer_start_x;
-        var pointer_start_y;
+        // mouse down point
+        var pointer_start_x = 0;
+        var pointer_start_y = 0;
 
-        this.update = function (el, px, py) {
-            // console.log("update: " + px + ", " + py);
-            this.drawCanvas(el, px, py);
-        };                      // update function
-
-        // Dragging via BVTouchable
+        // Dragging using BVTouchable
         new BVTouchable(element, {
             touchDidGoDown: function (touches) {
                 pointer_start_x = touches.event.client.x - mycanvas.offsetParent.offsetLeft;
                 pointer_start_y = touches.event.client.y - mycanvas.offsetParent.offsetTop;
                 // console.log("BVTouchable: touchDidGoDown " + pointer_x + ", " + pointer_y)
+                isDragging = true;
                 var obj = {}
                 obj['px'] = pointer_start_x;
                 obj['py'] = pointer_start_y;
+                obj['isDragging'] = pointer_start_y;
                 tangle.setValues(obj)
             },
             touchDidMove: function (touches) {
@@ -91,9 +91,25 @@ Tangle.classes.TKCanvasControl = {
             },
             touchDidGoUp: function (touches) {
                 // console.log("BVTouchable: touchDidGoUp")
+                pointer_x = pointer_start_x + touches.translation.x;
+                pointer_y = pointer_start_y - touches.translation.y;
+                isDragging = false;
+                var obj = {}
+                // tangle check the same value ... shift once and then adjust hack
+                obj['px'] = pointer_x+1;
+                tangle.setValues(obj)
+                obj['px'] = pointer_x;
+                obj['py'] = pointer_y;
+                tangle.setValues(obj)
             }
         });                     // new BVTouchable
     },                          // initialize function
+
+    update: function (el, px, py) {
+        // console.log("update: " + px + ", " + py);
+        this.drawCanvas(el, px, py);
+    },                      // update function
+
     drawCanvas: function(el, px, py) {
         // assmed element is a canvas
         var mycanvas     = el;
@@ -104,40 +120,26 @@ Tangle.classes.TKCanvasControl = {
         ctx.fillStyle = "#fff";
         ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 
-        // draw a line
-        // ctx.strokeStyle = "#00FF00";
-        // ctx.lineWidth = 2;
-        // ctx.beginPath();
-        // ctx.moveTo(0, 0);
-        // ctx.lineTo(px, py);
-        // ctx.stroke();
-        // ctx.closePath();
-        // console.log("TKCanvasControl: update");
         var point = {}
         point.x     = px;
         point.y     = py;
         point.label = "0";
         this.drawPoint(ctx, point);
     },
-    drawPoint: function(ctx, point) {
-        // hover = mouseOver[point.label];
 
-        // console.log('hover: ' + hover);
-        // if(hover){
-        //     context.fillStyle = "#009999";
-        // }
-        hover = true;
-        cpRadius = 6;
+    drawPoint: function(ctx, point) {
+        pointRadius = 6;
         ctx.fillStyle = "#ff0000";
         ctx.beginPath();
-        ctx.arc(point.x, point.y, cpRadius, 0, Math.PI*2, true);
+        ctx.arc(point.x, point.y, pointRadius, 0, Math.PI*2, true);
         ctx.closePath();
         ctx.fill();
         ctx.fillStyle = "#FFFFFF";
         ctx.fillText(point.label, point.x - 3, point.y + 4);
-        if(hover){
+        if(isDragging){
             ctx.fillStyle = "#444444";
-            ctx.fillText('[' + point.x + ':' + point.y + ']', point.x+8, point.y+8);
+            ctx.fillText('[' + point.x + ':' + point.y + ']',
+                         point.x + pointRadius + 2, point.y + pointRadius + 2);
         }
     }
 };                              // TKCanvasControl
