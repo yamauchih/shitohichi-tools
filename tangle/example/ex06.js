@@ -58,12 +58,27 @@ Tangle.classes.TKCanvasControl = {
         var ctx          = mycanvas.getContext("2d");
 
         // load knob image
-        this.sliderKnobImg = new Image();
-        var img = this.sliderKnobImg; // can not use this.sliderKnobImg in the following function.
+        this.sliderYpos = 13;
+        var ypos = this.sliderYpos;
+        this.sliderKnobImg  = new Image();
+        this.sliderLeftImg  = new Image();
+        this.sliderRightImg = new Image();
+        // can not use this.sliderKnobImg in the following function.
+        var knobimg  = this.sliderKnobImg;
+        var leftimg  = this.sliderLeftImg;
+        var rightimg = this.sliderRightImg;
         this.sliderKnobImg.onload = function(){
-            ctx.drawImage(img, tangle.getValue("px"), tangle.getValue("py") - knobRadius);
+            ctx.drawImage(knobimg, tangle.getValue("px"), tangle.getValue("py") - knobRadius);
         }
-        this.sliderKnobImg.src = 'Image/SliderKnob.png';
+        this.sliderLeftImg.onload = function(){
+            ctx.drawImage(leftimg, 0, ypos);
+        }
+        this.sliderRightImg.onload = function(){
+            ctx.drawImage(rightimg, mycanvas.width - rightimg.width, ypos);
+        }
+        this.sliderKnobImg.src  = 'Image/SliderKnob.png';
+        this.sliderLeftImg.src  = 'Image/SliderLeft.png';
+        this.sliderRightImg.src = 'Image/SliderRight.png';
 
         // Hovering event
         mycanvas.addEvent("mouseenter", function () {
@@ -121,27 +136,36 @@ Tangle.classes.TKCanvasControl = {
         var canvasHeight = mycanvas.get("height");
         var ctx          = mycanvas.getContext("2d");
 
-        ctx.fillStyle = "#fff";
+        ctx.fillStyle = "#ffffff";
+        // ctx.fillStyle = "#000";
         ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 
         var point = {}
-        point.x     = px;
-        point.y     = py;
+        point.x   = px;
+        point.y   = py;
 
-        // draw background
-        
+        var lineOffset = 8;     // == sliderLeft.width == sliderRight.width
+
+        // draw background 116(74), 181(b5), 215(d7), 215(d7)
+        var colary = ['#747474', '#b5b5b5', '#d7d7d7', '#d7d7d7'];
+        ctx.lineWidth = 1;
+        for(var i = 0; i < colary.length; ++i){
+            ctx.beginPath();
+            ctx.strokeStyle = colary[i];
+            ctx.moveTo(lineOffset,               this.sliderYpos + i + 1);
+            ctx.lineTo(canvasWidth - lineOffset, this.sliderYpos + i + 1);
+            ctx.stroke();
+            ctx.closePath();
+        }
+        ctx.drawImage(this.sliderLeftImg,  0, this.sliderYpos);
+        ctx.drawImage(this.sliderRightImg, canvasWidth - this.sliderRightImg.width,
+                      this.sliderYpos);
 
         this.drawPoint(ctx, point);
     },
 
     drawPoint: function(ctx, point) {
         ctx.fillStyle = "#ff0000";
-        // ctx.beginPath();
-        // ctx.arc(point.x, point.y, knobRadius, 0, Math.PI*2, true);
-        // ctx.closePath();
-        // ctx.fill();
-        // ctx.fillStyle = "#FFFFFF";
-        // ctx.fillText(point.label, point.x - 3, point.y + 4);
         ctx.drawImage(this.sliderKnobImg, point.x - knobRadius, point.y - knobRadius);
         if(isDragging){
             ctx.fillStyle = "#444444";
