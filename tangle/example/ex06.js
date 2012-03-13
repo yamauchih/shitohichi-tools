@@ -33,33 +33,48 @@ window.addEvent('domready', function () {
 });
 
 //----------------------------------------------------------
-//  Control: TKCanvasControl
+//  Control: TKCanvasSlider
 //    Mouse control tracker
 //
 //    Bret Victor's code is separating the model, view, and control in
 //    the FilterExample.js (model: tangle, View: Filter*Plot, Control:
-//    FilterKnob). I try to follow that idea here.
+//    FilterKnob). I try to follow that idea here. However, this is my
+//    first JavaScript and I am not able to do it yet.
+//
+//    I love Bret's jumping fancy slider, but, I have not enough
+//    understanding of his code. This is simple version, but using his
+//    images.
 //
 
 // I don't know how to pass this control state.
 // via Tangle with data-var sounds wrong since these should be a model.
+// Using global seems not well.
 var isDragging = false;
 var knobRadius = 6;
 
 // This Tangle is a global variable defined in Tangle.js
-Tangle.classes.TKCanvasControl = {
+Tangle.classes.TKCanvasSlider = {
 
     initialize: function (element, options, tangle, px, py) {
         this.element = element;
         this.tangle  = tangle;
+        this.dataMin = options.min ? parseFloat(options.min) :   0;
+        this.dataMax = options.max ? parseFloat(options.max) : 100;
+        if(this.dataMin >= this.dataMax){
+            console.log("TKCanvasSlider illegal data-min, data-max value. [" +
+                        this.dataMin + "," + this.dataMax + "], set to default.");
+            this.dataMin = 0;
+            this.dataMax = 100;
+        }
 
         // point_drag_example
         var mycanvas     = element.getParent().getElement("canvas");
         var ctx          = mycanvas.getContext("2d");
+        this.canvasWidth = mycanvas.width;
 
         // load knob image
         this.sliderYpos = 13;
-        var ypos = this.sliderYpos;
+        var ypos = this.sliderYpos; // This looks also strange "this" and "var".
         this.sliderKnobImg  = new Image();
         this.sliderLeftImg  = new Image();
         this.sliderRightImg = new Image();
@@ -82,10 +97,10 @@ Tangle.classes.TKCanvasControl = {
 
         // Hovering event
         mycanvas.addEvent("mouseenter", function () {
-            console.log("TKCanvasControl mouse enter event. " + tangle.getValue("px"));
+            console.log("TKCanvasSlider mouse enter event. " + tangle.getValue("px"));
         });
         mycanvas.addEvent("mouseleave", function () {
-            console.log("TKCanvasControl mouse leave event. " + tangle.getValue("px"));
+            console.log("TKCanvasSlider mouse leave event. " + tangle.getValue("px"));
         });
 
         // mouse down point
@@ -99,7 +114,7 @@ Tangle.classes.TKCanvasControl = {
                 // console.log("BVTouchable: touchDidGoDown " + pointer_x + ", " + pointer_y)
                 isDragging = true;
                 var obj = {}
-                obj['px'] = pointer_start_x;
+                obj['px'] = pointer_start_x; // TODO: extend tangle to get x <-> value
                 obj['isDragging'] = pointer_start_y;
                 tangle.setValues(obj)
             },
@@ -125,20 +140,19 @@ Tangle.classes.TKCanvasControl = {
     },                          // initialize function
 
     update: function (el, px, py) {
-        // console.log("update: " + px + ", " + py);
+        console.log("update: " + px + ", " + py);
         this.drawCanvas(el, px, py);
     },                      // update function
 
     drawCanvas: function(el, px, py) {
         // assmed element is a canvas
         var mycanvas     = el;
-        var canvasWidth  = mycanvas.get("width");
-        var canvasHeight = mycanvas.get("height");
+        var canvasHeight = mycanvas.height;
         var ctx          = mycanvas.getContext("2d");
 
         ctx.fillStyle = "#ffffff";
         // ctx.fillStyle = "#000";
-        ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+        ctx.fillRect(0, 0, this.canvasWidth, canvasHeight);
 
         var point = {}
         point.x   = px;
@@ -152,27 +166,44 @@ Tangle.classes.TKCanvasControl = {
         for(var i = 0; i < colary.length; ++i){
             ctx.beginPath();
             ctx.strokeStyle = colary[i];
-            ctx.moveTo(lineOffset,               this.sliderYpos + i + 1);
-            ctx.lineTo(canvasWidth - lineOffset, this.sliderYpos + i + 1);
+            ctx.moveTo(lineOffset,                    this.sliderYpos + i + 1);
+            ctx.lineTo(this.canvasWidth - lineOffset, this.sliderYpos + i + 1);
             ctx.stroke();
             ctx.closePath();
         }
         ctx.drawImage(this.sliderLeftImg,  0, this.sliderYpos);
-        ctx.drawImage(this.sliderRightImg, canvasWidth - this.sliderRightImg.width,
+        ctx.drawImage(this.sliderRightImg, this.canvasWidth - this.sliderRightImg.width,
                       this.sliderYpos);
 
         this.drawPoint(ctx, point);
     },
 
     drawPoint: function(ctx, point) {
-        ctx.fillStyle = "#ff0000";
-        ctx.drawImage(this.sliderKnobImg, point.x - knobRadius, point.y - knobRadius);
+        // var dataLen = this.dataMax - this.dataMin;
+        // var knobX = ((point.x - this.dataMin) / dataLen) * canvasWidth;
+
+        ctx.drawImage(this.sliderKnobImg, point.x, point.y - knobRadius);
         if(isDragging){
             ctx.fillStyle = "#444444";
-            ctx.fillText('[' + point.x + ']',
+            ctx.fillText('[' + this.xToValue(point.x) + ']',
                          point.x, point.y - knobRadius - 2);
         }
     }
-};                              // TKCanvasControl
+    ,
+
+    /// get the value from mouse x coordinates
+    xToValue: function(x) {
+        var dataSpan = this.dataMax - this.dataMin;
+        return ((x / this.canvasWidth) * dataSpan) + this.dataMin;
+    },
+
+    /// get mouse x coordinates from the value
+    valueToX: function(v) {
+        var dataSpan = this.dataMax - this.dataMin;
+        return ((v - this.dataMin) / dataSpan) * this.canvasWidth;
+    }
+
+
+};                              // TKCanvasSlider
 
 })();

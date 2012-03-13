@@ -1,8 +1,11 @@
 * TODO Tangle
 
+
 * Tangle tutorial
 ** Example 06 extract how to use the slider ... This is difficult.
-** Example 06 draw background bar of the slider.
+** DONE Example 06 draw background bar of the slider.
+** TODO value <-> x coodrds translation via tangle.
+
 
 * Normal transform fail example
 ** show the 2d line image

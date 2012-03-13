@@ -51,3 +51,6 @@ TKAdjustableNumber が一番簡単な example のようだ．他の example は複雑す
 
 http://worrydream.com/Tangle/ を starting point にしてみることにする．
 
+2012-3-13(Tue)
+
+まだ JavaScript を勉強中．Bret のコードを元に Slider を書いてみる．

@@ -36,9 +36,10 @@
   <!-- point_dynamic_text is outside of this div, then these are not
   <!-- shared the tangle. -->
   <div class="TKCanvasArea" id="point_drag_canvas">
-      <!-- View panel -->
-      <canvas class="TKCanvasControl" data-var="px py"
-       width="300" height="20">This browser doesn't support a canvas.
+      <!-- Slider panel. Currently I need to specidy the slider pixel -->
+      <!-- size as canvas width and height. -->
+      <canvas class="TKCanvasSlider" data-var="px py" data-min="0" data-max="100"
+              width="300" height="22">This browser doesn't support a canvas.
       </canvas>
   </div>
   <!-- point_drag_canvas -->
@@ -47,7 +48,7 @@
   Point [
   <!-- The data-var name is very important. Depends on that, link is -->
   <!-- done. -->
-  <span class="TKAdjustableNumber" data-var="px" data-min="0" data-max="300"></span>
+  <span class="TKAdjustableNumber" data-var="px" data-min="0" data-max="100"></span>
   ]
   </p>
 </div>                          <!-- point_drag_example -->
