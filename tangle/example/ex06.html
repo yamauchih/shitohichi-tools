@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Example 06</title>
+
+<!-- Basic style -->
+<link rel="stylesheet" href="style.css" type="text/css">
+
+<!-- Tangle -->
+<script type="text/javascript" src="../Tangle/Tangle.js"></script>
+
+<!-- TangleKit (optional) -->
+<link rel="stylesheet" href="../Tangle/TangleKit/TangleKit.css" type="text/css">
+<script type="text/javascript" src="../Tangle/TangleKit/mootools.js"></script>
+<script type="text/javascript" src="../Tangle/TangleKit/sprintf.js"></script>
+<script type="text/javascript" src="../Tangle/TangleKit/BVTouchable.js"></script>
+<script type="text/javascript" src="../Tangle/TangleKit/TangleKit.js"></script>
+
+
+
+<link rel="stylesheet" href="ex06_style.css" type="text/css">
+
+<!-- example 06 canvas -->
+<script type="text/javascript" src="./ex06.js"></script>
+</head>
+
+<h1>Tangle: Example 06</h1>
+
+<h2>Slide bar</h2>
+
+<!-- div is division of the page. It's a kind of section. Use this -->
+<!-- section for id to lookup from JavaScript. -->
+<div id="point_drag_example">
+  <!-- In point_drag_example, one tangle there. if the -->
+  <!-- point_dynamic_text is outside of this div, then these are not
+  <!-- shared the tangle. -->
+  <div class="TKCanvasArea" id="point_drag_canvas">
+      <!-- View panel -->
+      <canvas class="TKCanvasControl" data-var="px py"
+       width="300" height="20">This browser doesn't support a canvas.
+      </canvas>
+  </div>
+  <!-- point_drag_canvas -->
+  <!-- Here id is in the p tag. -->
+  <p id="point_dynamic_text">
+  Point [
+  <!-- The data-var name is very important. Depends on that, link is -->
+  <!-- done. -->
+  <span class="TKAdjustableNumber" data-var="px" data-min="0" data-max="300"></span>
+  ]
+  </p>
+</div>                          <!-- point_drag_example -->
+
+</body>
+</html>

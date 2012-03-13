@@ -1,9 +1,8 @@
 * TODO Tangle
 
 * Tangle tutorial
-** Example 05 draw a point at the mouse position.
-** Example 06 draw a line.
-
+** Example 06 extract how to use the slider ... This is difficult.
+** Example 06 draw background bar of the slider.
 
 * Normal transform fail example
 ** show the 2d line image
