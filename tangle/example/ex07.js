@@ -1,5 +1,5 @@
 //
-//  ex06.js
+//  ex07.js
 //
 //  A simple slider using Tangle (http://worrydream.com/Tangle/).
 //  (C) 2012 Hitoshi Yamauchi.  New BSD license.
@@ -50,7 +50,6 @@ window.addEvent('domready', function () {
 // via Tangle with data-var sounds wrong since these should be a model.
 // Using global seems not well.
 var isDragging = false;
-var knobRadius = 6;
 
 // This Tangle is a global variable defined in Tangle.js
 Tangle.classes.TKCanvasSlider = {
@@ -58,78 +57,87 @@ Tangle.classes.TKCanvasSlider = {
     initialize: function (element, options, tangle, px, py) {
         this.element = element;
         this.tangle  = tangle;
-        this.dataMin = options.min ? parseFloat(options.min) :   0;
-        this.dataMax = options.max ? parseFloat(options.max) : 100;
-        if(this.dataMin >= this.dataMax){
+
+        // all view related data are stored in this object
+        this.vdat = {};
+
+        // use function scope to refer in function literal
+        // Or shall I extend BVTouchable initialize: function (el, delegate, option)
+        // and pass this.vdat to BVTouchable?
+        var vdRef = this.vdat;
+
+        this.vdat.dataMin = options.min ? parseFloat(options.min) :   0;
+        this.vdat.dataMax = options.max ? parseFloat(options.max) : 100;
+        if(this.vdat.dataMin >= this.vdat.dataMax){
             console.log("TKCanvasSlider illegal data-min, data-max value. [" +
-                        this.dataMin + "," + this.dataMax + "], set to default.");
-            this.dataMin = 0;
-            this.dataMax = 100;
+                        this.vdat.dataMin + "," + this.vdat.dataMax + "], set to default.");
+            this.vdat.dataMin = 0;
+            this.vdat.dataMax = 100;
         }
 
-        // point_drag_example
-        var mycanvas     = element.getParent().getElement("canvas");
-        var ctx          = mycanvas.getContext("2d");
-        this.canvasWidth = mycanvas.width;
+        this.vdat.mycanvas = element.getParent().getElement("canvas");
+        this.vdat.ctx      = this.vdat.mycanvas.getContext("2d");
+        this.vdat.canvasWidth = this.vdat.mycanvas.width;
 
         // load knob image
-        this.sliderYpos = 13;
-        var ypos = this.sliderYpos; // This looks also strange "this" and "var".
-        this.sliderKnobImg  = new Image();
-        this.sliderLeftImg  = new Image();
-        this.sliderRightImg = new Image();
-        // can not use this.sliderKnobImg in the following function.
-        var knobimg  = this.sliderKnobImg;
-        var leftimg  = this.sliderLeftImg;
-        var rightimg = this.sliderRightImg;
-        this.sliderKnobImg.onload = function(){
-            ctx.drawImage(knobimg, tangle.getValue("px"), tangle.getValue("py") - knobRadius);
+        this.vdat.sliderYpos = 13;
+        this.vdat.sliderKnobImg  = new Image();
+        this.vdat.sliderLeftImg  = new Image();
+        this.vdat.sliderRightImg = new Image();
+
+        this.vdat.sliderKnobImg.onload = function(){
+            vdRef.ctx.drawImage(vdRef.sliderKnobImg,
+                                tangle.getValue("px"),
+                                tangle.getValue("py") - (vdRef.sliderKnobImg.width / 2));
         }
-        this.sliderLeftImg.onload = function(){
-            ctx.drawImage(leftimg, 0, ypos);
+        this.vdat.sliderLeftImg.onload = function(){
+            vdRef.ctx.drawImage(vdRef.sliderLeftImg, 0, vdRef.sliderYpos);
         }
-        this.sliderRightImg.onload = function(){
-            ctx.drawImage(rightimg, mycanvas.width - rightimg.width, ypos);
+        this.vdat.sliderRightImg.onload = function(){
+            vdRef.ctx.drawImage(vdRef.sliderRightImg,
+                                vdRef.mycanvas.width - vdRef.sliderRightImg.width,
+                                vdRef.sliderYpos);
         }
-        this.sliderKnobImg.src  = 'Image/SliderKnob.png';
-        this.sliderLeftImg.src  = 'Image/SliderLeft.png';
-        this.sliderRightImg.src = 'Image/SliderRight.png';
+        this.vdat.sliderKnobImg.src  = 'Image/SliderKnob.png';
+        this.vdat.sliderLeftImg.src  = 'Image/SliderLeft.png';
+        this.vdat.sliderRightImg.src = 'Image/SliderRight.png';
 
         // Hovering event
-        mycanvas.addEvent("mouseenter", function () {
+        this.vdat.mycanvas.addEvent("mouseenter", function () {
             console.log("TKCanvasSlider mouse enter event. " + tangle.getValue("px"));
         });
-        mycanvas.addEvent("mouseleave", function () {
+        this.vdat.mycanvas.addEvent("mouseleave", function () {
             console.log("TKCanvasSlider mouse leave event. " + tangle.getValue("px"));
         });
 
         // mouse down point
-        var pointer_start_x = 0;
-        var pointer_start_y = 0;
+        this.vdat.pointer_start_x = 0;
+        // this.vdat.pointer_start_y = 0;
 
         // Dragging using BVTouchable
         new BVTouchable(element, {
             touchDidGoDown: function (touches) {
-                pointer_start_x = touches.event.client.x - mycanvas.offsetParent.offsetLeft;
-                // console.log("BVTouchable: touchDidGoDown " + pointer_x + ", " + pointer_y)
+                vdRef.pointer_start_x =
+                    touches.event.client.x - vdRef.mycanvas.offsetParent.offsetLeft;
+                // console.log("BVTouchable: touchDidGoDown " + pointer_x)
                 isDragging = true;
                 var obj = {}
-                obj['px'] = pointer_start_x; // TODO: extend tangle to get x <-> value
+                obj['px'] = vdRef.pointer_start_x; // TODO: extend tangle to get x <-> value
                 tangle.setValues(obj)
             },
             touchDidMove: function (touches) {
-                pointer_x = pointer_start_x + touches.translation.x;
-                // console.log("BVTouchable: touchDidMove "  + pointer_x + ", " + pointer_y)
+                var pointer_x = vdRef.pointer_start_x + touches.translation.x;
+                // console.log("BVTouchable: touchDidMove "  + pointer_x)
                 var obj = {}
                 obj['px'] = pointer_x;
                 tangle.setValues(obj)
             },
             touchDidGoUp: function (touches) {
                 // console.log("BVTouchable: touchDidGoUp")
-                pointer_x = pointer_start_x + touches.translation.x;
+                var pointer_x = vdRef.pointer_start_x + touches.translation.x;
                 isDragging = false;
                 var obj = {}
-                // tangle check the same value ... shift once and then adjust hack
+                // tangle check the same value ... shift once and then adjust, a hack
                 obj['px'] = pointer_x+1;
                 tangle.setValues(obj)
                 obj['px'] = pointer_x;
@@ -151,7 +159,7 @@ Tangle.classes.TKCanvasSlider = {
 
         ctx.fillStyle = "#ffffff";
         // ctx.fillStyle = "#000";
-        ctx.fillRect(0, 0, this.canvasWidth, canvasHeight);
+        ctx.fillRect(0, 0, this.vdat.canvasWidth, canvasHeight);
 
         var point = {}
         point.x   = px;
@@ -165,23 +173,25 @@ Tangle.classes.TKCanvasSlider = {
         for(var i = 0; i < colary.length; ++i){
             ctx.beginPath();
             ctx.strokeStyle = colary[i];
-            ctx.moveTo(lineOffset,                    this.sliderYpos + i + 1);
-            ctx.lineTo(this.canvasWidth - lineOffset, this.sliderYpos + i + 1);
+            ctx.moveTo(lineOffset,                    this.vdat.sliderYpos + i + 1);
+            ctx.lineTo(this.vdat.canvasWidth - lineOffset, this.vdat.sliderYpos + i + 1);
             ctx.stroke();
             ctx.closePath();
         }
-        ctx.drawImage(this.sliderLeftImg,  0, this.sliderYpos);
-        ctx.drawImage(this.sliderRightImg, this.canvasWidth - this.sliderRightImg.width,
-                      this.sliderYpos);
+        ctx.drawImage(this.vdat.sliderLeftImg,  0, this.vdat.sliderYpos);
+        ctx.drawImage(this.vdat.sliderRightImg,
+                      this.vdat.canvasWidth - this.vdat.sliderRightImg.width,
+                      this.vdat.sliderYpos);
 
         this.drawPoint(ctx, point);
     },
 
     drawPoint: function(ctx, point) {
-        // var dataLen = this.dataMax - this.dataMin;
-        // var knobX = ((point.x - this.dataMin) / dataLen) * canvasWidth;
+        // var dataLen = this.vdat.dataMax - this.vdat.dataMin;
+        // var knobX = ((point.x - this.vdat.dataMin) / dataLen) * canvasWidth;
 
-        ctx.drawImage(this.sliderKnobImg, point.x, point.y - knobRadius);
+        var knobRadius = this.vdat.sliderKnobImg.width / 2;
+        ctx.drawImage(this.vdat.sliderKnobImg, point.x - knobRadius, point.y - knobRadius);
         if(isDragging){
             ctx.fillStyle = "#444444";
             ctx.fillText('[' + this.xToValue(point.x) + ']',
@@ -192,14 +202,14 @@ Tangle.classes.TKCanvasSlider = {
 
     /// get the value from mouse x coordinates
     xToValue: function(x) {
-        var dataSpan = this.dataMax - this.dataMin;
-        return ((x / this.canvasWidth) * dataSpan) + this.dataMin;
+        var dataSpan = this.vdat.dataMax - this.vdat.dataMin;
+        return ((x / this.vdat.canvasWidth) * dataSpan) + this.vdat.dataMin;
     },
 
     /// get mouse x coordinates from the value
     valueToX: function(v) {
-        var dataSpan = this.dataMax - this.dataMin;
-        return ((v - this.dataMin) / dataSpan) * this.canvasWidth;
+        var dataSpan = this.vdat.dataMax - this.vdat.dataMin;
+        return ((v - this.vdat.dataMin) / dataSpan) * this.vdat.canvasWidth;
     }
 
 
