@@ -47,10 +47,28 @@ Tangle.classes.TKCanvasSlider = {
             this.vdat.dataMax = 100;
         }
 
-        this.vdat.mycanvas = element.getParent().getElement("canvas");
+        if(element.localName != "canvas"){
+            console.log("TKCanvasSlider must be an element canvas.");
+        }
+
+        this.vdat.mycanvas = element;
         this.vdat.ctx      = this.vdat.mycanvas.getContext("2d");
         this.vdat.canvasWidth = this.vdat.mycanvas.width;
 
+        //----------------------------------------------------------------------
+        // mapping function
+        //   x position to value
+        this.vdat.xToValue = function(x) {
+            var dataSpan = this.dataMax - this.dataMin;
+            return ((x / this.canvasWidth) * dataSpan) + this.dataMin;
+        }
+        //   value to x position
+        this.vdat.valueToX = function(v) {
+            var dataSpan = this.dataMax - this.dataMin;
+            return ((v - this.dataMin) / dataSpan) * this.canvasWidth;
+        }
+
+        //----------------------------------------------------------------------
         // load knob image
         this.vdat.sliderYpos = 13;
         this.vdat.sliderKnobImg  = new Image();
@@ -58,8 +76,9 @@ Tangle.classes.TKCanvasSlider = {
         this.vdat.sliderRightImg = new Image();
 
         this.vdat.sliderKnobImg.onload = function(){
+            var initVal = tangle.getValue("px");
             vdRef.ctx.drawImage(vdRef.sliderKnobImg,
-                                tangle.getValue("px"),
+                                vdRef.valueToX(initVal),
                                 vdRef.sliderYpos - (vdRef.sliderKnobImg.width / 2));
         }
         this.vdat.sliderLeftImg.onload = function(){
@@ -76,29 +95,20 @@ Tangle.classes.TKCanvasSlider = {
 
         // Hovering event
         this.vdat.mycanvas.addEvent("mouseenter", function () {
-            console.log("TKCanvasSlider mouse enter event. " + tangle.getValue("px"));
+            // console.log("TKCanvasSlider mouse enter event. ");
         });
         this.vdat.mycanvas.addEvent("mouseleave", function () {
-            console.log("TKCanvasSlider mouse leave event. " + tangle.getValue("px"));
+            // console.log("TKCanvasSlider mouse leave event. ");
         });
 
+        //----------------------------------------------------------------------
         // mouse down point
         this.vdat.pointer_start_x = 0;
         this.vdat.pointer_x       = 0;
         this.vdat.pointer_y       = 15;
         this.vdat.isDragging      = false;
 
-        // x position to value
-        this.vdat.xToValue = function(x) {
-            var dataSpan = this.dataMax - this.dataMin;
-            return ((x / this.canvasWidth) * dataSpan) + this.dataMin;
-        }
-        // value to x position
-        this.vdat.valueToX = function(v) {
-            var dataSpan = this.dataMax - this.dataMin;
-            return ((v - this.dataMin) / dataSpan) * this.canvasWidth;
-        }
-
+        //----------------------------------------------------------------------
         // Dragging using BVTouchable
         new BVTouchable(element, {
             touchDidGoDown: function (touches) {
@@ -151,6 +161,12 @@ Tangle.classes.TKCanvasSlider = {
         }
         else{
             point.x = this.vdat.valueToX(px);
+            if(point.x < 0){
+                point.x = 0;
+            }
+            if(point.x > this.vdat.canvasWidth){
+                point.x = this.vdat.canvasWidth;
+            }
         }
         point.y   = this.vdat.pointer_y;
 
