@@ -61,8 +61,9 @@ Tangle.classes.TKCanvasSlider = {
         // and pass this.vdat to BVTouchable?
         var vdRef = this.vdat;
 
-        this.vdat.dataMin = options.min ? parseFloat(options.min) :   0;
-        this.vdat.dataMax = options.max ? parseFloat(options.max) : 100;
+        this.vdat.dataMin    = options.min ? parseFloat(options.min) :   0;
+        this.vdat.dataMax    = options.max ? parseFloat(options.max) : 100;
+        this.vdat.dataFormat = options.format ? options.format : "%.1f";
         if(this.vdat.dataMin >= this.vdat.dataMax){
             console.log("TKCanvasSlider illegal data-min, data-max value. [" +
                         this.vdat.dataMin + "," + this.vdat.dataMax + "], set to default.");
@@ -185,7 +186,7 @@ Tangle.classes.TKCanvasSlider = {
         for(var i = 0; i < colary.length; ++i){
             ctx.beginPath();
             ctx.strokeStyle = colary[i];
-            ctx.moveTo(lineOffset,                    this.vdat.sliderYpos + i + 1);
+            ctx.moveTo(lineOffset, this.vdat.sliderYpos + i + 1);
             ctx.lineTo(this.vdat.canvasWidth - lineOffset, this.vdat.sliderYpos + i + 1);
             ctx.stroke();
             ctx.closePath();
@@ -204,7 +205,8 @@ Tangle.classes.TKCanvasSlider = {
         ctx.drawImage(this.vdat.sliderKnobImg, point.x - knobRadius, point.y - knobRadius);
         if(this.vdat.isDragging){
             ctx.fillStyle = "#444444";
-            ctx.fillText('[' + this.vdat.xToValue(point.x) + ']',
+            var valtext = sprintf(this.vdat.dataFormat, this.vdat.xToValue(point.x));
+            ctx.fillText('[' + valtext + ']',
                          point.x, point.y - knobRadius - 2);
         }
     }
