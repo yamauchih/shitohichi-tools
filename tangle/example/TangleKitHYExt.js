@@ -1,58 +1,31 @@
 //
-//  ex07.js
+//  TangleKitHYExt.js
 //
-//  A simple slider using Tangle (http://worrydream.com/Tangle/).
-//  (C) 2012 Hitoshi Yamauchi.  New BSD license.
-//
-
-//
-//  Element structure
-//    point_drag_example
-//      + point_drag_canvas
-//      + point_dynamic_text
+//  Extension of Bret Victor's Tangle.
+//  Copyright (C) 2012 Hitoshi Yamauchi
+//  new BSD license.
 //
 
 (function () {
 
-// MooTools: when DOM is ready, this is called
-window.addEvent('domready', function () {
-
-    // <div id="point_drag_example"> in ex4.html
-    // This should contains all of this elements: canvas and point texts
-    var container = document.getElementById("point_drag_example");
-    var tangle = new Tangle(container, {
-        initialize: function () {
-            this.px = 10;
-        },
-        update: function () {
-            console.log("tangle updated")
-        }
-    });
-    tangle.setValue("px", 40);
-});
-
 //----------------------------------------------------------
 //  Control: TKCanvasSlider
-//    Mouse control tracker
 //
-//    Bret Victor's code is separating the model, view, and control in
-//    the FilterExample.js (model: tangle, View: Filter*Plot, Control:
-//    FilterKnob). I try to follow that idea here. However, this is my
-//    first JavaScript and I am not able to do it yet.
+//  A simple slider based on Bret Victor's Up and Down the Ladder of
+//  Abstraction http://worrydream.com/LadderOfAbstraction/.
 //
-//    I like Bret's jumping fancy slider, but, I have not enough
-//    understanding of his code. This is simple version, but using his
-//    images.
 //
-// Options:
-//  - data-min    min value of data (default: 0)
-//  - data-max    max value of data (default: 100)
-//  - data-format printf format to print the number (default: "%.1f")
+// Attribute:
+//  - data-var    data variable
+//  - data-min    (optional) min value of data (default: 0)
+//  - data-max    (optional) max value of data (default: 100)
+//  - data-format (optional) printf format to print the number (default: "%.1f")
+//
 
 // This Tangle is a global variable defined in Tangle.js
 Tangle.classes.TKCanvasSlider = {
 
-    initialize: function (element, options, tangle, px, py) {
+    initialize: function (element, options, tangle, px) {
         this.element = element;
         this.tangle  = tangle;
 

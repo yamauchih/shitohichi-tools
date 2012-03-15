@@ -4,7 +4,10 @@
 * Tangle tutorial
 ** Example 06 extract how to use the slider ... This is difficult.
 ** DONE Example 06 draw background bar of the slider.
-** TODO value <-> x coodrds translation via tangle.
+** DONE value <-> x coodrds translation via tangle.
+** DONE Add data-format documentation
+** TODO ex08 multiple slidebar test
+** TODO ex09 multiple slidebar with point move (virtical slide bar?)
 
 
 * Normal transform fail example
