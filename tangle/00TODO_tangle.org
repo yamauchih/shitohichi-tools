@@ -5,12 +5,13 @@
 ** Example 06 extract how to use the slider ... This is difficult.
 ** DONE Example 06 draw background bar of the slider.
 ** DONE value <-> x coodrds translation via tangle.
+** DONE ex08 multiple slidebar test
 ** DONE Add data-format documentation
-** TODO ex08 multiple slidebar test
-** TODO ex09 multiple slidebar with point move (virtical slide bar?)
+** DONE ex09 multiple slidebar with point move (virtical slide bar?)
 
 
 * Normal transform fail example
+** draw a line
 ** show the 2d line image
 ** scale (x) direction input
 ** rotation interface

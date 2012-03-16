@@ -142,7 +142,7 @@ Tangle.classes.TKCanvasSlider = {
     },                          // initialize function
 
     update: function (el, px) {
-        console.log("update: " + px);
+        // console.log("update: " + px);
         this.drawCanvas(el, px);
     },                      // update function
 

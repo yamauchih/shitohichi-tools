@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Examine normal transformation</title>
+
+    <!-- Basic style -->
+    <link rel="stylesheet" href="style.css" type="text/css">
+
+    <!-- Tangle -->
+    <script type="text/javascript" src="../Tangle/Tangle.js"></script>
+
+    <!-- TangleKit -->
+    <link rel="stylesheet" href="../Tangle/TangleKit/TangleKit.css" type="text/css">
+    <script type="text/javascript" src="../Tangle/TangleKit/mootools.js"></script>
+    <script type="text/javascript" src="../Tangle/TangleKit/sprintf.js"></script>
+    <script type="text/javascript" src="../Tangle/TangleKit/BVTouchable.js"></script>
+    <script type="text/javascript" src="../Tangle/TangleKit/TangleKit.js"></script>
+
+    <!-- TangleKit HY Extension -->
+    <script type="text/javascript" src="../Tangle/TangleKit/TangleKitHYExt.js"></script>
+
+    <link rel="stylesheet" href="normal_transform0_style.css" type="text/css">
+
+    <!-- normal transformation -->
+    <script type="text/javascript" src="./normal_transform0.js"></script>
+  </head>
+  <body>
+    <h1>Tangle: experience</h1>
+
+    <h2>Why transformation doesn't work on normal vectors?</h2>
+
+    <div id="NormalTransformPage">
+
+      <div id="normal_transform_section">
+        <!-- Inside this, the elements can be tangled. -->
+        <div class="NormalTransformCanvasArea" id="normal_transform_canvas_area">
+
+          <table border="0" cellpadding="5" cellspacing="5">
+            <tr>
+              <th rowspan="2">
+                <canvas class="TKNormalTransformCanvas" data-var="px"
+                        width="300" height="300">
+                  Main canvas: This browser doesn't support a canvas.
+                </canvas>
+              </th>
+              <td>
+                <canvas class="TKCanvasSlider" data-var="px" data-min="0" data-max="100"
+                        data-format="%.1f" width="300" height="22">second canvas.
+                </canvas>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <canvas class="TKCanvasSlider" data-var="px" data-min="0" data-max="100"
+                        data-format="%.1f" width="500" height="22">third canvas.
+                </canvas>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <!-- point_drag_canvas -->
+        <!-- Here id is in the p tag. -->
+        <p id="point_dynamic_text">
+          Point [
+          <!-- The data-var name is very important. Depends on that, link is -->
+          <!-- done. -->
+          <span class="TKAdjustableNumber" data-var="px"
+                data-min="0" data-max="100" data-format="%.1f"></span>
+          ]
+        </p>
+      </div>                          <!-- slider_example -->
+
+    </div>                          <!-- NormalTransformPage -->
+  </body>
+</html>
