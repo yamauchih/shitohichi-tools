@@ -54,6 +54,7 @@ Tangle.classes.TKNormalTransformCanvas = {
         this.element = element;
 
         // view data object
+        this.vdat = {};
         this.vdat.tangle     = tangle;
         this.vdat.canvas     = element;
         this.vdat.isDragging = false;
@@ -140,7 +141,7 @@ Tangle.classes.TKNormalTransformCanvas = {
         ctx.fill();
         ctx.fillStyle = "#FFFFFF";
         ctx.fillText(point.label, point.x - 3, point.y + 4);
-        if(isDragging){
+        if(this.vdat.isDragging){
             ctx.fillStyle = "#444444";
             ctx.fillText('[' + point.x + ':' + point.y + ']',
                          point.x + pointRadius + 2, point.y + pointRadius + 2);
