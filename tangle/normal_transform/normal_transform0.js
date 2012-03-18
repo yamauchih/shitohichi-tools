@@ -32,9 +32,33 @@ window.addEvent('domready', function () {
             //  + [tx ty]'
             this.translate_x  = 0.0;
             this.translate_y  = 0.0;
+
+            //----------------------------------------------------------------------
+            // manipuration matrix
+            this.scaleMat  = new hyMatrix33();
+            this.rotateMat = new hyMatrix33();
+            this.transMat  = new hyMatrix33();
+            this.scaleMat. setEye();
+            this.rotateMat.setEye();
+            this.transMat. setEye();
+            this.scaleMat. setScale2D(this.scale_x, this.scale_y);
+            this.rotateMat.setRotation2D(this.rotate_theta);
+            this.transMat. setTranslation2D(this.translate_x, this.translate_y);
+
+            this.manipMat = new hyMatrix33();
+            this.tmpMat   = new hyMatrix33();
+            this.manipMat.setEye();
+            this.tmpMat.  setEye();
         },
         update: function () {
-            console.log("tangle updated")
+            // console.log("tangle updated")
+            this.scaleMat. setScale2D(this.scale_x, this.scale_y);
+            this.rotateMat.setRotation2D(this.rotate_theta);
+            this.transMat. setTranslation2D(this.translate_x, this.translate_y);
+
+            this.manipMat.multiply(this.scaleMat, this.rotateMat, this.tmpMat);
+            this.manipMat.multiply(this.tmpMat,   this.transMat,  this.manipMat);
+            console.log("manipmat:\n" + this.manipMat);
         }
     });
     tangle.setValue("px", 40);
@@ -65,8 +89,10 @@ Tangle.classes.TKNormalTransformCanvas = {
         //     console.log("TKNormalTransformCanvas mouse leave event. " + tangle.getValue("px"));
         // });
 
-        var sx = this.vdat.canvas.width  / 8.0;
-        var sy = this.vdat.canvas.height / 8.0;
+        //----------------------------------------------------------------------
+        // model to view matrix
+        var sx =  this.vdat.canvas.width  / 8.0;
+        var sy = -this.vdat.canvas.height / 8.0; // the screen coordinate is upside down.
         var scalemat = new hyMatrix33();
         scalemat.setEye();
         scalemat.setScale2D(sx, sy);
@@ -89,6 +115,7 @@ Tangle.classes.TKNormalTransformCanvas = {
         this.vdat.p0v3 = p0.clone();
         this.vdat.p1v3 = p1.clone();
 
+        //----------------------------------------------------------------------
         // mouse down point
         this.vdat.pointer_start_x = 0;
         this.vdat.pointer_start_y = 0;
@@ -140,8 +167,8 @@ Tangle.classes.TKNormalTransformCanvas = {
         });                     // new BVTouchable
     },                          // initialize function
 
-    update: function (el, px, py) {
-        // console.log("update: " + px + ", " + py);
+    update: function (el, scale_x) {
+        console.log("canvas update: ");
         this.drawCanvas(el);
     },                      // update function
 
@@ -163,8 +190,13 @@ Tangle.classes.TKNormalTransformCanvas = {
         // model to view.
         //   The canvas center is (0,0).
         //   The canvas size is [-4,4]x[-4,4].
-        this.vdat.p0v3 = this.vdat.modelToViewMat.transformPoint(p0);
-        this.vdat.p1v3 = this.vdat.modelToViewMat.transformPoint(p1);
+
+        var manipmat = this.vdat.tangle.getValue("manipMat");
+        var wmat = new hyMatrix33(); // FIXME
+        manipmat.multiply(this.vdat.modelToViewMat, manipmat, wmat);
+
+        this.vdat.p0v3 = wmat.transformPoint(p0);
+        this.vdat.p1v3 = wmat.transformPoint(p1);
 
         console.log("update: " + this.vdat.p0v3 + "\n" + this.vdat.p1v3);
 
@@ -182,7 +214,6 @@ Tangle.classes.TKNormalTransformCanvas = {
         ctx.lineTo(p1.m_element[0] + xoffset, p1.m_element[1] + yoffset);
         ctx.stroke();
         ctx.closePath();
-
     }
 };                              // TKNormalTransformCanvas
 
