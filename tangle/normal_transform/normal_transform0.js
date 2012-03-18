@@ -1,5 +1,5 @@
 //
-//  ex08.js
+//  normal_transform0.js
 //
 //  A simple slider using Tangle (http://worrydream.com/Tangle/).
 //  and TangleKitHYExt
@@ -18,15 +18,10 @@ window.addEvent('domready', function () {
         initialize: function () {
             this.px = 10;
 
-            // point 0
-            this.p0 = {}
-            this.p0.x = -2;
-            this.p0.y =  2;
-
+            // point 0 (homogenious coordinates)
+            this.p0 = new hyVector3([-2,  2, 1]);
             // point 1
-            this.p1 = {}
-            this.p1.x =  2;
-            this.p1.y = -2;
+            this.p1 = new hyVector3([ 2, -2, 1]);
 
             // matrix component (non homogeneous)
             //  [scale_x 0; 0 scale_y]
@@ -45,6 +40,8 @@ window.addEvent('domready', function () {
     tangle.setValue("px", 40);
 });
 
+
+
 //----------------------------------------------------------
 //  TKNormalTransformCanvas. control and view.
 //    2D line and its normal visualization
@@ -57,6 +54,7 @@ Tangle.classes.TKNormalTransformCanvas = {
         this.vdat = {};
         this.vdat.tangle     = tangle;
         this.vdat.canvas     = element;
+        this.vdat.ctx        = this.vdat.canvas.getContext("2d");
         this.vdat.isDragging = false;
 
         // Hovering event
@@ -67,13 +65,45 @@ Tangle.classes.TKNormalTransformCanvas = {
         //     console.log("TKNormalTransformCanvas mouse leave event. " + tangle.getValue("px"));
         // });
 
+        var sx = this.vdat.canvas.width  / 8.0;
+        var sy = this.vdat.canvas.height / 8.0;
+        var scalemat = new hyMatrix33();
+        scalemat.setEye();
+        scalemat.setScale2D(sx, sy);
+        console.log("scalemat: " + scalemat);
+
+        var tx = this.vdat.canvas.width  / 2.0;
+        var ty = this.vdat.canvas.height / 2.0;
+        var transmat = new hyMatrix33();
+        transmat.setEye();
+        transmat.setTranslation2D(tx, ty);
+        console.log("transformmat: " + transmat);
+
+        this.vdat.modelToViewMat = new hyMatrix33();
+        this.vdat.modelToViewMat.multiply(transmat, scalemat, this.vdat.modelToViewMat);
+        console.log("modelToViewMat: " + this.vdat.modelToViewMat);
+        // var p0 = this.vdat.tangle.getValue("p0");
+        // var p1 = this.vdat.tangle.getValue("p1");
+        var p0 = new hyVector3([-2,  2, 1]);
+        var p1 = new hyVector3([ 2, -2, 1]);
+        this.vdat.p0v3 = p0.clone();
+        this.vdat.p1v3 = p1.clone();
+
         // mouse down point
         this.vdat.pointer_start_x = 0;
         this.vdat.pointer_start_y = 0;
 
         var vdRef = this.vdat;
 
-        // Dragging using BVTouchable
+        // background image
+        this.vdat.coordinateBg = new Image();
+        this.vdat.coordinateBg.onload = function(){
+            vdRef.ctx.drawImage(vdRef.coordinateBg, 0, 0);
+        }
+        this.vdat.coordinateBg.src  = 'Image/coordinate_system.png';
+
+
+        // Setup dragging using BVTouchable
         new BVTouchable(element, {
             touchDidGoDown: function (touches) {
                 vdRef.pointer_start_x = touches.event.client.x - vdRef.canvas.offsetParent.offsetLeft;
@@ -112,10 +142,10 @@ Tangle.classes.TKNormalTransformCanvas = {
 
     update: function (el, px, py) {
         // console.log("update: " + px + ", " + py);
-        this.drawCanvas(el, px, py);
+        this.drawCanvas(el);
     },                      // update function
 
-    drawCanvas: function(el, px, py) {
+    drawCanvas: function(el) {
         // assmed element is a canvas
         var mycanvas     = el;
         var canvasWidth  = mycanvas.width;
@@ -124,28 +154,35 @@ Tangle.classes.TKNormalTransformCanvas = {
 
         ctx.fillStyle = "#fff";
         ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+        ctx.drawImage(this.vdat.coordinateBg,  0, 0);
 
-        var point = {}
-        point.x     = px;
-        point.y     = py;
-        point.label = "0";
-        this.drawPoint(ctx, point);
+        var p0 = this.vdat.tangle.getValue("p0");
+        var p1 = this.vdat.tangle.getValue("p1");
+
+
+        // model to view.
+        //   The canvas center is (0,0).
+        //   The canvas size is [-4,4]x[-4,4].
+        this.vdat.p0v3 = this.vdat.modelToViewMat.transformPoint(p0);
+        this.vdat.p1v3 = this.vdat.modelToViewMat.transformPoint(p1);
+
+        console.log("update: " + this.vdat.p0v3 + "\n" + this.vdat.p1v3);
+
+        this.drawPlane(ctx, this.vdat.p0v3, this.vdat.p1v3);
     },
 
-    drawPoint: function(ctx, point) {
-        pointRadius = 6;
-        ctx.fillStyle = "#ff0000";
+    drawPlane: function(ctx, p0, p1) {
+        var xoffset = 1;
+        var yoffset = 1;
+
+        ctx.lineWidth = 2;
         ctx.beginPath();
-        ctx.arc(point.x, point.y, pointRadius, 0, Math.PI*2, true);
+        ctx.strokeStyle = '#0f0f0f';
+        ctx.moveTo(p0.m_element[0] + xoffset, p0.m_element[1] + yoffset);
+        ctx.lineTo(p1.m_element[0] + xoffset, p1.m_element[1] + yoffset);
+        ctx.stroke();
         ctx.closePath();
-        ctx.fill();
-        ctx.fillStyle = "#FFFFFF";
-        ctx.fillText(point.label, point.x - 3, point.y + 4);
-        if(this.vdat.isDragging){
-            ctx.fillStyle = "#444444";
-            ctx.fillText('[' + point.x + ':' + point.y + ']',
-                         point.x + pointRadius + 2, point.y + pointRadius + 2);
-        }
+
     }
 };                              // TKNormalTransformCanvas
 
