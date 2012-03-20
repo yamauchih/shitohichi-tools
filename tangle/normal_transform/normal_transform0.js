@@ -49,6 +49,30 @@ window.addEvent('domready', function () {
             this.tmpMat   = new hyMatrix33();
             this.manipMat.setEye();
             this.tmpMat.  setEye();
+
+            // matrix positioning
+//            var matpos = { bx:14; by:10; sx:50; sy:28; w:30; h:22; }
+//            this.setupMatrixCoefficient("scale", matpos);
+
+            // set up rotate matrix position
+            var rotate_11_el = document.getElementById("rotate_11_id");
+            var rotate_12_el = document.getElementById("rotate_12_id");
+            var rotate_21_el = document.getElementById("rotate_21_id");
+            var rotate_22_el = document.getElementById("rotate_22_id");
+            var bx = 12;        // base x
+            var by = 10;        // base y
+            var sx = 46;        // span x
+            var sy = 28;        // span y
+            var w  = 30;        // width
+            var pos11 = "left:" +  bx +       "px; top:" + by        + "px; width:" + w + "px; height:22px";
+            var pos12 = "left:" + (bx + sx) + "px; top:" + by        + "px; width:" + w + "px; height:22px";
+            var pos21 = "left:" +  bx +       "px; top:" + (by + sy) + "px; width:" + w + "px; height:22px";
+            var pos22 = "left:" + (bx + sx) + "px; top:" + (by + sy) + "px; width:" + w + "px; height:22px";
+
+            rotate_11_el.style.cssText = pos11;
+            rotate_12_el.style.cssText = pos12;
+            rotate_21_el.style.cssText = pos21;
+            rotate_22_el.style.cssText = pos22;
         },
         update: function () {
             // console.log("tangle updated")
@@ -59,6 +83,27 @@ window.addEvent('domready', function () {
             this.manipMat.multiply(this.scaleMat, this.rotateMat, this.tmpMat);
             this.manipMat.multiply(this.tmpMat,   this.transMat,  this.manipMat);
             console.log("manipmat:\n" + this.manipMat);
+        },
+        setupMatrixCoefficient: function (matname, matpos) {
+            // set up scale matrix position
+            var mat_11_el = document.getElementById(matname + "_11_id");
+            var mat_12_el = document.getElementById(matname + "_12_id");
+            var mat_21_el = document.getElementById(matname + "_21_id");
+            var mat_22_el = document.getElementById(matname + "_22_id");
+            var bx = matpos.bx; // base x
+            var by = matpos.by; // base y
+            var sx = matpos.sx; // span x
+            var sy = matpos.sy; // span y
+            var w  = matpos.w;  // width
+            var h  = matpos.h;  // height
+            var pos11 = "left:" +  bx +       "px; top:" + by        + "px; width:" + w + "px; height:22px";
+            var pos12 = "left:" + (bx + sx) + "px; top:" + by        + "px; width:" + w + "px; height:22px";
+            var pos21 = "left:" +  bx +       "px; top:" + (by + sy) + "px; width:" + w + "px; height:22px";
+            var pos22 = "left:" + (bx + sx) + "px; top:" + (by + sy) + "px; width:" + w + "px; height:22px";
+            mat_11_el.style.cssText = pos11;
+            mat_12_el.style.cssText = pos12;
+            mat_21_el.style.cssText = pos21;
+            mat_22_el.style.cssText = pos22;
         }
     });
     tangle.setValue("px", 40);

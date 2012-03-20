@@ -21,3 +21,40 @@ body {
 	width:500px;
 	/* height:15; */
 }
+
+/* scale matrix */
+.scaleMatrix {
+    position: absolute;
+    left:350px;
+    top:4px;
+    width:130px;
+    height:80px;
+}
+
+/* rotate matrix */
+.rotateMatrix {
+    position: absolute;
+    left:470px;
+    top:4px;
+    width:130px;
+    height:80px;
+}
+
+/* translate vector */
+.translateVector {
+    position: absolute;
+    left:680px;
+    top:4px;
+    width: 60px;
+    height:80px;
+}
+
+/* matrix's each coefficient */
+.matrixCoef {
+	position:absolute;
+	font: 16px "Times New Roman", "Times", serif;
+	color: #000;
+	background-color:#fff0;
+	text-align:center;
+	display:block;
+}

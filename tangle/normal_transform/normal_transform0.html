@@ -37,29 +37,37 @@
       <div id="normal_transform_section">
         <!-- Inside this, the elements can be tangled. -->
         <div class="NormalTransformCanvasArea" id="normal_transform_canvas_area">
+          <canvas class="TKNormalTransformCanvas" data-var="scale_x"
+                  width="300" height="300">
+            Main canvas: This browser doesn't support a canvas.
+          </canvas>
+          <canvas class="TKCanvasSlider" data-var="px" data-min="0" data-max="100"
+                  data-format="%.1f" width="300" height="22">second canvas.
+          </canvas>
+          <canvas class="TKCanvasSlider" data-var="px" data-min="0" data-max="100"
+                  data-format="%.1f" width="500" height="22">third canvas.
+          </canvas>
+          <div class="scaleMatrix">
+            <img id="scaleMatrixBGImage" src="Image/scale_2x2_mat.png">
+            <div id="scale_11_id" class="matrixCoef">
+              <span class="TKAdjustableNumber" data-min="-3" data-max="3"
+                    data-var="scale_x" data-format="%0.1f" data-step="0.1"></span>
+            </div>
+            <span id="scale_12_id" class="matrixCoef">0.0</span>
+            <span id="scale_21_id" class="matrixCoef">0.0</span>
+            <div  id="scale_22_id" class="matrixCoef">
+              <span id="scale_22_id" class="TKAdjustableNumber" data-min="-3" data-max="3"
+                    data-var="scale_y" data-format="%0.1f" data-step="0.1"></span>
+            </div>
 
-          <table border="0" cellpadding="5" cellspacing="5">
-            <tr>
-              <th rowspan="2">
-                <canvas class="TKNormalTransformCanvas" data-var="scale_x"
-                        width="300" height="300">
-                  Main canvas: This browser doesn't support a canvas.
-                </canvas>
-              </th>
-              <td>
-                <canvas class="TKCanvasSlider" data-var="px" data-min="0" data-max="100"
-                        data-format="%.1f" width="300" height="22">second canvas.
-                </canvas>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <canvas class="TKCanvasSlider" data-var="px" data-min="0" data-max="100"
-                        data-format="%.1f" width="500" height="22">third canvas.
-                </canvas>
-              </td>
-            </tr>
-          </table>
+          </div>
+          <div class="rotateMatrix">
+            <img id="rotateMatrixBGImage" src="Image/rotate_2x2_mat.png">
+            <div  id="rotate_11_id" class="matrixCoef" data-var="rotate_theta" data-format="%0.1f"></div>
+            <div  id="rotate_12_id" class="matrixCoef" data-var="rotate_theta" data-format="%0.1f"></div>
+            <div  id="rotate_21_id" class="matrixCoef" data-var="rotate_theta" data-format="%0.1f"></div>
+            <div  id="rotate_22_id" class="matrixCoef" data-var="rotate_theta" data-format="%0.1f"></div>
+          </div>
         </div>
         <!-- point_drag_canvas -->
         <!-- Here id is in the p tag. -->
