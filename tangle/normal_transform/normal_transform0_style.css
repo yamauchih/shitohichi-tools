@@ -17,9 +17,9 @@ body {
 }
 
 .NormalTransformCanvasArea {
-	position:relative;
-	width:500px;
-	/* height:15; */
+    position:relative;
+    width:500px;
+    /* height:15; */
 }
 
 /* scale matrix */
@@ -27,17 +27,17 @@ body {
     position: absolute;
     left:350px;
     top:4px;
-    width:130px;
-    height:80px;
+    width:85px;
+    height:30px;
 }
 
 /* rotate matrix */
 .rotateMatrix {
     position: absolute;
-    left:470px;
+    left:440px;
     top:4px;
-    width:130px;
-    height:80px;
+    width:210px;
+    height:30px;
 }
 
 /* translate vector */
@@ -51,10 +51,20 @@ body {
 
 /* matrix's each coefficient */
 .matrixCoef {
-	position:absolute;
-	font: 16px "Times New Roman", "Times", serif;
-	color: #000;
-	background-color:#fff0;
-	text-align:center;
-	display:block;
+    position:absolute;
+    font: 16px "Times New Roman", "Times", serif;
+    color: #000;
+    background-color:#fff0;
+    text-align:center;
+    display:block;
+}
+
+/* matrix's paren */
+.matrixParen {
+    position:absolute;
+    font: 60px "Times New Roman", "Times", serif;
+    color: #000;
+    background-color:#fff0;
+    text-align:center;
+    display:block;
 }

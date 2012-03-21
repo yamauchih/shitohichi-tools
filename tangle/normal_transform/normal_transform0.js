@@ -28,7 +28,8 @@ window.addEvent('domready', function () {
             this.scale_x = 1.0;
             this.scale_y = 1.0;
             //  [cos(th) -sin(th); sin(th) cos(th)]
-            this.rotate_theta = 0.0;
+            this.rotate_theta_deg = 0.0;
+            this.rotate_theta_rad = 0.0;
             //  + [tx ty]'
             this.translate_x  = 0.0;
             this.translate_y  = 0.0;
@@ -42,7 +43,7 @@ window.addEvent('domready', function () {
             this.rotateMat.setEye();
             this.transMat. setEye();
             this.scaleMat. setScale2D(this.scale_x, this.scale_y);
-            this.rotateMat.setRotation2D(this.rotate_theta);
+            this.rotateMat.setRotation2D(this.rotate_theta_deg);
             this.transMat. setTranslation2D(this.translate_x, this.translate_y);
 
             this.manipMat = new hyMatrix33();
@@ -51,33 +52,18 @@ window.addEvent('domready', function () {
             this.tmpMat.  setEye();
 
             // matrix positioning
-//            var matpos = { bx:14; by:10; sx:50; sy:28; w:30; h:22; }
-//            this.setupMatrixCoefficient("scale", matpos);
+            var smatpos = { bx:12, by:4, sx:35, sy:24, w:30, h:22 };
+            this.setupMatrixCoefficient("scale", smatpos);
 
             // set up rotate matrix position
-            var rotate_11_el = document.getElementById("rotate_11_id");
-            var rotate_12_el = document.getElementById("rotate_12_id");
-            var rotate_21_el = document.getElementById("rotate_21_id");
-            var rotate_22_el = document.getElementById("rotate_22_id");
-            var bx = 12;        // base x
-            var by = 10;        // base y
-            var sx = 46;        // span x
-            var sy = 28;        // span y
-            var w  = 30;        // width
-            var pos11 = "left:" +  bx +       "px; top:" + by        + "px; width:" + w + "px; height:22px";
-            var pos12 = "left:" + (bx + sx) + "px; top:" + by        + "px; width:" + w + "px; height:22px";
-            var pos21 = "left:" +  bx +       "px; top:" + (by + sy) + "px; width:" + w + "px; height:22px";
-            var pos22 = "left:" + (bx + sx) + "px; top:" + (by + sy) + "px; width:" + w + "px; height:22px";
-
-            rotate_11_el.style.cssText = pos11;
-            rotate_12_el.style.cssText = pos12;
-            rotate_21_el.style.cssText = pos21;
-            rotate_22_el.style.cssText = pos22;
+            var rmatpos = { bx:48, by:4, sx:95, sy:24, w:30, h:22, offset12:10 };
+            this.setupMatrixCoefficient("rotate", rmatpos);
         },
         update: function () {
             // console.log("tangle updated")
             this.scaleMat. setScale2D(this.scale_x, this.scale_y);
-            this.rotateMat.setRotation2D(this.rotate_theta);
+            this.rotate_theta_rad = this.rotate_theta_deg * Math.PI / 180.0;
+            this.rotateMat.setRotation2D(this.rotate_theta_rad);
             this.transMat. setTranslation2D(this.translate_x, this.translate_y);
 
             this.manipMat.multiply(this.scaleMat, this.rotateMat, this.tmpMat);
@@ -97,7 +83,14 @@ window.addEvent('domready', function () {
             var w  = matpos.w;  // width
             var h  = matpos.h;  // height
             var pos11 = "left:" +  bx +       "px; top:" + by        + "px; width:" + w + "px; height:22px";
-            var pos12 = "left:" + (bx + sx) + "px; top:" + by        + "px; width:" + w + "px; height:22px";
+            var pos12;
+            if(matpos["offset12"] != null){
+                pos12 = "left:" + (bx + sx + matpos.offset12) + "px; top:" + by
+                    + "px; width:" + w + "px; height:22px";
+            }
+            else{
+                pos12 = "left:" + (bx + sx) + "px; top:" + by + "px; width:" + w + "px; height:22px";
+            }
             var pos21 = "left:" +  bx +       "px; top:" + (by + sy) + "px; width:" + w + "px; height:22px";
             var pos22 = "left:" + (bx + sx) + "px; top:" + (by + sy) + "px; width:" + w + "px; height:22px";
             mat_11_el.style.cssText = pos11;

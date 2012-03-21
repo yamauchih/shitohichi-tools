@@ -37,7 +37,7 @@
       <div id="normal_transform_section">
         <!-- Inside this, the elements can be tangled. -->
         <div class="NormalTransformCanvasArea" id="normal_transform_canvas_area">
-          <canvas class="TKNormalTransformCanvas" data-var="scale_x"
+          <canvas class="TKNormalTransformCanvas" data-var="scale_x scale_y rotate_theta_deg"
                   width="300" height="300">
             Main canvas: This browser doesn't support a canvas.
           </canvas>
@@ -63,10 +63,22 @@
           </div>
           <div class="rotateMatrix">
             <img id="rotateMatrixBGImage" src="Image/rotate_2x2_mat.png">
-            <div  id="rotate_11_id" class="matrixCoef" data-var="rotate_theta" data-format="%0.1f"></div>
-            <div  id="rotate_12_id" class="matrixCoef" data-var="rotate_theta" data-format="%0.1f"></div>
-            <div  id="rotate_21_id" class="matrixCoef" data-var="rotate_theta" data-format="%0.1f"></div>
-            <div  id="rotate_22_id" class="matrixCoef" data-var="rotate_theta" data-format="%0.1f"></div>
+            <div id="rotate_11_id" class="matrixCoef">
+              <span class="TKAdjustableNumber" data-min="0" data-max="360"
+                    data-var="rotate_theta_deg"</span>
+            </div>
+            <div id="rotate_12_id" class="matrixCoef">
+              <span class="TKAdjustableNumber" data-min="0" data-max="360"
+                    data-var="rotate_theta_deg"</span>
+            </div>
+            <div id="rotate_21_id" class="matrixCoef">
+              <span class="TKAdjustableNumber" data-min="0" data-max="360"
+                    data-var="rotate_theta_deg"</span>
+            </div>
+            <div id="rotate_22_id" class="matrixCoef">
+              <span class="TKAdjustableNumber" data-min="0" data-max="360"
+                    data-var="rotate_theta_deg"</span>
+            </div>
           </div>
         </div>
         <!-- point_drag_canvas -->
