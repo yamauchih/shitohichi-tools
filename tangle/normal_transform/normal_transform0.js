@@ -25,10 +25,14 @@ window.addEvent('domready', function () {
             this.p1x = 2
             this.p1y = 2
 
-            // point 0 (homogenious coordinates)
+            // points 0 (homogenious coordinates)
             this.p0 = new hyVector3([ 0,  0, 1]);
-            // point 1
             this.p1 = new hyVector3([ this.p1x,  this.p1y, 1]);
+
+            // normal: origin and direction (homogenious coordinates)
+            this.normalOrigin = new hyVector3();
+            this.normalDir    = new hyVector3();
+            this.computeNormal(this.p0, this.p1, this.normalOrigin, this.normalDir);
 
             // matrix component (non homogeneous)
             //  [scale_x 0; 0 scale_y]
@@ -80,6 +84,7 @@ window.addEvent('domready', function () {
             // console.log("tangle updated")
             this.p1.m_element[0] = this.p1x;
             this.p1.m_element[1] = this.p1y;
+            this.computeNormal(this.p0, this.p1, this.normalOrigin, this.normalDir);
 
             this.scaleMat. setScale2D(this.scale_x, this.scale_y);
             this.rotate_theta_rad = this.rotate_theta_deg * Math.PI / 180.0;
@@ -137,6 +142,39 @@ window.addEvent('domready', function () {
             var pos21 = "left:" +  bx +       "px; top:" + (by + sy) + "px; width:" + w + "px; height:22px";
             vec_11_el.style.cssText = pos11;
             vec_21_el.style.cssText = pos21;
+        },
+
+        /// compute normal from p0 and p1
+        ///
+        /// \param[in]  p0   point 0
+        /// \param[in]  p1   point 1
+        /// \param[out] nOrg normal origin position
+        /// \param[out] nDir normal diretcion ([0,0,-1] when degenerated)
+        computeNormal: function(p0, p1, nOrg, nDir) {
+            // normal degeneration criterion
+            var minimalNormalLength = 0.1;
+
+            // normal origin = 0.5 * (p0 + p1)
+            hyVector3.add(p0, p1, nOrg);
+            hyVector3.scalarMult(0.5, nOrg, nOrg);
+            // normalVec = normalize(rotate90(p1 - p0))
+            hyVector3.subtract(p1, p0, nDir);
+            var isNormalExist = (nDir.euclidian_length() >= minimalNormalLength) ? true : false;
+            if(isNormalExist){
+                // rotate90 = [0 -1; 1 0];
+                var vx = -nDir.m_element[1];
+                var vy =  nDir.m_element[0];
+                nDir.m_element[0] = vx;
+                nDir.m_element[1] = vy;
+                nDir.m_element[2] = 0.0;
+                nDir.normalize();
+            }
+            else{
+                nDir.m_element[0] =  0.0;
+                nDir.m_element[1] =  0.0;
+                nDir.m_element[2] = -1.0;
+                console.log("normal degenerated")
+            }
         }
 
     });
@@ -197,6 +235,10 @@ Tangle.classes.TKNormalTransformCanvas = {
         this.vdat.p0Info = { x:p0.m_element[0], y:p0.m_element[1], radius:8, label:'0' };
         this.vdat.p1Info = { x:p1.m_element[0], y:p1.m_element[1], radius:8, label:'p' };
 
+        // DELETEME this.vdat.normalOrigin  = new hyVector3([ 0, 0, 1]);
+        // DELETEME this.vdat.normalVec     = new hyVector3([-1, 1, 0]);
+        // DELETEME this.vdat.isNormalExist = false;
+
         //----------------------------------------------------------------------
         // mouse down point
         this.vdat.pointer_start_x = 0;
@@ -253,7 +295,8 @@ Tangle.classes.TKNormalTransformCanvas = {
     update: function (el, scale_x) {
         //  console.log("canvas update: ");
 
-
+        // this.getNormalInScreenCoords();
+        // this.updateNormalWithTranslation();
 
         this.drawCanvas(el);
     },                      // update function
@@ -284,8 +327,7 @@ Tangle.classes.TKNormalTransformCanvas = {
 
         this.vdat.p0v3 = wmat.transformPoint(p0);
         this.vdat.p1v3 = wmat.transformPoint(p1);
-
-        console.log("update: " + this.vdat.p0v3 + "\n" + this.vdat.p1v3);
+        // console.log("update: " + this.vdat.p0v3 + "\n" + this.vdat.p1v3);
 
         // draw the plane
         this.drawPlane(ctx, this.vdat.p0v3, this.vdat.p1v3);
@@ -297,6 +339,31 @@ Tangle.classes.TKNormalTransformCanvas = {
         this.vdat.p1Info.y = this.vdat.p1v3.m_element[1];
         this.drawHanlePoint(ctx, this.vdat.p0Info);
         this.drawHanlePoint(ctx, this.vdat.p1Info);
+
+        // draw the translated normal (show the wrong case)
+        var nOrg = this.vdat.tangle.getValue("normalOrigin");
+        var nDir = this.vdat.tangle.getValue("normalDir");
+        var nEnd = new hyVector3(); // FIXME: new every time
+        this.pointAdd(nOrg, nDir, nEnd);
+        var nOrgScr = wmat.transformPoint(nOrg);
+        var nEndScr = wmat.transformPoint(nEnd);
+        this.drawNormal(ctx, nOrgScr, nEndScr, nDir);
+
+        // draw the correct normal
+        var nOrg = this.vdat.tangle.getValue("normalOrigin");
+        var nDir = this.vdat.tangle.getValue("normalDir");
+        var nEnd = new hyVector3(); // FIXME: new every time
+        this.pointAdd(nOrg, nDir, nEnd);
+        var nOrgScr = wmat.transformPoint(nOrg);
+        var nEndScr = wmat.transformPoint(nEnd);
+        this.drawNormal(ctx, nOrgScr, nEndScr, nDir);
+
+    },
+
+    /// point addition (homogeneous coordinates)
+    pointAdd: function(p0v3, p1v3, pret){
+        hyVector3.add(p0v3, p1v3, pret);
+        pret.m_element[2] = 1;
     },
 
     /// draw the plane (a line, in this example)
@@ -305,14 +372,11 @@ Tangle.classes.TKNormalTransformCanvas = {
     /// \param[in] p0  line start point (3 length float array, homogenious coordinates)
     /// \param[in] p1  line end point   (3 length float array, homogenious coordinates)
     drawPlane: function(ctx, p0, p1) {
-        var xoffset = 0;        //FIXME: This should be fixed in the image
-        var yoffset = 0;
-
         ctx.lineWidth = 2;
         ctx.beginPath();
         ctx.strokeStyle = '#0f0f0f';
-        ctx.moveTo(p0.m_element[0] + xoffset, p0.m_element[1] + yoffset);
-        ctx.lineTo(p1.m_element[0] + xoffset, p1.m_element[1] + yoffset);
+        ctx.moveTo(p0.m_element[0], p0.m_element[1]);
+        ctx.lineTo(p1.m_element[0], p1.m_element[1]);
         ctx.stroke();
         ctx.closePath();
     },
@@ -340,7 +404,35 @@ Tangle.classes.TKNormalTransformCanvas = {
             ctx.fillText('[' + pointInfo.x + ':' + pointInfo.y + ']',
                          pointInfo.x + pointInfo.radius + 2, pointInfo.y + pointInfo.radius + 2);
         }
-    }
+    },
+
+    /// draw the normal
+    ///
+    /// points are 3 length float array, homogenious coordinates.
+    ///
+    /// \param[in] ctx context of the 2d canvas
+    /// \param[in] p0  line start point in the screen coordinates
+    /// \param[in] p1  line end   point in the screen coordinates
+    /// \param[in] nnormalDir normal direction. degenerated when [0,0,-1].
+    drawNormal: function(ctx, p0, p1, normalDir) {
+        if(normalDir.m_element[2] == -1){
+            ctx.fillStyle = "#cc2222";
+            ctx.fillText("Normal degenerated",
+                         this.vdat.canvas.width  - 100,
+                         this.vdat.canvas.height - 30);
+            return;
+        }
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.strokeStyle = '#0f0f0f';
+        ctx.moveTo(p0.m_element[0], p0.m_element[1]);
+        ctx.lineTo(p1.m_element[0], p1.m_element[1]);
+        ctx.stroke();
+        ctx.closePath();
+        // ctx.fillStyle = "#888888";
+        // ctx.fillText("normal", p0.m_element[0] + 4, p0.m_element[1] + 4);
+    },
+
 };                              // TKNormalTransformCanvas
 
 })();

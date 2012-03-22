@@ -13,11 +13,12 @@
 * Normal transform fail example
 ** DONE draw a line
 ** DONE show the 2d line image
-** TODO add the point GUI (0,0)-(px,py)
 ** DONE add the translation GUI
-** TODO draw the normal
-** TODO scale (x) direction input
+** DONE add matrix/vector labels
+** DONE connect to matrix
+** TODO add the point GUI (0,0)-(px,py) on canvas
+** TODO draw the translated normal
+** TODO draw the correct normal
+** TODO draw an arrow
 ** TODO rotation interface
-** TODO connect to matrix
-
 
