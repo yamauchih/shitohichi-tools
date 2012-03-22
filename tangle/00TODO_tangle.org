@@ -11,10 +11,13 @@
 
 
 * Normal transform fail example
-** draw a line
-** show the 2d line image
-** scale (x) direction input
-** rotation interface
-** connect to matrix (MathJax?)
+** DONE draw a line
+** DONE show the 2d line image
+** TODO add the point GUI (0,0)-(px,py)
+** DONE add the translation GUI
+** TODO draw the normal
+** TODO scale (x) direction input
+** TODO rotation interface
+** TODO connect to matrix
 
 

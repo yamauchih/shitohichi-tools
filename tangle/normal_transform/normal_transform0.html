@@ -37,7 +37,11 @@
       <div id="normal_transform_section">
         <!-- Inside this, the elements can be tangled. -->
         <div class="NormalTransformCanvasArea" id="normal_transform_canvas_area">
-          <canvas class="TKNormalTransformCanvas" data-var="scale_x scale_y rotate_theta_deg"
+
+          <!-- ----------------------------------------------------------------------  -->
+          <!-- main canvas -->
+          <canvas class="TKNormalTransformCanvas"
+                  data-var="scale_x scale_y rotate_theta_deg p1x p1y translation_x translation_y"
                   width="300" height="300">
             Main canvas: This browser doesn't support a canvas.
           </canvas>
@@ -47,8 +51,14 @@
           <canvas class="TKCanvasSlider" data-var="px" data-min="0" data-max="100"
                   data-format="%.1f" width="500" height="22">third canvas.
           </canvas>
+
+          <!-- ----------------------------------------------------------------------  -->
+          <!-- matrix -->
+          <!-- ------------------------------  -->
+
+          <!-- S: scale matrix -->
           <div class="scaleMatrix">
-            <img id="scaleMatrixBGImage" src="Image/scale_2x2_mat.png">
+            <img id="scale_matrix_bgimage" src="Image/scale_2x2_mat.png">
             <div id="scale_11_id" class="matrixCoef">
               <span class="TKAdjustableNumber" data-min="-3" data-max="3"
                     data-var="scale_x" data-format="%0.1f" data-step="0.1"></span>
@@ -59,28 +69,70 @@
               <span id="scale_22_id" class="TKAdjustableNumber" data-min="-3" data-max="3"
                     data-var="scale_y" data-format="%0.1f" data-step="0.1"></span>
             </div>
+          </div> <!-- scale matrix -->
+          <div id="scale_matrix_id" class="matrixLabelScaling">Scaling</div>
 
-          </div>
+          <!-- ------------------------------  -->
+          <!-- R: rotate matrix -->
           <div class="rotateMatrix">
             <img id="rotateMatrixBGImage" src="Image/rotate_2x2_mat.png">
             <div id="rotate_11_id" class="matrixCoef">
-              <span class="TKAdjustableNumber" data-min="0" data-max="360"
-                    data-var="rotate_theta_deg"</span>
+              <span class="TKAdjustableNumber" data-min="0"
+                    data-max="360" data-var="rotate_theta_deg"></span>
             </div>
             <div id="rotate_12_id" class="matrixCoef">
               <span class="TKAdjustableNumber" data-min="0" data-max="360"
-                    data-var="rotate_theta_deg"</span>
+                    data-var="rotate_theta_deg"></span>
             </div>
             <div id="rotate_21_id" class="matrixCoef">
               <span class="TKAdjustableNumber" data-min="0" data-max="360"
-                    data-var="rotate_theta_deg"</span>
+                    data-var="rotate_theta_deg"></span>
             </div>
             <div id="rotate_22_id" class="matrixCoef">
               <span class="TKAdjustableNumber" data-min="0" data-max="360"
-                    data-var="rotate_theta_deg"</span>
+                    data-var="rotate_theta_deg"></span>
             </div>
-          </div>
-        </div>
+          </div> <!-- rotate matrix -->
+          <div id="rotate_matrix_id" class="matrixLabelRotation">Rotation</div>
+
+          <!-- ------------------------------  -->
+          <!-- p: point column vector -->
+          <div class="pointColumnVector">
+            <img id="pointColumnVectorBGImage" src="Image/column_2x1_mat.png">
+            <div id="p1_11_id" class="matrixCoef">
+              <span class="TKAdjustableNumber" data-min="-4" data-max="4"
+                    data-step="0.1" data-format="%0.1f" data-var="p1x"></span>
+            </div>
+            <div id="p1_21_id" class="matrixCoef">
+              <span class="TKAdjustableNumber" data-min="-4" data-max="4"
+                    data-step="0.1" data-format="%0.1f" data-var="p1y"></span>
+            </div>
+          </div> <!-- point column vector -->
+          <div id="point_column_vector_id" class="matrixLabelPosition">p</div>
+
+          <!-- ------------------------------  -->
+          <!-- operator + -->
+          <div class="operatorPlus">
+            <img id="operatorPlusBGImage" src="Image/op+.png">
+          </div> <!-- operator_plus -->
+
+          <!-- ------------------------------  -->
+          <!-- t: translation column vector -->
+          <div class="translationColumnVector">
+            <img id="translationColumnVectorBGImage" src="Image/column_2x1_mat.png">
+            <div id="translation_11_id" class="matrixCoef">
+              <span class="TKAdjustableNumber" data-min="-4" data-max="4"
+                    data-step="0.1" data-format="%0.1f" data-var="translation_x"></span>
+            </div>
+            <div id="translation_21_id" class="matrixCoef">
+              <span class="TKAdjustableNumber" data-min="-4" data-max="4"
+                    data-step="0.1" data-format="%0.1f" data-var="translation_y"></span>
+            </div>
+          </div> <!-- translation column vector -->
+          <div id="translation_column_vector_id" class="matrixLabelTranslation">Translation</div>
+
+        </div> <!-- matrix -->
+
         <!-- point_drag_canvas -->
         <!-- Here id is in the p tag. -->
         <p id="point_dynamic_text">

@@ -1,27 +1,34 @@
-//
-//  normal_transform0.js
-//
-//  A simple slider using Tangle (http://worrydream.com/Tangle/).
-//  and TangleKitHYExt
-//  (C) 2012 Hitoshi Yamauchi.  New BSD license.
-//
+///
+/// normal_transform0.js
+///
+///  A simple slider using Tangle (http://worrydream.com/Tangle/).
+///  and TangleKitHYExt
+///  (C) 2012 Hitoshi Yamauchi.  New BSD license.
+///
+/// \file
+/// \brief normal transformation explanation tangle
 
 (function () {
-
-// MooTools: when DOM is ready, this is called
+/// MooTools: when DOM is ready, this is called
 window.addEvent('domready', function () {
 
-    // <div id="slider_example"> in ex08.html
-    // This should contains all of this elements: canvas and point texts
+    /// <div id="slider_example"> in ex08.html
+    /// This should contains all of this elements: canvas and point texts
     var container = document.getElementById("normal_transform_section");
     var tangle = new Tangle(container, {
+        /// initialize tangle
         initialize: function () {
-            this.px = 10;
+
+            this.px = 0         //FIXME: the slide depends on this variable
+
+            // point 0's interface. We need to update this.p0 according to this value.
+            this.p1x = 2
+            this.p1y = 2
 
             // point 0 (homogenious coordinates)
-            this.p0 = new hyVector3([-2,  2, 1]);
+            this.p0 = new hyVector3([ 0,  0, 1]);
             // point 1
-            this.p1 = new hyVector3([ 2, -2, 1]);
+            this.p1 = new hyVector3([ this.p1x,  this.p1y, 1]);
 
             // matrix component (non homogeneous)
             //  [scale_x 0; 0 scale_y]
@@ -31,8 +38,8 @@ window.addEvent('domready', function () {
             this.rotate_theta_deg = 0.0;
             this.rotate_theta_rad = 0.0;
             //  + [tx ty]'
-            this.translate_x  = 0.0;
-            this.translate_y  = 0.0;
+            this.translation_x  = 0.0;
+            this.translation_y  = 0.0;
 
             //----------------------------------------------------------------------
             // manipuration matrix
@@ -44,7 +51,7 @@ window.addEvent('domready', function () {
             this.transMat. setEye();
             this.scaleMat. setScale2D(this.scale_x, this.scale_y);
             this.rotateMat.setRotation2D(this.rotate_theta_deg);
-            this.transMat. setTranslation2D(this.translate_x, this.translate_y);
+            this.transMat. setTranslation2D(this.translation_x, this.translation_y);
 
             this.manipMat = new hyMatrix33();
             this.tmpMat   = new hyMatrix33();
@@ -53,24 +60,40 @@ window.addEvent('domready', function () {
 
             // matrix positioning
             var smatpos = { bx:12, by:4, sx:35, sy:24, w:30, h:22 };
-            this.setupMatrixCoefficient("scale", smatpos);
+            this.setupMatrixElement("scale", smatpos);
 
             // set up rotate matrix position
             var rmatpos = { bx:48, by:4, sx:95, sy:24, w:30, h:22, offset12:10 };
-            this.setupMatrixCoefficient("rotate", rmatpos);
+            this.setupMatrixElement("rotate", rmatpos);
+
+            // set up point1 vector position
+            var pvecpos = { bx:10, by:4, sx:95, sy:24, w:30, h:22 };
+            this.setupColumnVectorElement("p1", pvecpos);
+
+            // set up transformation vector position
+            var tvecpos = { bx:10, by:4, sx:95, sy:24, w:30, h:22 };
+            this.setupColumnVectorElement("translation", tvecpos);
         },
+
+        /// tangle update
         update: function () {
             // console.log("tangle updated")
+            this.p1.m_element[0] = this.p1x;
+            this.p1.m_element[1] = this.p1y;
+
             this.scaleMat. setScale2D(this.scale_x, this.scale_y);
             this.rotate_theta_rad = this.rotate_theta_deg * Math.PI / 180.0;
-            this.rotateMat.setRotation2D(this.rotate_theta_rad);
-            this.transMat. setTranslation2D(this.translate_x, this.translate_y);
+            // minus here. display coordinate issue.
+            this.rotateMat.setRotation2D(-this.rotate_theta_rad);
+            this.transMat. setTranslation2D(this.translation_x, this.translation_y);
 
             this.manipMat.multiply(this.scaleMat, this.rotateMat, this.tmpMat);
             this.manipMat.multiply(this.tmpMat,   this.transMat,  this.manipMat);
             console.log("manipmat:\n" + this.manipMat);
         },
-        setupMatrixCoefficient: function (matname, matpos) {
+
+        /// matrix coefficient setup (positioning of the element)
+        setupMatrixElement: function (matname, matpos) {
             // set up scale matrix position
             var mat_11_el = document.getElementById(matname + "_11_id");
             var mat_12_el = document.getElementById(matname + "_12_id");
@@ -97,9 +120,27 @@ window.addEvent('domready', function () {
             mat_12_el.style.cssText = pos12;
             mat_21_el.style.cssText = pos21;
             mat_22_el.style.cssText = pos22;
+        },
+
+        /// column vector setup (positioning of the element)
+        setupColumnVectorElement: function (vecname, vecpos) {
+            // set up scale matrix position
+            var vec_11_el = document.getElementById(vecname + "_11_id");
+            var vec_21_el = document.getElementById(vecname + "_21_id");
+            var bx = vecpos.bx; // base x
+            var by = vecpos.by; // base y
+            var sx = vecpos.sx; // span x: not used
+            var sy = vecpos.sy; // span y
+            var w  = vecpos.w;  // width
+            var h  = vecpos.h;  // height
+            var pos11 = "left:" +  bx +       "px; top:" + by        + "px; width:" + w + "px; height:22px";
+            var pos21 = "left:" +  bx +       "px; top:" + (by + sy) + "px; width:" + w + "px; height:22px";
+            vec_11_el.style.cssText = pos11;
+            vec_21_el.style.cssText = pos21;
         }
+
     });
-    tangle.setValue("px", 40);
+    tangle.setValue("p1x", 2);
 });
 
 
@@ -109,7 +150,8 @@ window.addEvent('domready', function () {
 //    2D line and its normal visualization
 Tangle.classes.TKNormalTransformCanvas = {
 
-    initialize: function (element, options, tangle, px, py) {
+    /// initialize view
+    initialize: function (element, options, tangle, p1x, p1y) {
         this.element = element;
 
         // view data object
@@ -152,6 +194,8 @@ Tangle.classes.TKNormalTransformCanvas = {
         var p1 = new hyVector3([ 2, -2, 1]);
         this.vdat.p0v3 = p0.clone();
         this.vdat.p1v3 = p1.clone();
+        this.vdat.p0Info = { x:p0.m_element[0], y:p0.m_element[1], radius:8, label:'0' };
+        this.vdat.p1Info = { x:p1.m_element[0], y:p1.m_element[1], radius:8, label:'p' };
 
         //----------------------------------------------------------------------
         // mouse down point
@@ -176,7 +220,7 @@ Tangle.classes.TKNormalTransformCanvas = {
                 // console.log("BVTouchable: touchDidGoDown " + pointer_x + ", " + pointer_y)
                 vdRef.isDragging = true;
                 var obj = {}
-                obj['px'] = vdRef.pointer_start_x;
+                obj['p1x'] = vdRef.pointer_start_x;
                 // obj['py'] = pointer_start_y;
                 tangle.setValues(obj)
             },
@@ -185,7 +229,7 @@ Tangle.classes.TKNormalTransformCanvas = {
                 var pointer_y = vdRef.pointer_start_y - touches.translation.y;
                 // console.log("BVTouchable: touchDidMove "  + pointer_x + ", " + pointer_y)
                 var obj = {}
-                obj['px'] = pointer_x;
+                obj['p1x'] = pointer_x;
                 // obj['py'] = pointer_y;
                 vdRef.tangle.setValues(obj)
             },
@@ -196,20 +240,25 @@ Tangle.classes.TKNormalTransformCanvas = {
                 vdRef.isDragging = false;
                 var obj = {}
                 // tangle check the same value ... shift once and then adjust hack
-                obj['px'] = pointer_x+1;
+                obj['p1x'] = pointer_x+1;
                 vdRef.tangle.setValues(obj)
-                obj['px'] = pointer_x;
+                obj['p1x'] = pointer_x;
                 // obj['py'] = pointer_y;
                 vdRef.tangle.setValues(obj)
             }
         });                     // new BVTouchable
     },                          // initialize function
 
+    /// update the view
     update: function (el, scale_x) {
-        console.log("canvas update: ");
+        //  console.log("canvas update: ");
+
+
+
         this.drawCanvas(el);
     },                      // update function
 
+    /// draw the whole canvas
     drawCanvas: function(el) {
         // assmed element is a canvas
         var mycanvas     = el;
@@ -238,12 +287,26 @@ Tangle.classes.TKNormalTransformCanvas = {
 
         console.log("update: " + this.vdat.p0v3 + "\n" + this.vdat.p1v3);
 
+        // draw the plane
         this.drawPlane(ctx, this.vdat.p0v3, this.vdat.p1v3);
+
+        // draw the handle point
+        this.vdat.p0Info.x = this.vdat.p0v3.m_element[0];
+        this.vdat.p0Info.y = this.vdat.p0v3.m_element[1];
+        this.vdat.p1Info.x = this.vdat.p1v3.m_element[0];
+        this.vdat.p1Info.y = this.vdat.p1v3.m_element[1];
+        this.drawHanlePoint(ctx, this.vdat.p0Info);
+        this.drawHanlePoint(ctx, this.vdat.p1Info);
     },
 
+    /// draw the plane (a line, in this example)
+    ///
+    /// \param[in] ctx context of the 2d canvas
+    /// \param[in] p0  line start point (3 length float array, homogenious coordinates)
+    /// \param[in] p1  line end point   (3 length float array, homogenious coordinates)
     drawPlane: function(ctx, p0, p1) {
-        var xoffset = 1;
-        var yoffset = 1;
+        var xoffset = 0;        //FIXME: This should be fixed in the image
+        var yoffset = 0;
 
         ctx.lineWidth = 2;
         ctx.beginPath();
@@ -252,6 +315,31 @@ Tangle.classes.TKNormalTransformCanvas = {
         ctx.lineTo(p1.m_element[0] + xoffset, p1.m_element[1] + yoffset);
         ctx.stroke();
         ctx.closePath();
+    },
+
+    /// draw the handle point (a point with a label and some size)
+    ///
+    /// \param[in] ctx context of the 2d canvas
+    /// \param[in] pointInfo handle point information
+    /// pointInfo = {
+    ///   x: handle point center x coordinate,
+    ///   y: handle point center y coordinate,
+    ///   radius: handle point radius,
+    ///   label:  handle point label (assumes one charactor)
+    /// };
+    drawHanlePoint: function(ctx, pointInfo) {
+        ctx.fillStyle = "#ff0000";
+        ctx.beginPath();
+        ctx.arc(pointInfo.x, pointInfo.y, pointInfo.radius, 0, Math.PI*2, true);
+        ctx.closePath();
+        ctx.fill();
+        ctx.fillStyle = "#FFFFFF";
+        ctx.fillText(pointInfo.label, pointInfo.x - 3, pointInfo.y + 4);
+        if(this.vdat.isDragging){
+            ctx.fillStyle = "#444444";
+            ctx.fillText('[' + pointInfo.x + ':' + pointInfo.y + ']',
+                         pointInfo.x + pointInfo.radius + 2, pointInfo.y + pointInfo.radius + 2);
+        }
     }
 };                              // TKNormalTransformCanvas
 

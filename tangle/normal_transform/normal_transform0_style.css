@@ -27,8 +27,23 @@ body {
     position: absolute;
     left:350px;
     top:4px;
-    width:85px;
-    height:30px;
+    width:86px;
+    height:50px;
+}
+
+/* matrix's label: Scaling */
+.matrixLabelScaling {
+    position:absolute;
+    font: 16px "Times New Roman", "Times", serif;
+    color: #000;
+    background-color:#fff0;
+    text-align:center;
+    vertical-align:middle;
+    display:block;
+    left:350px;
+    top:56px;
+    width:86px;
+    height:24px;
 }
 
 /* rotate matrix */
@@ -36,17 +51,79 @@ body {
     position: absolute;
     left:440px;
     top:4px;
-    width:210px;
-    height:30px;
+    width:204px;
+    height:50px;
+}
+
+/* matrix's label: Rotation */
+.matrixLabelRotation {
+    position:absolute;
+    font: 16px "Times New Roman", "Times", serif;
+    color: #000;
+    background-color:#fff0;
+    text-align:center;
+    vertical-align:middle;
+    display:block;
+    left:440px;
+    top:56px;
+    width:204px;
+    height:24px;
+}
+
+
+/* point columen vector */
+.pointColumnVector {
+    position: absolute;
+    left:647px;
+    top:4px;
+    width:50px;
+    height:50px;
+}
+
+/* matrix's label: Position */
+.matrixLabelPosition {
+    position:absolute;
+    font: 16px "Times New Roman", "Times", serif;
+    color: #000;
+    background-color:#fff0;
+    text-align:center;
+    display:block;
+    left:647px;
+    top:56px;
+    width:50px;
+    height:24px;
+}
+
+/* operator + */
+.operatorPlus {
+    position: absolute;
+    left:700px;
+    top:4px;
+    width: 15px;
+    height:50px;
 }
 
 /* translate vector */
-.translateVector {
+.translationColumnVector {
     position: absolute;
-    left:680px;
+    left:719px;
     top:4px;
-    width: 60px;
-    height:80px;
+    width: 50px;
+    height:50px;
+}
+
+/* matrix's label: Translation */
+.matrixLabelTranslation {
+    position:absolute;
+    font: 16px "Times New Roman", "Times", serif;
+    color: #000;
+    background-color:#fff0;
+    text-align:center;
+    display:block;
+    left:719px;
+    top:56px;
+    width: 50px;
+    height:50px;
 }
 
 /* matrix's each coefficient */
@@ -59,12 +136,13 @@ body {
     display:block;
 }
 
+
 /* matrix's paren */
-.matrixParen {
-    position:absolute;
-    font: 60px "Times New Roman", "Times", serif;
-    color: #000;
-    background-color:#fff0;
-    text-align:center;
-    display:block;
-}
+/* .matrixParen { */
+/*     position:absolute; */
+/*     font: 60px "Times New Roman", "Times", serif; */
+/*     color: #000; */
+/*     background-color:#fff0; */
+/*     text-align:center; */
+/*     display:block; */
+/* } */
