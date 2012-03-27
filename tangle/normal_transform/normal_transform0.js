@@ -92,8 +92,8 @@ window.addEvent('domready', function () {
             this.rotateMat.setRotation2D(-this.rotate_theta_rad);
             this.transMat. setTranslation2D(this.translation_x, this.translation_y);
 
-            this.manipMat.multiply(this.scaleMat, this.rotateMat, this.tmpMat);
-            this.manipMat.multiply(this.tmpMat,   this.transMat,  this.manipMat);
+            hyMatrix33.multiply(this.scaleMat, this.rotateMat, this.tmpMat);
+            hyMatrix33.multiply(this.tmpMat,   this.transMat,  this.manipMat);
             console.log("manipmat:\n" + this.manipMat);
         },
 
@@ -224,7 +224,11 @@ Tangle.classes.TKNormalTransformCanvas = {
         console.log("transformmat: " + transmat);
 
         this.vdat.modelToViewMat = new hyMatrix33();
-        this.vdat.modelToViewMat.multiply(transmat, scalemat, this.vdat.modelToViewMat);
+        hyMatrix33.multiply(transmat, scalemat, this.vdat.modelToViewMat);
+        this.vdat.modelToScreenMat = new hyMatrix33();
+        this.vdat.modelToScreenMat.setEye(); // model x view x manipuration matrix
+        hyMatrix33.multiply(this.vdat.modelToViewMat, this.vdat.modelToScreenMat,
+                            this.vdat.modelToScreenMat)
         console.log("modelToViewMat: " + this.vdat.modelToViewMat);
         // var p0 = this.vdat.tangle.getValue("p0");
         // var p1 = this.vdat.tangle.getValue("p1");
@@ -235,14 +239,9 @@ Tangle.classes.TKNormalTransformCanvas = {
         this.vdat.p0Info = { x:p0.m_element[0], y:p0.m_element[1], radius:8, label:'0' };
         this.vdat.p1Info = { x:p1.m_element[0], y:p1.m_element[1], radius:8, label:'p' };
 
-        // DELETEME this.vdat.normalOrigin  = new hyVector3([ 0, 0, 1]);
-        // DELETEME this.vdat.normalVec     = new hyVector3([-1, 1, 0]);
-        // DELETEME this.vdat.isNormalExist = false;
-
         //----------------------------------------------------------------------
         // mouse down point
-        this.vdat.pointer_start_x = 0;
-        this.vdat.pointer_start_y = 0;
+        this.vdat.pointer_start_v3 = new hyVector3([0, 0, 1]);
 
         var vdRef = this.vdat;
 
@@ -257,18 +256,35 @@ Tangle.classes.TKNormalTransformCanvas = {
         // Setup dragging using BVTouchable
         new BVTouchable(element, {
             touchDidGoDown: function (touches) {
-                vdRef.pointer_start_x = touches.event.client.x - vdRef.canvas.offsetParent.offsetLeft;
-                vdRef.pointer_start_y = touches.event.client.y - vdRef.canvas.offsetParent.offsetTop;
-                // console.log("BVTouchable: touchDidGoDown " + pointer_x + ", " + pointer_y)
-                vdRef.isDragging = true;
-                var obj = {}
-                obj['p1x'] = vdRef.pointer_start_x;
-                // obj['py'] = pointer_start_y;
-                tangle.setValues(obj)
+                vdRef.pointer_start_v3.m_element[0] =
+                    touches.event.client.x - vdRef.canvas.offsetParent.offsetLeft;
+                vdRef.pointer_start_v3.m_element[1] =
+                    touches.event.client.y - vdRef.canvas.offsetParent.offsetTop;
+
+                // Is any point near to the mouse down point?
+                var snap_rad_px = 6;
+                if(hyVector3.hypot(vdRef.p0v3, vdRef.pointer_start_v3) < snap_rad_px){
+                    vdRef.isDragging = true;
+                    vdRef.isDraggingPoint = '0';
+                    console.log('drag on p0');
+                }
+                else if(hyVector3.hypot(vdRef.p1v3, vdRef.pointer_start_v3) < snap_rad_px){
+                    vdRef.isDragging = true;
+                    vdRef.isDraggingPoint = '1';
+                    console.log('drag on p1');
+                }
+
+                // need an inverse matrix here: screen to model.
+
+                // FIXME
+                // var obj = {}
+                // obj['p1x'] = vdRef.pointer_start_v3.m_element[0];
+                // // obj['py'] = pointer_start_y;
+                // tangle.setValues(obj)
             },
             touchDidMove: function (touches) {
-                var pointer_x = vdRef.pointer_start_x + touches.translation.x;
-                var pointer_y = vdRef.pointer_start_y - touches.translation.y;
+                var pointer_x = vdRef.pointer_start_v3.m_element[0] + touches.translation.x;
+                var pointer_y = vdRef.pointer_start_v3.m_element[1] - touches.translation.y;
                 // console.log("BVTouchable: touchDidMove "  + pointer_x + ", " + pointer_y)
                 var obj = {}
                 obj['p1x'] = pointer_x;
@@ -277,8 +293,8 @@ Tangle.classes.TKNormalTransformCanvas = {
             },
             touchDidGoUp: function (touches) {
                 // console.log("BVTouchable: touchDidGoUp")
-                var pointer_x = vdRef.pointer_start_x + touches.translation.x;
-                var pointer_y = vdRef.pointer_start_y - touches.translation.y;
+                var pointer_x = vdRef.pointer_start_v3.m_element[0] + touches.translation.x;
+                var pointer_y = vdRef.pointer_start_v3.m_element[1] - touches.translation.y;
                 vdRef.isDragging = false;
                 var obj = {}
                 // tangle check the same value ... shift once and then adjust hack
@@ -322,11 +338,10 @@ Tangle.classes.TKNormalTransformCanvas = {
         //   The canvas size is [-4,4]x[-4,4].
 
         var manipmat = this.vdat.tangle.getValue("manipMat");
-        var wmat = new hyMatrix33(); // FIXME
-        manipmat.multiply(this.vdat.modelToViewMat, manipmat, wmat);
+        hyMatrix33.multiply(this.vdat.modelToViewMat, manipmat, this.vdat.modelToScreenMat);
 
-        this.vdat.p0v3 = wmat.transformPoint(p0);
-        this.vdat.p1v3 = wmat.transformPoint(p1);
+        this.vdat.p0v3 = this.vdat.modelToScreenMat.transformPoint(p0);
+        this.vdat.p1v3 = this.vdat.modelToScreenMat.transformPoint(p1);
         // console.log("update: " + this.vdat.p0v3 + "\n" + this.vdat.p1v3);
 
         // draw the plane
@@ -345,8 +360,8 @@ Tangle.classes.TKNormalTransformCanvas = {
         var nDir = this.vdat.tangle.getValue("normalDir");
         var nEnd = new hyVector3(); // FIXME: new every time
         this.pointAdd(nOrg, nDir, nEnd);
-        var nOrgScr = wmat.transformPoint(nOrg);
-        var nEndScr = wmat.transformPoint(nEnd);
+        var nOrgScr = this.vdat.modelToScreenMat.transformPoint(nOrg);
+        var nEndScr = this.vdat.modelToScreenMat.transformPoint(nEnd);
         this.drawNormal(ctx, nOrgScr, nEndScr, nDir);
 
         // draw the correct normal
@@ -354,8 +369,8 @@ Tangle.classes.TKNormalTransformCanvas = {
         var nDir = this.vdat.tangle.getValue("normalDir");
         var nEnd = new hyVector3(); // FIXME: new every time
         this.pointAdd(nOrg, nDir, nEnd);
-        var nOrgScr = wmat.transformPoint(nOrg);
-        var nEndScr = wmat.transformPoint(nEnd);
+        var nOrgScr = this.vdat.modelToScreenMat.transformPoint(nOrg);
+        var nEndScr = this.vdat.modelToScreenMat.transformPoint(nEnd);
         this.drawNormal(ctx, nOrgScr, nEndScr, nDir);
 
     },

@@ -140,6 +140,22 @@ hyVector3.scalarMult = function hyVector3_scalarMult(s0, v0, vret){
     return vret;
 }
 
+/// distance between two points
+/// Use vtmp as an temporary vector if it is given.
+hyVector3.hypot = function (v0, v1, vtmp){
+    if(vtmp == null){
+        vtmp = new hyVector3();
+    }
+    hyVectorAssert(v0.m_element.length == 3,   "hyVector3.hypot: should be v0.m_element.length == 3");
+    hyVectorAssert(v1.m_element.length == 3,   "hyVector3.hypot: should be v1.m_element.length == 3");
+    hyVectorAssert(vtmp.m_element.length == 3, "hyVector3.hypot: should be vtmp.m_element.length == 3");
+
+    hyVector3.subtract(v1, v0, vtmp);
+    var dist = vtmp.euclidian_length();
+    return dist;
+}
+
+
 /// comparison method. true when all the elements are the same.
 hyVector3.equal = function hyVector3_equal(v0, v1){
     hyVectorAssert(v0.m_element.length == 3,   "hyVector3.add: should be v0.m_element.length == 3");

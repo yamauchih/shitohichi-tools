@@ -16,7 +16,8 @@
 ** DONE add the translation GUI
 ** DONE add matrix/vector labels
 ** DONE connect to matrix
-** TODO add the point GUI (0,0)-(px,py) on canvas
+** TODO implement matrix inverse and its test.
+** TODO control point movement on canvas
 ** TODO draw the translated normal
 ** TODO draw the correct normal
 ** TODO draw an arrow

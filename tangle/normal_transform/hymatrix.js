@@ -110,7 +110,7 @@ hyMatrix33.prototype.setRotation2D = function(theta){
 
 /// matrix multiplication
 ///
-hyMatrix33.prototype.multiply = function(m0, m1, m2){
+hyMatrix33.multiply = function(m0, m1, m2){
     if(m2 == null){
         m2 = new hyMatrix33();
     }
@@ -145,4 +145,35 @@ hyMatrix33.prototype.transformPoint = function(v0, v1){
     return v1;
 }
 
+
+/// inverse
+///
+hyMatrix33.prototype.inv = function(invmat){
+    var det = ( - this.m_element[0][0]*this.m_element[1][1]*this.m_element[2][2]
+                + this.m_element[0][0]*this.m_element[2][1]*this.m_element[1][2]
+                + this.m_element[0][1]*this.m_element[1][0]*this.m_element[2][2]
+                - this.m_element[0][1]*this.m_element[2][0]*this.m_element[1][2]
+                - this.m_element[0][2]*this.m_element[1][0]*this.m_element[2][1]
+                + this.m_element[0][2]*this.m_element[2][0]*this.m_element[1][1] );
+    if(det == 0.0){
+        throw new Error("inv: Singular matrix.");
+    }
+    var invdet = 1.0/det;
+
+    if(invmat == null){
+        invmat = new hyMatrix33();
+    }
+
+    invmat.m_element[0][0] = this.m_element[2][1]*this.m_element[1][2] - this.m_element[1][1]*this.m_element[2][2];
+    invmat.m_element[1][0] = this.m_element[1][0]*this.m_element[2][2] - this.m_element[2][0]*this.m_element[1][2];
+    invmat.m_element[2][0] = this.m_element[2][0]*this.m_element[1][1] - this.m_element[1][0]*this.m_element[2][1];
+    invmat.m_element[0][1] = this.m_element[0][1]*this.m_element[2][2] - this.m_element[2][1]*this.m_element[0][2];
+    invmat.m_element[1][1] = this.m_element[2][0]*this.m_element[0][2] - this.m_element[0][0]*this.m_element[2][2];
+    invmat.m_element[2][1] = this.m_element[0][0]*this.m_element[2][1] - this.m_element[2][0]*this.m_element[0][1];
+    invmat.m_element[0][2] = this.m_element[1][1]*this.m_element[0][2] - this.m_element[0][1]*this.m_element[1][2];
+    invmat.m_element[1][2] = this.m_element[0][0]*this.m_element[1][2] - this.m_element[1][0]*this.m_element[0][2];
+    invmat.m_element[2][2] = this.m_element[1][0]*this.m_element[0][1] - this.m_element[0][0]*this.m_element[1][1];
+
+    invmat.scalarMult(invdet);
+}
 
