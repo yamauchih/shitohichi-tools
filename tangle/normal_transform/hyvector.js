@@ -61,6 +61,16 @@ hyVector3.prototype.toString = function(){
         + this.m_elem[1] + " " + this.m_elem[2];
 }
 
+/// get i-th element
+hyVector3.prototype.get = function(i){
+    return this.m_elem[i];
+}
+
+/// set i-th element
+hyVector3.prototype.set = function(i, val){
+    this.m_elem[i] = val;
+}
+
 /// squared length
 hyVector3.prototype.sqrLength = function(){
     var sqrlen = (this.m_elem[0] * this.m_elem[0]) +

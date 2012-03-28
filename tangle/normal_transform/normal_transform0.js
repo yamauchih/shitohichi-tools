@@ -82,8 +82,8 @@ window.addEvent('domready', function () {
         /// tangle update
         update: function () {
             // console.log("tangle updated")
-            this.p1.m_element[0] = this.p1x;
-            this.p1.m_element[1] = this.p1y;
+            this.p1.set(0, this.p1x);
+            this.p1.set(1, this.p1y);
             this.computeNormal(this.p0, this.p1, this.normalOrigin, this.normalDir);
 
             this.scaleMat. setScale2D(this.scale_x, this.scale_y);
@@ -162,17 +162,17 @@ window.addEvent('domready', function () {
             var isNormalExist = (nDir.euclidian_length() >= minimalNormalLength) ? true : false;
             if(isNormalExist){
                 // rotate90 = [0 -1; 1 0];
-                var vx = -nDir.m_element[1];
-                var vy =  nDir.m_element[0];
-                nDir.m_element[0] = vx;
-                nDir.m_element[1] = vy;
-                nDir.m_element[2] = 0.0;
+                var vx = -nDir.get(1);
+                var vy =  nDir.get(0);
+                nDir.set(0, vx);
+                nDir.set(1, vy);
+                nDir.set(2, 0.0);
                 nDir.normalize();
             }
             else{
-                nDir.m_element[0] =  0.0;
-                nDir.m_element[1] =  0.0;
-                nDir.m_element[2] = -1.0;
+                nDir.set(0,  0.0);
+                nDir.set(1,  0.0);
+                nDir.set(2, -1.0);
                 console.log("normal degenerated")
             }
         }
@@ -236,8 +236,8 @@ Tangle.classes.TKNormalTransformCanvas = {
         var p1 = new hyVector3([ 2, -2, 1]);
         this.vdat.p0v3 = p0.clone();
         this.vdat.p1v3 = p1.clone();
-        this.vdat.p0Info = { x:p0.m_element[0], y:p0.m_element[1], radius:8, label:'0' };
-        this.vdat.p1Info = { x:p1.m_element[0], y:p1.m_element[1], radius:8, label:'p' };
+        this.vdat.p0Info = { x:p0.get(0), y:p0.get(1), radius:8, label:'0' };
+        this.vdat.p1Info = { x:p1.get(0), y:p1.get(1), radius:8, label:'p' };
 
         //----------------------------------------------------------------------
         // mouse down point
@@ -256,10 +256,8 @@ Tangle.classes.TKNormalTransformCanvas = {
         // Setup dragging using BVTouchable
         new BVTouchable(element, {
             touchDidGoDown: function (touches) {
-                vdRef.pointer_start_v3.m_element[0] =
-                    touches.event.client.x - vdRef.canvas.offsetParent.offsetLeft;
-                vdRef.pointer_start_v3.m_element[1] =
-                    touches.event.client.y - vdRef.canvas.offsetParent.offsetTop;
+                vdRef.pointer_start_v3.set(0, touches.event.client.x - vdRef.canvas.offsetParent.offsetLeft);
+                vdRef.pointer_start_v3.set(1, touches.event.client.y - vdRef.canvas.offsetParent.offsetTop);
 
                 // Is any point near to the mouse down point?
                 var snap_rad_px = 6;
@@ -283,8 +281,8 @@ Tangle.classes.TKNormalTransformCanvas = {
                 // tangle.setValues(obj)
             },
             touchDidMove: function (touches) {
-                var pointer_x = vdRef.pointer_start_v3.m_element[0] + touches.translation.x;
-                var pointer_y = vdRef.pointer_start_v3.m_element[1] - touches.translation.y;
+                var pointer_x = vdRef.pointer_start_v3.get(0) + touches.translation.x;
+                var pointer_y = vdRef.pointer_start_v3.get(1) - touches.translation.y;
                 // console.log("BVTouchable: touchDidMove "  + pointer_x + ", " + pointer_y)
                 var obj = {}
                 obj['p1x'] = pointer_x;
@@ -293,8 +291,8 @@ Tangle.classes.TKNormalTransformCanvas = {
             },
             touchDidGoUp: function (touches) {
                 // console.log("BVTouchable: touchDidGoUp")
-                var pointer_x = vdRef.pointer_start_v3.m_element[0] + touches.translation.x;
-                var pointer_y = vdRef.pointer_start_v3.m_element[1] - touches.translation.y;
+                var pointer_x = vdRef.pointer_start_v3.get(0) + touches.translation.x;
+                var pointer_y = vdRef.pointer_start_v3.get(1) - touches.translation.y;
                 vdRef.isDragging = false;
                 var obj = {}
                 // tangle check the same value ... shift once and then adjust hack
@@ -348,10 +346,10 @@ Tangle.classes.TKNormalTransformCanvas = {
         this.drawPlane(ctx, this.vdat.p0v3, this.vdat.p1v3);
 
         // draw the handle point
-        this.vdat.p0Info.x = this.vdat.p0v3.m_element[0];
-        this.vdat.p0Info.y = this.vdat.p0v3.m_element[1];
-        this.vdat.p1Info.x = this.vdat.p1v3.m_element[0];
-        this.vdat.p1Info.y = this.vdat.p1v3.m_element[1];
+        this.vdat.p0Info.x = this.vdat.p0v3.get(0);
+        this.vdat.p0Info.y = this.vdat.p0v3.get(1);
+        this.vdat.p1Info.x = this.vdat.p1v3.get(0);
+        this.vdat.p1Info.y = this.vdat.p1v3.get(1);
         this.drawHanlePoint(ctx, this.vdat.p0Info);
         this.drawHanlePoint(ctx, this.vdat.p1Info);
 
@@ -378,7 +376,7 @@ Tangle.classes.TKNormalTransformCanvas = {
     /// point addition (homogeneous coordinates)
     pointAdd: function(p0v3, p1v3, pret){
         hyVector3.add(p0v3, p1v3, pret);
-        pret.m_element[2] = 1;
+        pret.set(2, 1);
     },
 
     /// draw the plane (a line, in this example)
@@ -390,8 +388,8 @@ Tangle.classes.TKNormalTransformCanvas = {
         ctx.lineWidth = 2;
         ctx.beginPath();
         ctx.strokeStyle = '#0f0f0f';
-        ctx.moveTo(p0.m_element[0], p0.m_element[1]);
-        ctx.lineTo(p1.m_element[0], p1.m_element[1]);
+        ctx.moveTo(p0.get(0), p0.get(1));
+        ctx.lineTo(p1.get(0), p1.get(1));
         ctx.stroke();
         ctx.closePath();
     },
@@ -430,7 +428,7 @@ Tangle.classes.TKNormalTransformCanvas = {
     /// \param[in] p1  line end   point in the screen coordinates
     /// \param[in] nnormalDir normal direction. degenerated when [0,0,-1].
     drawNormal: function(ctx, p0, p1, normalDir) {
-        if(normalDir.m_element[2] == -1){
+        if(normalDir.get(2) == -1){
             ctx.fillStyle = "#cc2222";
             ctx.fillText("Normal degenerated",
                          this.vdat.canvas.width  - 100,
@@ -440,8 +438,8 @@ Tangle.classes.TKNormalTransformCanvas = {
         ctx.lineWidth = 2;
         ctx.beginPath();
         ctx.strokeStyle = '#0f0f0f';
-        ctx.moveTo(p0.m_element[0], p0.m_element[1]);
-        ctx.lineTo(p1.m_element[0], p1.m_element[1]);
+        ctx.moveTo(p0.get(0), p0.get(1));
+        ctx.lineTo(p1.get(0), p1.get(1));
         ctx.stroke();
         ctx.closePath();
         // ctx.fillStyle = "#888888";
