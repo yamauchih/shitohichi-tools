@@ -28,16 +28,16 @@ else{
 /// \param[in] elem initial elements of length 3. Or may be undefined.
 function hyVector3(elem){
     if(elem == null){
-        this.m_element = [0, 0, 0];
+        this.m_elem = [0, 0, 0];
     }
     else if(elem.length != 3){
         throw new Error("invalid array length for hyVector3.");
     }
     else {
-        this.m_element = new Array(3);
-        this.m_element[0] = elem[0];
-        this.m_element[1] = elem[1];
-        this.m_element[2] = elem[2];
+        this.m_elem = new Array(3);
+        this.m_elem[0] = elem[0];
+        this.m_elem[1] = elem[1];
+        this.m_elem[2] = elem[2];
     }
 }
 
@@ -52,19 +52,19 @@ function hyVector3(elem){
 ///
 ///   hyVector3.clone     is class method (like a static method)
 hyVector3.prototype.clone = function(){
-    return new hyVector3([this.m_element[0], this.m_element[1], this.m_element[2]]);
+    return new hyVector3([this.m_elem[0], this.m_elem[1], this.m_elem[2]]);
 }
 
 /// get string representation of hyVector3
 hyVector3.prototype.toString = function(){
-    return this.m_element[0] + " "
-        + this.m_element[1] + " " + this.m_element[2];
+    return this.m_elem[0] + " "
+        + this.m_elem[1] + " " + this.m_elem[2];
 }
 
 /// squared length
 hyVector3.prototype.sqrLength = function(){
-    var sqrlen = (this.m_element[0] * this.m_element[0]) +
-        (this.m_element[1] * this.m_element[1]) + (this.m_element[2] * this.m_element[2]);
+    var sqrlen = (this.m_elem[0] * this.m_elem[0]) +
+        (this.m_elem[1] * this.m_elem[1]) + (this.m_elem[2] * this.m_elem[2]);
     return sqrlen;
 }
 
@@ -82,9 +82,9 @@ hyVector3.prototype.normalize = function(){
     }
     var len = Math.sqrt(sqrlen);
 
-    this.m_element[0] /= len;
-    this.m_element[1] /= len;
-    this.m_element[2] /= len;
+    this.m_elem[0] /= len;
+    this.m_elem[1] /= len;
+    this.m_elem[2] /= len;
 
     return this;
 }
@@ -99,13 +99,13 @@ hyVector3.add = function(v0, v1, vret){
     if(vret == null){
         vret = new hyVector3();
     }
-    hyVectorAssert(v0.m_element.length == 3,   "hyVector3.add: should be v0.m_element.length == 3");
-    hyVectorAssert(v1.m_element.length == 3,   "hyVector3.add: should be v1.m_element.length == 3");
-    hyVectorAssert(vret.m_element.length == 3, "hyVector3.add: should be vret.m_element.length == 3");
+    hyVectorAssert(v0.m_elem.length == 3,   "hyVector3.add: should be v0.m_elem.length == 3");
+    hyVectorAssert(v1.m_elem.length == 3,   "hyVector3.add: should be v1.m_elem.length == 3");
+    hyVectorAssert(vret.m_elem.length == 3, "hyVector3.add: should be vret.m_elem.length == 3");
 
-    vret.m_element[0] = v0.m_element[0] + v1.m_element[0];
-    vret.m_element[1] = v0.m_element[1] + v1.m_element[1];
-    vret.m_element[2] = v0.m_element[2] + v1.m_element[2];
+    vret.m_elem[0] = v0.m_elem[0] + v1.m_elem[0];
+    vret.m_elem[1] = v0.m_elem[1] + v1.m_elem[1];
+    vret.m_elem[2] = v0.m_elem[2] + v1.m_elem[2];
 
     return vret;
 }
@@ -115,13 +115,13 @@ hyVector3.subtract = function (v0, v1, vret){
     if(vret == null){
         vret = new hyVector3();
     }
-    hyVectorAssert(v0.m_element.length == 3,   "hyVector3.subtract: should be v0.m_element.length == 3");
-    hyVectorAssert(v1.m_element.length == 3,   "hyVector3.subtract: should be v1.m_element.length == 3");
-    hyVectorAssert(vret.m_element.length == 3, "hyVector3.subtract: should be vret.m_element.length == 3");
+    hyVectorAssert(v0.m_elem.length == 3,   "hyVector3.subtract: should be v0.m_elem.length == 3");
+    hyVectorAssert(v1.m_elem.length == 3,   "hyVector3.subtract: should be v1.m_elem.length == 3");
+    hyVectorAssert(vret.m_elem.length == 3, "hyVector3.subtract: should be vret.m_elem.length == 3");
 
-    vret.m_element[0] = v0.m_element[0] - v1.m_element[0];
-    vret.m_element[1] = v0.m_element[1] - v1.m_element[1];
-    vret.m_element[2] = v0.m_element[2] - v1.m_element[2];
+    vret.m_elem[0] = v0.m_elem[0] - v1.m_elem[0];
+    vret.m_elem[1] = v0.m_elem[1] - v1.m_elem[1];
+    vret.m_elem[2] = v0.m_elem[2] - v1.m_elem[2];
 
     return vret;
 }
@@ -131,11 +131,11 @@ hyVector3.scalarMult = function hyVector3_scalarMult(s0, v0, vret){
     if(vret == null){
         vret = new hyVector3();
     }
-    hyVectorAssert(v0.m_element.length == 3,   "hyVector3.scalarMult: should be v0.m_element.length == 3");
+    hyVectorAssert(v0.m_elem.length == 3,   "hyVector3.scalarMult: should be v0.m_elem.length == 3");
 
-    vret.m_element[0] = s0 * v0.m_element[0];
-    vret.m_element[1] = s0 * v0.m_element[1];
-    vret.m_element[2] = s0 * v0.m_element[2];
+    vret.m_elem[0] = s0 * v0.m_elem[0];
+    vret.m_elem[1] = s0 * v0.m_elem[1];
+    vret.m_elem[2] = s0 * v0.m_elem[2];
 
     return vret;
 }
@@ -146,9 +146,9 @@ hyVector3.hypot = function (v0, v1, vtmp){
     if(vtmp == null){
         vtmp = new hyVector3();
     }
-    hyVectorAssert(v0.m_element.length == 3,   "hyVector3.hypot: should be v0.m_element.length == 3");
-    hyVectorAssert(v1.m_element.length == 3,   "hyVector3.hypot: should be v1.m_element.length == 3");
-    hyVectorAssert(vtmp.m_element.length == 3, "hyVector3.hypot: should be vtmp.m_element.length == 3");
+    hyVectorAssert(v0.m_elem.length == 3,   "hyVector3.hypot: should be v0.m_elem.length == 3");
+    hyVectorAssert(v1.m_elem.length == 3,   "hyVector3.hypot: should be v1.m_elem.length == 3");
+    hyVectorAssert(vtmp.m_elem.length == 3, "hyVector3.hypot: should be vtmp.m_elem.length == 3");
 
     hyVector3.subtract(v1, v0, vtmp);
     var dist = vtmp.euclidian_length();
@@ -158,15 +158,20 @@ hyVector3.hypot = function (v0, v1, vtmp){
 
 /// comparison method. true when all the elements are the same.
 hyVector3.equal = function hyVector3_equal(v0, v1){
-    hyVectorAssert(v0.m_element.length == 3,   "hyVector3.add: should be v0.m_element.length == 3");
-    hyVectorAssert(v1.m_element.length == 3,   "hyVector3.add: should be v1.m_element.length == 3");
+    hyVectorAssert(v0.m_elem.length == 3,   "hyVector3.add: should be v0.m_elem.length == 3");
+    hyVectorAssert(v1.m_elem.length == 3,   "hyVector3.add: should be v1.m_elem.length == 3");
 
-    if((v0.m_element[0] == v1.m_element[0]) &&
-       (v0.m_element[1] == v1.m_element[1]) &&
-       (v0.m_element[2] == v1.m_element[2])){
+    if((v0.m_elem[0] == v1.m_elem[0]) &&
+       (v0.m_elem[1] == v1.m_elem[1]) &&
+       (v0.m_elem[2] == v1.m_elem[2]))
+    {
         return true;
     }
     return false;
 }
 
+//----------------------------------------------------------------------
+// class property
+//----------------------------------------------------------------------
 
+hyVector3.name = "hyVector3";

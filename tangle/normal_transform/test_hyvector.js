@@ -41,6 +41,20 @@ test_hymatrix = function()
     print("setZero.\n" + a);
     a.setEye();
     print("setEye.\n" + a);
+
+    b = new hyMatrix33([[0.28069, 0.85918, 0.16456],
+                        [0.14836, 0.26829, 0.95889],
+                        [0.60733, 0.68177, 0.70212]]);
+    print("b.det() = " + b.det() + "\n");
+    c = new hyMatrix33();
+    b.inv(c);
+    print("b:\n" + b);
+    print("expected c:\n-1.72320  -1.81831   2.88714\n" +
+          "1.77067   0.35967  -0.90620\n-0.22880   1.22358  -0.19317\n");
+    print("c:\n" + c);
+    d = new hyMatrix33();
+    hyMatrix33.multiply(b, c, d);
+    print("d:\n" + d);
 }
 
 test_hymatrix();
