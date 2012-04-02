@@ -215,6 +215,9 @@ hyMatrix33.multiply = function(m0, m1, m2){
     if(m2 == null){
         m2 = new hyMatrix33();
     }
+    if(m1 == m2){
+        throw new Error("Can not override m2 since it is the same object with m1. (m2 will be zero.)");
+    }
     m2.setZero();
 
     for(var i = 0; i < 3; i++){

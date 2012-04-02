@@ -17,7 +17,8 @@
 ** DONE add matrix/vector labels
 ** DONE connect to matrix
 ** DONE implement matrix inverse and its test.
-** TODO control point movement on canvas
+** DONE control point movement on canvas
+** TODO add reset
 ** TODO draw the translated normal
 ** TODO draw the correct normal
 ** TODO draw an arrow
