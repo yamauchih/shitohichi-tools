@@ -264,7 +264,10 @@ Tangle.classes.TKNormalTransformCanvas = {
         // background image
         this.vdat.coordinateBg = new Image();
         this.vdat.coordinateBg.onload = function(){
-            vdRef.ctx.drawImage(vdRef.coordinateBg, 0, 0);
+            // trigger update() and redraw canvas (are there better way than this hack?)
+            var p0x = vdRef.tangle.getValue("p0x");
+            vdRef.tangle.setValue("p0x", p0x + 0.0001);
+            vdRef.tangle.setValue("p0x", p0x);
         };
         this.vdat.coordinateBg.src  = 'Image/coordinate_system.png';
 
