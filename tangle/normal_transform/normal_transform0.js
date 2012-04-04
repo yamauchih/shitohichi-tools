@@ -19,13 +19,13 @@ window.addEvent('domready', function () {
         /// initialize tangle
         initialize: function () {
 
-            this.px = 0         //FIXME: the slide depends on this variable
+            this.px = 0;   //FIXME: the slide depends on this variable
 
             // point 0 and 1's interface. We need to update this.p0 according to this value.
-            this.p0x = 0
-            this.p0y = 0
-            this.p1x = 2
-            this.p1y = 2
+            this.p0x = 0;
+            this.p0y = 0;
+            this.p1x = 2;
+            this.p1y = 2;
 
             // points 0 (homogenious coordinates)
             this.p0 = new hyVector3([ this.p0x, this.p0y, 1]);
@@ -521,8 +521,7 @@ Tangle.classes.TKNormalTransformCanvas = {
         ctx.closePath();
         // ctx.fillStyle = "#888888";
         // ctx.fillText("normal", p0.m_element[0] + 4, p0.m_element[1] + 4);
-    },
-
+    }
 };                              // TKNormalTransformCanvas
 
 })();

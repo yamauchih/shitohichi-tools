@@ -1,6 +1,5 @@
 * TODO Tangle
 
-
 * Tangle tutorial
 ** Example 06 extract how to use the slider ... This is difficult.
 ** DONE Example 06 draw background bar of the slider.
@@ -18,8 +17,12 @@
 ** DONE connect to matrix
 ** DONE implement matrix inverse and its test.
 ** DONE control point movement on canvas
+** TODO add traslation matrix viewer
+** TODO add rotation matrix viewer
+** TODO add scaling matrix viewer
 ** TODO add reset
 ** TODO draw the translated normal
+** TODO handle singular matrix case
 ** TODO draw the correct normal
 ** TODO draw an arrow
 ** TODO rotation interface
