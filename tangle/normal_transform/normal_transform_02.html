@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Examine normal transformation</title>
+
+    <!-- Basic style -->
+    <link rel="stylesheet" href="style.css" type="text/css">
+
+    <!-- Tangle -->
+    <script type="text/javascript" src="../Tangle/Tangle.js"></script>
+
+    <!-- TangleKit -->
+    <link rel="stylesheet" href="../Tangle/TangleKit/TangleKit.css" type="text/css">
+    <script type="text/javascript" src="../Tangle/TangleKit/mootools.js"></script>
+    <script type="text/javascript" src="../Tangle/TangleKit/sprintf.js"></script>
+    <script type="text/javascript" src="../Tangle/TangleKit/BVTouchable.js"></script>
+    <script type="text/javascript" src="../Tangle/TangleKit/TangleKit.js"></script>
+
+    <!-- TangleKit HY Extension -->
+    <script type="text/javascript" src="../Tangle/TangleKit/TangleKitHYExt.js"></script>
+
+    <link rel="stylesheet" href="normal_transform_02_style.css" type="text/css">
+
+    <!-- normal transformation -->
+    <script type="text/javascript" src="./hyvector.js"></script>
+    <script type="text/javascript" src="./hymatrix.js"></script>
+    <script type="text/javascript" src="./normal_transform_02.js"></script>
+  </head>
+  <body>
+    <h1>Tangle: experience</h1>
+
+    <h2>Why doesn't transformation work on normal vectors? Version 0.2</h2>
+
+    <div id="NormalTransformPage">
+
+      <div id="normal_transform_section">
+        <!-- Inside this, the elements can be tangled. -->
+        <div class="NormalTransformCanvasArea" id="normal_transform_canvas_area">
+
+          <!-- ----------------------------------------------------------------------  -->
+          <!-- main canvas -->
+          <canvas class="TKNormalTransformCanvas"
+                  data-var="scale_x scale_y rotate_theta_deg p0x p0y p1x p1y translation_x translation_y"
+                  width="300" height="300">
+            Main canvas: This browser doesn't support a canvas.
+          </canvas>
+
+        </div> <!-- NormalTransformCanvasArea -->
+      </div>   <!-- normal_transform_section -->
+    </div>   <!-- NormalTransformPage -->
+  </body>
+</html>
+
+
