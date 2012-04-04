@@ -17,6 +17,7 @@
 ** DONE connect to matrix
 ** DONE implement matrix inverse and its test.
 ** DONE control point movement on canvas
+** TODO add ex11 toggle on/off for normal on/off see http://worrydream.com/Tangle/pants.html
 ** TODO add traslation matrix viewer
 ** TODO add rotation matrix viewer
 ** TODO add scaling matrix viewer
