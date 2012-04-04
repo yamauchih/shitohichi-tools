@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Example 10</title>
+
+<!-- basic style -->
+<link rel="stylesheet" href="style.css" type="text/css">
+
+<!-- Tangle -->
+<script type="text/javascript" src="../Tangle/Tangle.js"></script>
+
+<!-- TangleKit (optional) -->
+<link rel="stylesheet" href="../Tangle/TangleKit/TangleKit.css" type="text/css">
+<script type="text/javascript" src="../Tangle/TangleKit/mootools.js"></script>
+<script type="text/javascript" src="../Tangle/TangleKit/sprintf.js"></script>
+<script type="text/javascript" src="../Tangle/TangleKit/BVTouchable.js"></script>
+<script type="text/javascript" src="../Tangle/TangleKit/TangleKit.js"></script>
+
+<!-- example -->
+<script type="text/javascript">
+function setUpTangle () {
+    var element = document.getElementById("example");
+
+    var tangle = new Tangle(element, {
+        initialize: function () {
+            this.bool_value = 0;
+            this.message = "";
+        },
+        update: function () {
+            if(this.bool_value == 0){
+                this.message = "off";
+            }
+            else if(this.bool_value == 1){
+                this.message = "on.";
+            }
+            else{
+                this.message = "<font color=\"red\"><strong>???</strong></font>.";
+            }
+        }
+    });
+}
+</script>
+</head>
+
+<body onload="setUpTangle();">
+
+<h1>Tangle: Example 10.</h1>
+
+<h2>Dynamic Text: Toggle text</h2>
+
+<p id="example">
+This is on/off example, but if I use TKToggle, the 0/1 is created in the span.
+<span data-var="bool_value" class="TKToggle"></span><br>
+<span data-var="message"></span>
+</p>
+
+
+</body>
+</html>
