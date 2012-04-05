@@ -12,10 +12,12 @@
 
     <!-- TangleKit -->
     <link rel="stylesheet" href="../Tangle/TangleKit/TangleKit.css" type="text/css">
+    <link rel="stylesheet" href="../Tangle/TangleKit/TangleKitBVExt.css" type="text/css">
     <script type="text/javascript" src="../Tangle/TangleKit/mootools.js"></script>
     <script type="text/javascript" src="../Tangle/TangleKit/sprintf.js"></script>
     <script type="text/javascript" src="../Tangle/TangleKit/BVTouchable.js"></script>
     <script type="text/javascript" src="../Tangle/TangleKit/TangleKit.js"></script>
+    <script type="text/javascript" src="../Tangle/TangleKit/TangleKitBVExt.js"></script>
 
     <!-- TangleKit HY Extension -->
     <script type="text/javascript" src="../Tangle/TangleKit/TangleKitHYExt.js"></script>
@@ -41,12 +43,13 @@
           <!-- ----------------------------------------------------------------------  -->
           <!-- main canvas -->
           <canvas class="TKNormalTransformCanvas"
-                  data-var="scale_x scale_y rotate_theta_deg p0x p0y p1x p1y translation_x translation_y"
+                  data-var="scale_x scale_y rotate_theta_deg p0x p0y p1x p1y translation_x translation_y normalOnOffState"
                   width="300" height="300">
             Main canvas: This browser doesn't support a canvas.
           </canvas>
 
         </div> <!-- NormalTransformCanvasArea -->
+        Show normal: <span class="TkExpandingList" data-var="normalOnOffState" data-items="On/Off"></span>
       </div>   <!-- normal_transform_section -->
     </div>   <!-- NormalTransformPage -->
   </body>

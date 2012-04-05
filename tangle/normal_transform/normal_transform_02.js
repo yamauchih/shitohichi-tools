@@ -50,6 +50,7 @@ window.addEvent('domready', function () {
             this.normalOrigin = new hyVector3();
             this.normalDir    = new hyVector3();
             this.computeNormal(this.p0, this.p1, this.normalOrigin, this.normalDir);
+            this.normalOnOffState = "Off";
 
             // matrix component (non homogeneous)
             //  [scale_x 0; 0 scale_y]
@@ -444,24 +445,26 @@ Tangle.classes.TKNormalTransformCanvas = {
         this.drawHanlePoint(ctx, this.vdat.p0Info);
         this.drawHanlePoint(ctx, this.vdat.p1Info);
 
-        // draw the translated normal (show the wrong case)
-        var nOrg = this.vdat.tangle.getValue("normalOrigin");
-        var nDir = this.vdat.tangle.getValue("normalDir");
-        var nEnd = new hyVector3(); // FIXME: new every time
-        this.pointAdd(nOrg, nDir, nEnd);
-        var nOrgScr = this.vdat.modelToScreenMat.transformPoint(nOrg);
-        var nEndScr = this.vdat.modelToScreenMat.transformPoint(nEnd);
-        this.drawNormal(ctx, nOrgScr, nEndScr, nDir);
+        // show normal if it is on
+        if(this.vdat.tangle.getValue("normalOnOffState") == "On"){
+            // draw the translated normal (show the wrong case)
+            var nOrg = this.vdat.tangle.getValue("normalOrigin");
+            var nDir = this.vdat.tangle.getValue("normalDir");
+            var nEnd = new hyVector3(); // FIXME: new every time
+            this.pointAdd(nOrg, nDir, nEnd);
+            var nOrgScr = this.vdat.modelToScreenMat.transformPoint(nOrg);
+            var nEndScr = this.vdat.modelToScreenMat.transformPoint(nEnd);
+            this.drawNormal(ctx, nOrgScr, nEndScr, nDir);
 
-        // draw the correct normal
-        var nOrg = this.vdat.tangle.getValue("normalOrigin");
-        var nDir = this.vdat.tangle.getValue("normalDir");
-        var nEnd = new hyVector3(); // FIXME: new every time
-        this.pointAdd(nOrg, nDir, nEnd);
-        var nOrgScr = this.vdat.modelToScreenMat.transformPoint(nOrg);
-        var nEndScr = this.vdat.modelToScreenMat.transformPoint(nEnd);
-        this.drawNormal(ctx, nOrgScr, nEndScr, nDir);
-
+            // draw the correct normal
+            var nOrg = this.vdat.tangle.getValue("normalOrigin");
+            var nDir = this.vdat.tangle.getValue("normalDir");
+            var nEnd = new hyVector3(); // FIXME: new every time
+            this.pointAdd(nOrg, nDir, nEnd);
+            var nOrgScr = this.vdat.modelToScreenMat.transformPoint(nOrg);
+            var nEndScr = this.vdat.modelToScreenMat.transformPoint(nEnd);
+            this.drawNormal(ctx, nOrgScr, nEndScr, nDir);
+        }
     },
 
     /// point addition (homogeneous coordinates)
