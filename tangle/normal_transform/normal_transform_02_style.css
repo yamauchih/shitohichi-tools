@@ -22,6 +22,12 @@ body {
     /* height:15; */
 }
 
+.TranslationCanvasArea {
+    position:relative;
+    width:250px;
+    /* height:15; */
+}
+
 
 /* scale matrix
 .scaleMatrix {

@@ -45,11 +45,24 @@
           <canvas class="TKNormalTransformCanvas"
                   data-var="scale_x scale_y rotate_theta_deg p0x p0y p1x p1y translation_x translation_y normalOnOffState"
                   width="300" height="300">
-            Main canvas: This browser doesn't support a canvas.
+            main canvas: This browser doesn't support a canvas.
           </canvas>
-
+          Show normal: <span class="TkExpandingList" data-var="normalOnOffState" data-items="On/Off"></span>
         </div> <!-- NormalTransformCanvasArea -->
-        Show normal: <span class="TkExpandingList" data-var="normalOnOffState" data-items="On/Off"></span>
+
+        <!-- ----------------------------------------------------------------------  -->
+
+        <div class="TranslationCanvasArea" id="translation_canvas_area">
+          <!-- translation canvas -->
+          <canvas class="TKMatrixTransformCanvas"
+                  data-var="translation_x translation_y normalOnOffState"
+                  width="150" height="150">
+            translation canvas: This browser doesn't support a canvas.
+          </canvas>
+        </div>
+
+        <!-- ----------------------------------------------------------------------  -->
+
       </div>   <!-- normal_transform_section -->
     </div>   <!-- NormalTransformPage -->
   </body>
