@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Example 11</title>
+
+<!-- basic style -->
+<link rel="stylesheet" href="style.css" type="text/css">
+
+<!-- Tangle -->
+<script type="text/javascript" src="../Tangle/Tangle.js"></script>
+
+<!-- TangleKit (optional) -->
+<link rel="stylesheet" href="../Tangle/TangleKit/TangleKit.css" type="text/css">
+<link rel="stylesheet" href="../Tangle/TangleKit/TangleKitBVExt.css" type="text/css">
+<script type="text/javascript" src="../Tangle/TangleKit/mootools.js"></script>
+<script type="text/javascript" src="../Tangle/TangleKit/sprintf.js"></script>
+<script type="text/javascript" src="../Tangle/TangleKit/BVTouchable.js"></script>
+<script type="text/javascript" src="../Tangle/TangleKit/TangleKit.js"></script>
+<script type="text/javascript" src="../Tangle/TangleKit/TangleKitBVExt.js"></script>
+
+<!-- example -->
+<script type="text/javascript">
+function setUpTangle () {
+    var element = document.getElementById("example");
+
+    var tangle = new Tangle(element, {
+        initialize: function () {
+            this.onOffState = "Off";
+            this.message    = "";
+        },
+        update: function () {
+            this.message = this.messageList[this.onOffState];
+        },
+        messageList: {
+            Off:"It's off.",
+            On:"You set it on."
+        }
+    });
+}
+</script>
+</head>
+
+<body onload="setUpTangle();">
+
+<h1>Tangle: Example 11.</h1>
+
+<h2>Dynamic Text: on/off text by TkExpandingList</h2>
+
+<p id="example">
+  Normal
+  <span class="TkExpandingList" data-var="onOffState" data-items="On/Off"></span>.<br>
+  Message: <span data-var="message"></span>
+</p>
+
+</body>
+</html>
