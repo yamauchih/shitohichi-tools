@@ -211,6 +211,11 @@ hyMatrix33.prototype.inv = function(invmat){
 
 /// matrix multiplication
 ///
+/// m2 = m0 * m1;
+/// \param[in]  m0 m0
+/// \param[in]  m1 m1
+/// \param[out] m2 m2 if null, new a new matrix
+/// \return m2
 hyMatrix33.multiply = function(m0, m1, m2){
     if(m2 == null){
         m2 = new hyMatrix33();

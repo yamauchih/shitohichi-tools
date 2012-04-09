@@ -22,6 +22,7 @@
 ** DONE control point movement on canvas
 ** DONE add normal on/off
 ** TODO add traslation matrix viewer
+*** TODO canvas drag control
 ** TODO add rotation matrix viewer
 ** TODO add scaling matrix viewer
 ** TODO add reset

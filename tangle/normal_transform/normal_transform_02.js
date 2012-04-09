@@ -201,7 +201,32 @@ window.addEvent('domready', function () {
     tangle.setValue("p1x", 2);
 });
 
+/// get view (normalized coorsinate) to screen coodinate
+///
+/// \param[in]  canvas 2d canvas
+/// \return view to screen matrix of the canvas
+function getNewViewToScreenMatrix(canvas){
 
+    var sx =  canvas.width  / 8.0;
+    var sy = -canvas.height / 8.0; // the screen coordinate is upside down.
+    var scalemat = new hyMatrix33();
+    scalemat.setEye();
+    scalemat.setScale2D(sx, sy);
+    // console.log("scalemat: " + scalemat);
+
+    var tx = canvas.width  / 2.0;
+    var ty = canvas.height / 2.0;
+    var transmat = new hyMatrix33();
+    transmat.setEye();
+    transmat.setTranslation2D(tx, ty);
+    // console.log("transformmat: " + transmat);
+
+    // set view to screen matrix
+    viewToScreenMat = new hyMatrix33();
+    hyMatrix33.multiply(transmat, scalemat, viewToScreenMat);
+
+    return viewToScreenMat;
+}
 
 //----------------------------------------------------------
 //  TKNormalTransformCanvas. control and view.
@@ -227,36 +252,20 @@ Tangle.classes.TKNormalTransformCanvas = {
         //     console.log("TKNormalTransformCanvas mouse leave event. " + tangle.getValue("px"));
         // });
 
-        //----------------------------------------------------------------------
-        // model to view matrix
-        var sx =  this.vdat.canvas.width  / 8.0;
-        var sy = -this.vdat.canvas.height / 8.0; // the screen coordinate is upside down.
-        var scalemat = new hyMatrix33();
-        scalemat.setEye();
-        scalemat.setScale2D(sx, sy);
-        // console.log("scalemat: " + scalemat);
+        // matrix: view (normalized) coordinate -> screen coordinate
+        this.vdat.viewToScreenMat = getNewViewToScreenMatrix(this.vdat.canvas);
 
-        var tx = this.vdat.canvas.width  / 2.0;
-        var ty = this.vdat.canvas.height / 2.0;
-        var transmat = new hyMatrix33();
-        transmat.setEye();
-        transmat.setTranslation2D(tx, ty);
-        // console.log("transformmat: " + transmat);
-
-        // model to view
-        this.vdat.modelToViewMat = new hyMatrix33();
-        hyMatrix33.multiply(transmat, scalemat, this.vdat.modelToViewMat);
-        // model to screen
+        // model to screen matrix
         this.vdat.modelToScreenMat = new hyMatrix33();
         this.vdat.modelToScreenMat.setEye(); // model x view x manipuration matrix
         var tmpmat = new hyMatrix33;
         tmpmat.setEye();
-        hyMatrix33.multiply(this.vdat.modelToViewMat, tmpmat, this.vdat.modelToScreenMat);
+        hyMatrix33.multiply(this.vdat.viewToScreenMat, tmpmat, this.vdat.modelToScreenMat);
         // screen to model
         this.vdat.screenToModelMat = new hyMatrix33();
         this.vdat.isScreenToModelMatOK = true;
         this.updateScreenToModelMatrix();
-        // console.log("modelToViewMat: " + this.vdat.modelToViewMat);
+        // console.log("modelToViewMat: " + this.vdat.viewToScreenMat);
         // var p0 = this.vdat.tangle.getValue("p0");
         // var p1 = this.vdat.tangle.getValue("p1");
         var p0 = new hyVector3([ 0, 0, 1]);
@@ -426,7 +435,7 @@ Tangle.classes.TKNormalTransformCanvas = {
         //   The canvas size is [-4,4]x[-4,4].
 
         var manipmat = this.vdat.tangle.getValue("manipMat");
-        hyMatrix33.multiply(this.vdat.modelToViewMat, manipmat, this.vdat.modelToScreenMat);
+        hyMatrix33.multiply(this.vdat.viewToScreenMat, manipmat, this.vdat.modelToScreenMat);
         this.updateScreenToModelMatrix();
 
         this.vdat.p0v3ScrPos = this.vdat.modelToScreenMat.transformPoint(p0);
@@ -564,8 +573,12 @@ Tangle.classes.TKNormalTransformCanvas = {
 
 
 //----------------------------------------------------------
-//  TKMatrixTransformCanvas. control and view.
-//    2D transformed basis visializer
+///  TKMatrixTransformCanvas. control and view.
+///    2D transformed basis visializer
+///
+///  options:
+///    matrixtype: { "scaleMat", "rotateMat", "transMat" }
+///
 Tangle.classes.TKMatrixTransformCanvas = {
 
     /// initialize view
@@ -578,36 +591,32 @@ Tangle.classes.TKMatrixTransformCanvas = {
         this.vdat.canvas     = element;
         this.vdat.ctx        = this.vdat.canvas.getContext("2d");
         this.vdat.isDragging = false;
+        this.vdat.matrixType = options.matrixtype ? options.matrixtype : 'transMat';
 
-        //----------------------------------------------------------------------
-        // model to view matrix
-        var sx =  this.vdat.canvas.width  / 8.0;
-        var sy = -this.vdat.canvas.height / 8.0; // the screen coordinate is upside down.
-        var scalemat = new hyMatrix33();
-        scalemat.setEye();
-        scalemat.setScale2D(sx, sy);
-        // console.log("scalemat: " + scalemat);
+        // model -> screen = (model -> view) * (view -> screen)
 
-        var tx = this.vdat.canvas.width  / 2.0;
-        var ty = this.vdat.canvas.height / 2.0;
-        var transmat = new hyMatrix33();
-        transmat.setEye();
-        transmat.setTranslation2D(tx, ty);
-        // console.log("transformmat: " + transmat);
+        // matrix: view (normalized) coordinate -> screen coordinate
+        this.vdat.viewToScreenMat = getNewViewToScreenMatrix(this.vdat.canvas);
 
-        // model to view
-        this.vdat.modelToViewMat = new hyMatrix33();
-        hyMatrix33.multiply(transmat, scalemat, this.vdat.modelToViewMat);
         // model to screen
         this.vdat.modelToScreenMat = new hyMatrix33();
         this.vdat.modelToScreenMat.setEye(); // model x view x manipuration matrix
         var tmpmat = new hyMatrix33;
         tmpmat.setEye();
-        hyMatrix33.multiply(this.vdat.modelToViewMat, tmpmat, this.vdat.modelToScreenMat);
+        hyMatrix33.multiply(this.vdat.viewToScreenMat, tmpmat, this.vdat.modelToScreenMat);
         // screen to model
         this.vdat.screenToModelMat = new hyMatrix33();
         this.vdat.isScreenToModelMatOK = true;
         this.updateScreenToModelMatrix();
+
+        // Axis points model
+        this.vdat.axisModel = {
+            'O': new hyVector3([0,0,1]), 'X': new hyVector3([1,0,1]), 'Y': new hyVector3([0,1,1])
+        };
+        // Axis points screen point
+        this.vdat.axisScrPos = {
+            'O': new hyVector3([0,0,1]), 'X': new hyVector3([1,0,1]), 'Y': new hyVector3([0,1,1])
+        };
 
         //----------------------------------------------------------------------
         // mouse down point
@@ -735,10 +744,6 @@ Tangle.classes.TKMatrixTransformCanvas = {
     /// update the view
     update: function (el, scale_x) {
         //  console.log("canvas update: ");
-
-        // this.getNormalInScreenCoords();
-        // this.updateNormalWithTranslation();
-
         this.drawCanvas(el);
     },                      // update function
 
@@ -754,135 +759,54 @@ Tangle.classes.TKMatrixTransformCanvas = {
         ctx.fillRect(0, 0, canvasWidth, canvasHeight);
         ctx.drawImage(this.vdat.coordinateBg,  0, 0);
 
-        var p0 = this.vdat.tangle.getValue("p0");
-        var p1 = this.vdat.tangle.getValue("p1");
-
-
-        // model to view.
-        //   The canvas center is (0,0).
-        //   The canvas size is [-4,4]x[-4,4].
-
-        var manipmat = this.vdat.tangle.getValue("manipMat");
-        hyMatrix33.multiply(this.vdat.modelToViewMat, manipmat, this.vdat.modelToScreenMat);
+        // which matrix effect to be shown?
+        var manipmat = this.vdat.tangle.getValue(this.vdat.matrixType);
+        console.log("manipmat = " + this.vdat.matrixType + ", M:\n" + manipmat)
+        hyMatrix33.multiply(this.vdat.viewToScreenMat, manipmat, this.vdat.modelToScreenMat);
+        console.log("model to screen\n" + this.vdat.modelToScreenMat);
         this.updateScreenToModelMatrix();
 
-        this.vdat.p0v3ScrPos = this.vdat.modelToScreenMat.transformPoint(p0);
-        this.vdat.p1v3ScrPos = this.vdat.modelToScreenMat.transformPoint(p1);
+        for(i in this.vdat.axisModel){
+            this.vdat.modelToScreenMat.transformPoint(this.vdat.axisModel[i], this.vdat.axisScrPos[i]);
+        }
 
         // console.log("update: " + this.vdat.p0v3 + "\n" + this.vdat.p1v3);
 
-        // draw the plane
-        this.drawPlane(ctx, this.vdat.p0v3ScrPos, this.vdat.p1v3ScrPos);
-
-        // draw the handle point
-        this.vdat.p0Info.x = this.vdat.p0v3ScrPos.get(0);
-        this.vdat.p0Info.y = this.vdat.p0v3ScrPos.get(1);
-        this.vdat.p1Info.x = this.vdat.p1v3ScrPos.get(0);
-        this.vdat.p1Info.y = this.vdat.p1v3ScrPos.get(1);
-        this.drawHanlePoint(ctx, this.vdat.p0Info);
-        this.drawHanlePoint(ctx, this.vdat.p1Info);
-
-        // show normal if it is on
-        if(this.vdat.tangle.getValue("normalOnOffState") == "On"){
-            // draw the translated normal (show the wrong case)
-            var nOrg = this.vdat.tangle.getValue("normalOrigin");
-            var nDir = this.vdat.tangle.getValue("normalDir");
-            var nEnd = new hyVector3(); // FIXME: new every time
-            this.pointAdd(nOrg, nDir, nEnd);
-            var nOrgScr = this.vdat.modelToScreenMat.transformPoint(nOrg);
-            var nEndScr = this.vdat.modelToScreenMat.transformPoint(nEnd);
-            this.drawNormal(ctx, nOrgScr, nEndScr, nDir);
-
-            // draw the correct normal
-            var nOrg = this.vdat.tangle.getValue("normalOrigin");
-            var nDir = this.vdat.tangle.getValue("normalDir");
-            var nEnd = new hyVector3(); // FIXME: new every time
-            this.pointAdd(nOrg, nDir, nEnd);
-            var nOrgScr = this.vdat.modelToScreenMat.transformPoint(nOrg);
-            var nEndScr = this.vdat.modelToScreenMat.transformPoint(nEnd);
-            this.drawNormal(ctx, nOrgScr, nEndScr, nDir);
-        }
+        // draw the axis on the screen
+        this.drawAxis(ctx, this.vdat.axisScrPos)
     },
 
     /// point addition (homogeneous coordinates)
-    pointAdd: function(p0v3, p1v3, pret){
-        hyVector3.add(p0v3, p1v3, pret);
-        pret.set(2, 1);
-    },
+    // pointAdd: function(p0v3, p1v3, pret){
+    //     hyVector3.add(p0v3, p1v3, pret);
+    //     pret.set(2, 1);
+    // },
 
     /// draw the plane (a line, in this example)
     ///
     /// \param[in] ctx context of the 2d canvas
-    /// \param[in] p0  line start point (3 length float array, homogenious coordinates)
-    /// \param[in] p1  line end point   (3 length float array, homogenious coordinates)
-    drawPlane: function(ctx, p0, p1) {
+    /// \param[in] axisScrPos axis screen position (length 3 array)
+    drawAxis: function(ctx, axisScrPos) {
         ctx.lineWidth = 2;
         ctx.beginPath();
-        ctx.strokeStyle = '#0f0f0f';
-        ctx.moveTo(p0.get(0), p0.get(1));
-        ctx.lineTo(p1.get(0), p1.get(1));
+        var opos = axisScrPos['O'];
+        var xpos = axisScrPos['X'];
+        var ypos = axisScrPos['Y'];
+
+        // x axis
+        ctx.strokeStyle = '#f00';
+        ctx.moveTo(opos.get(0), opos.get(1));
+        ctx.lineTo(xpos.get(0), xpos.get(1));
         ctx.stroke();
         ctx.closePath();
-    },
 
-    /// draw the handle point (a point with a label and some size)
-    ///
-    /// \param[in] ctx context of the 2d canvas
-    /// \param[in] pointInfo handle point information
-    /// pointInfo = {
-    ///   x: handle point center x coordinate,
-    ///   y: handle point center y coordinate,
-    ///   radius: handle point radius,
-    ///   label:  handle point label (assumes one charactor)
-    /// };
-    drawHanlePoint: function(ctx, pointInfo) {
-        ctx.fillStyle = "#ff0000";
+        // y axis
         ctx.beginPath();
-        ctx.arc(pointInfo.x, pointInfo.y, pointInfo.radius, 0, Math.PI*2, true);
-        ctx.closePath();
-        ctx.fill();
-        ctx.fillStyle = "#FFFFFF";
-        ctx.fillText(pointInfo.label, pointInfo.x - 3, pointInfo.y + 4);
-        var posstr;
-        if(this.vdat.isDragging && (this.vdat.isDraggingPoint == pointInfo.label)){
-            ctx.fillStyle = "#444444";
-            if(pointInfo.label == '0'){
-                posstr = sprintf("[%.1f:%.1f]", this.vdat.p0v3.get(0), this.vdat.p0v3.get(1));
-                ctx.fillText(posstr, pointInfo.x + pointInfo.radius + 2, pointInfo.y + pointInfo.radius + 2);
-            }
-            else{
-                hyAssert(pointInfo.label == 'p');
-                posstr = sprintf("[%.1f:%.1f]", this.vdat.p1v3.get(0), this.vdat.p1v3.get(1));
-                ctx.fillText(posstr, pointInfo.x + pointInfo.radius + 2, pointInfo.y + pointInfo.radius + 2);
-            }
-        }
-    },
-
-    /// draw the normal
-    ///
-    /// points are 3 length float array, homogenious coordinates.
-    ///
-    /// \param[in] ctx context of the 2d canvas
-    /// \param[in] p0  line start point in the screen coordinates
-    /// \param[in] p1  line end   point in the screen coordinates
-    /// \param[in] nnormalDir normal direction. degenerated when [0,0,-1].
-    drawNormal: function(ctx, p0, p1, normalDir) {
-        if(normalDir.get(2) == -1){
-            ctx.fillStyle = "#cc2222";
-            ctx.fillText("Normal degenerated",
-                         this.vdat.canvas.width  - 100,
-                         this.vdat.canvas.height - 30);
-            return;
-        }
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.strokeStyle = '#0f0f0f';
-        ctx.moveTo(p0.get(0), p0.get(1));
-        ctx.lineTo(p1.get(0), p1.get(1));
+        ctx.strokeStyle = '#0f0';
+        ctx.moveTo(opos.get(0), opos.get(1));
+        ctx.lineTo(ypos.get(0), ypos.get(1));
         ctx.stroke();
         ctx.closePath();
-        // ctx.fillStyle = "#888888";
-        // ctx.fillText("normal", p0.m_element[0] + 4, p0.m_element[1] + 4);
     },
 
     /// update screen to model matrix. If the matrix is singular, remember it.
