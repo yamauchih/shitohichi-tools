@@ -597,6 +597,7 @@ Tangle.classes.TKMatrixTransformCanvas = {
 
         // matrix: view (normalized) coordinate -> screen coordinate
         this.vdat.viewToScreenMat = getNewViewToScreenMatrix(this.vdat.canvas);
+        this.vdat.screenToViewMat = this.vdat.viewToScreenMat.inv(null); // new inverse matrix
 
         // model to screen
         this.vdat.modelToScreenMat = new hyMatrix33();
@@ -611,16 +612,18 @@ Tangle.classes.TKMatrixTransformCanvas = {
 
         // Axis points model
         this.vdat.axisModel = {
-            'O': new hyVector3([0,0,1]), 'X': new hyVector3([1,0,1]), 'Y': new hyVector3([0,1,1])
+            'O': new hyVector3([0,0,1]), 'X': new hyVector3([2,0,1]), 'Y': new hyVector3([0,2,1])
         };
         // Axis points screen point
         this.vdat.axisScrPos = {
-            'O': new hyVector3([0,0,1]), 'X': new hyVector3([1,0,1]), 'Y': new hyVector3([0,1,1])
+            'O': new hyVector3([0,0,1]), 'X': new hyVector3([2,0,1]), 'Y': new hyVector3([0,2,1])
         };
 
         //----------------------------------------------------------------------
-        // mouse down point
-        this.vdat.pointer_start_v3 = new hyVector3([0, 0, 1]);
+        // mouse down point: screen coordinate
+        this.vdat.mouseStartScrPosV3   = new hyVector3([0, 0, 1]); // start   mouse pos in the screen coord.
+        this.vdat.mouseStartModelPosV3 = new hyVector3([0, 0, 1]); // start   mouse pos in the model  coord.
+        this.vdat.mouseCurModelPosV3   = new hyVector3([0, 0, 1]); // current mouse pos in the model  coord.
 
         var vdRef = this.vdat;
 
@@ -628,115 +631,58 @@ Tangle.classes.TKMatrixTransformCanvas = {
         this.vdat.coordinateBg = new Image();
         this.vdat.coordinateBg.onload = function(){
             // trigger update() and redraw canvas (are there better way than this hack?)
-            var p0x = vdRef.tangle.getValue("p0x");
-            vdRef.tangle.setValue("p0x", p0x + 0.0001);
-            vdRef.tangle.setValue("p0x", p0x);
+            var tx = vdRef.tangle.getValue("translation_x");
+            vdRef.tangle.setValue("translation_x", tx + 0.0001);
+            vdRef.tangle.setValue("translation_x", tx);
         };
-        this.vdat.coordinateBg.src  = 'Image/coordinate_system.png';
+        this.vdat.coordinateBg.src  = 'Image/coordinate_system_nobase_half.png';
 
         // Setup dragging using BVTouchable
         new BVTouchable(element, {
             touchDidGoDown: function (touches) {
-                vdRef.pointer_start_v3.set(0, touches.event.client.x - vdRef.canvas.offsetParent.offsetLeft);
-                vdRef.pointer_start_v3.set(1, touches.event.client.y - vdRef.canvas.offsetParent.offsetTop);
+                vdRef.mouseStartScrPosV3.set(0, touches.event.client.x - vdRef.canvas.offsetParent.offsetLeft);
+                vdRef.mouseStartScrPosV3.set(1, touches.event.client.y - vdRef.canvas.offsetParent.offsetTop);
+                vdRef.isDragging = true;
 
-                // Is any point near to the mouse down point?
-                var snap_rad_px = 6;
-                var obj = {};
-                // console.log('touchDidGoDown');
-                var p0ScrPos = new hyVector3();
-                var p1ScrPos = new hyVector3();
-                vdRef.modelToScreenMat.transformPoint(vdRef.p0v3, p0ScrPos);
-                vdRef.modelToScreenMat.transformPoint(vdRef.p1v3, p1ScrPos);
-                // console.log('push at:' + vdRef.pointer_start_v3 +
-                //             ', p0v3: ' + vdRef.p0v3 + ' -> p0ScrPos: ' + p0ScrPos +
-                //             ', p1v3: ' + vdRef.p1v3 + ' -> p1ScrPos: ' + p1ScrPos);
+                // get model position of mouse position
+                vdRef.screenToViewMat.transformPoint(vdRef.mouseStartScrPosV3, vdRef.mouseStartModelPosV3);
 
-                if(hyVector3.hypot(p0ScrPos, vdRef.pointer_start_v3) < snap_rad_px){
-                    vdRef.isDragging = true;
-                    vdRef.isDraggingPoint = '0';
-                    // get screen to model coordinate
-                    vdRef.screenToModelMat.transformPoint(vdRef.pointer_start_v3, vdRef.p0v3);
-                    obj['p0x'] = vdRef.p0v3.get(0);
-                    obj['p0y'] = vdRef.p0v3.get(1);
-                    tangle.setValues(obj);
-                    // console.log('drag on p0.' + vdRef.p0v3);
-                }
-                else if(hyVector3.hypot(p1ScrPos, vdRef.pointer_start_v3) < snap_rad_px){
-                    vdRef.isDragging = true;
-                    vdRef.isDraggingPoint = 'p';
-                    // get screen to model coordinate
-                    vdRef.screenToModelMat.transformPoint(vdRef.pointer_start_v3, vdRef.p1v3);
-                    obj['p1x'] = vdRef.p1v3.get(0);
-                    obj['p1y'] = vdRef.p1v3.get(1);
-                    tangle.setValues(obj);
-                    // console.log('drag on p1. ' + vdRef.p1v3);
-                }
-                else{
-                    // console.log('no near point. v0:' + vdRef.p0v3);
-                    vdRef.isDragging = false;
-                }
             },
             touchDidMove: function (touches) {
                 // console.log('touchDidMove:' + vdRef.isDragging);
-                if(!vdRef.isDragging){
-                    return;
+                var mouseCurScrPosV3 = new hyVector3();
+                mouseCurScrPosV3.set(0, vdRef.mouseStartScrPosV3.get(0) + touches.translation.x);
+                mouseCurScrPosV3.set(1, vdRef.mouseStartScrPosV3.get(1) - touches.translation.y);
+                mouseCurScrPosV3.set(2, 1);
+
+                vdRef.screenToViewMat.transformPoint(mouseCurScrPosV3, vdRef.mouseCurModelPosV3);
+
+                // get translation vector in the model space
+                var translateVecModel = new hyVector3();
+                hyVector3.subtract(vdRef.mouseCurModelPosV3, vdRef.mouseStartModelPosV3, translateVecModel);
+
+                console.log(vdRef.mouseCurModelPosV3 + ' - ' + vdRef.mouseStartModelPosV3 + ' = ' + translateVecModel);
+
+                if(vdRef.matrixType == 'transMat'){
+                    // translation
+                    var obj = {};
+                    obj['translation_x'] = translateVecModel.get(0);
+                    obj['translation_y'] = translateVecModel.get(1);
+                    vdRef.tangle.setValues(obj);
                 }
-                // var pointer_x = vdRef.pointer_start_v3.get(0) + touches.translation.x;
-                // var pointer_y = vdRef.pointer_start_v3.get(1) - touches.translation.y;
-                var cur_point = new hyVector3();
-                cur_point.set(0, vdRef.pointer_start_v3.get(0) + touches.translation.x);
-                cur_point.set(1, vdRef.pointer_start_v3.get(1) - touches.translation.y);
-                cur_point.set(2, 1);
-                var obj = {}
-                if(vdRef.isDraggingPoint == '0'){
-                    vdRef.screenToModelMat.transformPoint(cur_point, vdRef.p0v3);
-                    obj['p0x'] = vdRef.p0v3.get(0);
-                    obj['p0y'] = vdRef.p0v3.get(1);
-                    tangle.setValues(obj);
-                    // console.log("BVTouchable: touchDidMove:0 "  + cur_point + " -> " + vdRef.p0v3);
+                else if(vdRef.matrixType == 'rotateMat'){
+
                 }
-                else if(vdRef.isDraggingPoint == 'p'){
-                    vdRef.screenToModelMat.transformPoint(cur_point, vdRef.p1v3);
-                    obj['p1x'] = vdRef.p1v3.get(0);
-                    obj['p1y'] = vdRef.p1v3.get(1);
-                    tangle.setValues(obj);
-                    // console.log("BVTouchable: touchDidMove:1 "  + cur_point + " -> " + vdRef.p1v3);
+                else if(vdRef.matrixType == 'scaleMat'){
+
                 }
                 else{
-                    throw new Error("No such dragging point.");
+                    throw new Error("No such matrix type.");
                 }
             },
             touchDidGoUp: function (touches) {
                 // console.log("BVTouchable: touchDidGoUp");
-                // var pointer_x = vdRef.pointer_start_v3.get(0) + touches.translation.x;
-                // var pointer_y = vdRef.pointer_start_v3.get(1) - touches.translation.y;
-                if(!vdRef.isDragging){
-                    return;
-                }
                 vdRef.isDragging = false;
-
-                var cur_point = new hyVector3();
-                cur_point.set(0, vdRef.pointer_start_v3.get(0) + touches.translation.x);
-                cur_point.set(1, vdRef.pointer_start_v3.get(1) - touches.translation.y);
-                cur_point.set(2, 1);
-                var obj = {}
-
-                if(vdRef.isDraggingPoint == '0'){
-                    vdRef.screenToModelMat.transformPoint(cur_point, vdRef.p0v3);
-                    obj['p0x'] = vdRef.p0v3.get(0);
-                    obj['p0y'] = vdRef.p0v3.get(1) + 0.001; // 0.001 hack to redraw
-                    tangle.setValues(obj);
-                }
-                else if(vdRef.isDraggingPoint == 'p'){
-                    vdRef.screenToModelMat.transformPoint(cur_point, vdRef.p1v3);
-                    obj['p1x'] = vdRef.p1v3.get(0);
-                    obj['p1y'] = vdRef.p1v3.get(1) + 0.001; // 0.001 hack to redraw
-                    tangle.setValues(obj);
-                }
-                else{
-                    throw new Error("No such dragging point.");
-                }
             }
         });                     // new BVTouchable
     },                          // initialize function
