@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Examine normal transformation</title>
+    <title>Examine normal transformation: translation</title>
 
     <!-- Basic style -->
     <link rel="stylesheet" href="style.css" type="text/css">
@@ -30,9 +30,10 @@
     <script type="text/javascript" src="./normal_transform_02.js"></script>
   </head>
   <body>
-    <h1>Tangle: experience</h1>
+    <h1>Tangle: experience. Version 0.2</h1>
 
-    <h2>Why doesn't transformation work on normal vectors? Version 0.2</h2>
+    <h2>Why doesn't transformation work on normal vectors?</h2>
+    <h3>Translation operation has no problem.</h3>
 
     <div id="NormalTransformPage">
 
@@ -60,10 +61,29 @@
                   width="150" height="150">
             translation canvas: This browser doesn't support a canvas.
           </canvas>
+          <p id="translation_text">Translation</p>
         </div>
-
+        <div class="ScaleCanvasArea" id="scale_canvas_area">
+          <!-- scale canvas -->
+          <canvas class="TKMatrixTransformCanvas"
+                  data-var="translation_x translation_y normalOnOffState"
+                  data-matrixtype="scaleMat"
+                  width="150" height="150">
+            scale canvas: This browser doesn't support a canvas.
+          </canvas>
+          <p id="scaling_text">Scaling</p>
+        </div>
+        <div class="RotationCanvasArea" id="rotation_canvas_area">
+          <!-- rotation canvas -->
+          <canvas class="TKMatrixTransformCanvas"
+                  data-var="translation_x translation_y normalOnOffState"
+                  data-matrixtype="rotateMat"
+                  width="150" height="150">
+            rotate canvas: This browser doesn't support a canvas.
+          </canvas>
+          <p id="rotation_text">Rotation</p>
+        </div>
         <!-- ----------------------------------------------------------------------  -->
-
       </div>   <!-- normal_transform_section -->
     </div>   <!-- NormalTransformPage -->
   </body>

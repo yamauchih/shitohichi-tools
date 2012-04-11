@@ -25,6 +25,21 @@ body {
 .TranslationCanvasArea {
     position:relative;
     width:250px;
+    float: left;
+    /* height:15; */
+}
+
+.RotationCanvasArea {
+    position:relative;
+    width:250px;
+    float: left
+    /* height:15; */
+}
+
+.ScaleCanvasArea {
+    position:relative;
+    width:250px;
+    float: left
     /* height:15; */
 }
 
