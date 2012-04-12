@@ -1,7 +1,7 @@
 ///
 /// normal_transform_01.js
 ///
-///  A simple slider using Tangle (http://worrydream.com/Tangle/).
+///  An explanation about normal transform using Tangle (http://worrydream.com/Tangle/).
 ///  and TangleKitHYExt
 ///  (C) 2012 Hitoshi Yamauchi.  New BSD license.
 ///
@@ -234,7 +234,7 @@ function getNewViewToScreenMatrix(canvas){
 Tangle.classes.TKNormalTransformCanvas = {
 
     /// initialize view
-    initialize: function (element, options, tangle, p1x, p1y) {
+    initialize: function (element, options, tangle, ppx, ppy) {
         this.element = element;
 
         // view data object
@@ -243,6 +243,7 @@ Tangle.classes.TKNormalTransformCanvas = {
         this.vdat.canvas     = element;
         this.vdat.ctx        = this.vdat.canvas.getContext("2d");
         this.vdat.isDragging = false;
+        this.vdat.draggingPointIdx = -1;
 
         // Hovering event
         // this.vdat.canvas.addEvent("mouseenter", function () {
@@ -266,20 +267,34 @@ Tangle.classes.TKNormalTransformCanvas = {
         this.vdat.isScreenToModelMatOK = true;
         this.updateScreenToModelMatrix();
         // console.log("modelToViewMat: " + this.vdat.viewToScreenMat);
-        // var p0 = this.vdat.tangle.getValue("p0");
-        // var p1 = this.vdat.tangle.getValue("p1");
-        var p0 = new hyVector3([ 0, 0, 1]);
-        var p1 = new hyVector3([ 2, 2, 1]);
-        // p0v3 model p0's vector 3 form. p0v3ScrPos is its screen position
-        this.vdat.p0v3       = p0.clone();
-        this.vdat.p1v3       = p1.clone();
-        this.vdat.p0v3ScrPos = new hyVector3();
-        this.vdat.p1v3ScrPos = new hyVector3();
-        this.vdat.modelToScreenMat.transformPoint(this.vdat.p0v3, this.vdat.p0v3ScrPos);
-        this.vdat.modelToScreenMat.transformPoint(this.vdat.p1v3, this.vdat.p1v3ScrPos);
 
-        this.vdat.p0Info = { x:this.vdat.p0v3ScrPos.get(0), y:this.vdat.p0v3ScrPos.get(1), radius:8, label:'0' };
-        this.vdat.p1Info = { x:this.vdat.p1v3ScrPos.get(0), y:this.vdat.p1v3ScrPos.get(1), radius:8, label:'p' };
+        // handle model position
+        this.vdat.posV3 = new Array();
+        this.vdat.posV3[0] = new hyVector3([ 0, 0, 1]);
+        this.vdat.posV3[1] = new hyVector3([ 2, 2, 1]);
+
+        // handle screen position
+        this.vdat.posScrV3 = new Array();
+        this.vdat.posScrV3[0] = new hyVector3([ 0, 0, 1]);
+        this.vdat.posScrV3[1] = new hyVector3([ 0, 0, 1]);
+
+        // MooTools's  Array has more property, so for(i in this.vdat.posV3) doesn't work.
+        for(var i = 0; i < this.vdat.posV3.length; ++i){
+            this.vdat.modelToScreenMat.transformPoint(this.vdat.posV3[i], this.vdat.posScrV3[i]);
+        };
+
+        // handle info
+        var posLabel = ['0', 'p'];
+        this.vdat.posInfo = new Array();
+        for(var i = 0; i < this.vdat.posV3.length; ++i){
+            this.vdat.posInfo[i] = {
+                x:this.vdat.posScrV3[i].get(0),
+                y:this.vdat.posScrV3[i].get(1),
+                radius:8,
+                label:posLabel[i],
+                idx:i
+            };
+        }
 
         //----------------------------------------------------------------------
         // mouse down point
@@ -307,37 +322,25 @@ Tangle.classes.TKNormalTransformCanvas = {
                 var snap_rad_px = 6;
                 var obj = {};
                 // console.log('touchDidGoDown');
-                var p0ScrPos = new hyVector3();
-                var p1ScrPos = new hyVector3();
-                vdRef.modelToScreenMat.transformPoint(vdRef.p0v3, p0ScrPos);
-                vdRef.modelToScreenMat.transformPoint(vdRef.p1v3, p1ScrPos);
-                // console.log('push at:' + vdRef.pointer_start_v3 +
-                //             ', p0v3: ' + vdRef.p0v3 + ' -> p0ScrPos: ' + p0ScrPos +
-                //             ', p1v3: ' + vdRef.p1v3 + ' -> p1ScrPos: ' + p1ScrPos);
 
-                if(hyVector3.hypot(p0ScrPos, vdRef.pointer_start_v3) < snap_rad_px){
-                    vdRef.isDragging = true;
-                    vdRef.isDraggingPoint = '0';
-                    // get screen to model coordinate
-                    vdRef.screenToModelMat.transformPoint(vdRef.pointer_start_v3, vdRef.p0v3);
-                    obj['p0x'] = vdRef.p0v3.get(0);
-                    obj['p0y'] = vdRef.p0v3.get(1);
-                    tangle.setValues(obj);
-                    // console.log('drag on p0.' + vdRef.p0v3);
-                }
-                else if(hyVector3.hypot(p1ScrPos, vdRef.pointer_start_v3) < snap_rad_px){
-                    vdRef.isDragging = true;
-                    vdRef.isDraggingPoint = 'p';
-                    // get screen to model coordinate
-                    vdRef.screenToModelMat.transformPoint(vdRef.pointer_start_v3, vdRef.p1v3);
-                    obj['p1x'] = vdRef.p1v3.get(0);
-                    obj['p1y'] = vdRef.p1v3.get(1);
-                    tangle.setValues(obj);
-                    // console.log('drag on p1. ' + vdRef.p1v3);
-                }
-                else{
-                    // console.log('no near point. v0:' + vdRef.p0v3);
-                    vdRef.isDragging = false;
+                vdRef.isDragging = false;
+
+                // Does the mouse pointer grab a handle?
+                var posScrPos = new hyVector3();
+                for(var i = 0; i < vdRef.posV3.length; ++i){
+                    vdRef.modelToScreenMat.transformPoint(vdRef.posV3[i], posScrPos);
+
+                    if(hyVector3.hypot(posScrPos, vdRef.pointer_start_v3) < snap_rad_px){
+                        vdRef.isDragging = true;
+                        vdRef.draggingPointIdx = i;
+                        // get screen to model coordinate
+                        vdRef.screenToModelMat.transformPoint(vdRef.pointer_start_v3, vdRef.posV3[i]);
+                        var varnameX = 'p' + i + 'x';
+                        var varnameY = 'p' + i + 'y';
+                        obj[varnameX] = vdRef.posV3[i].get(0);
+                        obj[varnameY] = vdRef.posV3[i].get(1);
+                        tangle.setValues(obj);
+                    }
                 }
             },
             touchDidMove: function (touches) {
@@ -345,35 +348,21 @@ Tangle.classes.TKNormalTransformCanvas = {
                 if(!vdRef.isDragging){
                     return;
                 }
-                // var pointer_x = vdRef.pointer_start_v3.get(0) + touches.translation.x;
-                // var pointer_y = vdRef.pointer_start_v3.get(1) - touches.translation.y;
+
                 var cur_point = new hyVector3();
                 cur_point.set(0, vdRef.pointer_start_v3.get(0) + touches.translation.x);
                 cur_point.set(1, vdRef.pointer_start_v3.get(1) - touches.translation.y);
                 cur_point.set(2, 1);
+                vdRef.screenToModelMat.transformPoint(cur_point, vdRef.posV3[vdRef.draggingPointIdx]);
+                var varnameX = 'p' + vdRef.draggingPointIdx + 'x';
+                var varnameY = 'p' + vdRef.draggingPointIdx + 'y';
                 var obj = {}
-                if(vdRef.isDraggingPoint == '0'){
-                    vdRef.screenToModelMat.transformPoint(cur_point, vdRef.p0v3);
-                    obj['p0x'] = vdRef.p0v3.get(0);
-                    obj['p0y'] = vdRef.p0v3.get(1);
-                    tangle.setValues(obj);
-                    // console.log("BVTouchable: touchDidMove:0 "  + cur_point + " -> " + vdRef.p0v3);
-                }
-                else if(vdRef.isDraggingPoint == 'p'){
-                    vdRef.screenToModelMat.transformPoint(cur_point, vdRef.p1v3);
-                    obj['p1x'] = vdRef.p1v3.get(0);
-                    obj['p1y'] = vdRef.p1v3.get(1);
-                    tangle.setValues(obj);
-                    // console.log("BVTouchable: touchDidMove:1 "  + cur_point + " -> " + vdRef.p1v3);
-                }
-                else{
-                    throw new Error("No such dragging point.");
-                }
+                obj[varnameX] = vdRef.posV3[vdRef.draggingPointIdx].get(0);
+                obj[varnameY] = vdRef.posV3[vdRef.draggingPointIdx].get(1);
+                tangle.setValues(obj);
             },
             touchDidGoUp: function (touches) {
                 // console.log("BVTouchable: touchDidGoUp");
-                // var pointer_x = vdRef.pointer_start_v3.get(0) + touches.translation.x;
-                // var pointer_y = vdRef.pointer_start_v3.get(1) - touches.translation.y;
                 if(!vdRef.isDragging){
                     return;
                 }
@@ -383,31 +372,20 @@ Tangle.classes.TKNormalTransformCanvas = {
                 cur_point.set(0, vdRef.pointer_start_v3.get(0) + touches.translation.x);
                 cur_point.set(1, vdRef.pointer_start_v3.get(1) - touches.translation.y);
                 cur_point.set(2, 1);
-                var obj = {}
 
-                if(vdRef.isDraggingPoint == '0'){
-                    vdRef.screenToModelMat.transformPoint(cur_point, vdRef.p0v3);
-                    obj['p0x'] = vdRef.p0v3.get(0);
-                    obj['p0y'] = vdRef.p0v3.get(1) + 0.001; // 0.001 hack to redraw
-                    tangle.setValues(obj);
-                }
-                else if(vdRef.isDraggingPoint == 'p'){
-                    vdRef.screenToModelMat.transformPoint(cur_point, vdRef.p1v3);
-                    obj['p1x'] = vdRef.p1v3.get(0);
-                    obj['p1y'] = vdRef.p1v3.get(1) + 0.001; // 0.001 hack to redraw
-                    tangle.setValues(obj);
-                }
-                else{
-                    throw new Error("No such dragging point.");
-                }
+                vdRef.screenToModelMat.transformPoint(cur_point, vdRef.posV3[vdRef.draggingPointIdx]);
+                var varnameX = 'p' + vdRef.draggingPointIdx + 'x';
+                var varnameY = 'p' + vdRef.draggingPointIdx + 'y';
+                var obj = {}
+                obj[varnameX] = vdRef.posV3[vdRef.draggingPointIdx].get(0);
+                obj[varnameY] = vdRef.posV3[vdRef.draggingPointIdx].get(1) + 0.001; // 0.001 hack to redraw
+                tangle.setValues(obj);
             }
         });                     // new BVTouchable
     },                          // initialize function
 
     /// update the view
     update: function (el, scale_x) {
-        //  console.log("canvas update: ");
-
         // this.getNormalInScreenCoords();
         // this.updateNormalWithTranslation();
 
@@ -438,21 +416,20 @@ Tangle.classes.TKNormalTransformCanvas = {
         hyMatrix33.multiply(this.vdat.viewToScreenMat, manipmat, this.vdat.modelToScreenMat);
         this.updateScreenToModelMatrix();
 
-        this.vdat.p0v3ScrPos = this.vdat.modelToScreenMat.transformPoint(p0);
-        this.vdat.p1v3ScrPos = this.vdat.modelToScreenMat.transformPoint(p1);
+        this.vdat.posScrV3[0] = this.vdat.modelToScreenMat.transformPoint(p0);
+        this.vdat.posScrV3[1] = this.vdat.modelToScreenMat.transformPoint(p1);
 
         // console.log("update: " + this.vdat.p0v3 + "\n" + this.vdat.p1v3);
 
         // draw the plane
-        this.drawPlane(ctx, this.vdat.p0v3ScrPos, this.vdat.p1v3ScrPos);
+        this.drawPlane(ctx, this.vdat.posScrV3[0], this.vdat.posScrV3[1]);
 
         // draw the handle point
-        this.vdat.p0Info.x = this.vdat.p0v3ScrPos.get(0);
-        this.vdat.p0Info.y = this.vdat.p0v3ScrPos.get(1);
-        this.vdat.p1Info.x = this.vdat.p1v3ScrPos.get(0);
-        this.vdat.p1Info.y = this.vdat.p1v3ScrPos.get(1);
-        this.drawHanlePoint(ctx, this.vdat.p0Info);
-        this.drawHanlePoint(ctx, this.vdat.p1Info);
+        for(var i = 0; i < this.vdat.posScrV3.length; ++i){
+            this.vdat.posInfo[i].x = this.vdat.posScrV3[i].get(0);
+            this.vdat.posInfo[i].y = this.vdat.posScrV3[i].get(1);
+            this.drawHanlePoint(ctx, this.vdat.posInfo[i]);
+        }
 
         // show normal if it is on
         if(this.vdat.tangle.getValue("normalOnOffState") == "On"){
@@ -506,6 +483,7 @@ Tangle.classes.TKNormalTransformCanvas = {
     ///   y: handle point center y coordinate,
     ///   radius: handle point radius,
     ///   label:  handle point label (assumes one charactor)
+    ///   idx:    index of the pointInfo
     /// };
     drawHanlePoint: function(ctx, pointInfo) {
         ctx.fillStyle = "#ff0000";
@@ -515,18 +493,11 @@ Tangle.classes.TKNormalTransformCanvas = {
         ctx.fill();
         ctx.fillStyle = "#FFFFFF";
         ctx.fillText(pointInfo.label, pointInfo.x - 3, pointInfo.y + 4);
-        var posstr;
-        if(this.vdat.isDragging && (this.vdat.isDraggingPoint == pointInfo.label)){
+        if(this.vdat.isDragging){
             ctx.fillStyle = "#444444";
-            if(pointInfo.label == '0'){
-                posstr = sprintf("[%.1f:%.1f]", this.vdat.p0v3.get(0), this.vdat.p0v3.get(1));
-                ctx.fillText(posstr, pointInfo.x + pointInfo.radius + 2, pointInfo.y + pointInfo.radius + 2);
-            }
-            else{
-                hyAssert(pointInfo.label == 'p');
-                posstr = sprintf("[%.1f:%.1f]", this.vdat.p1v3.get(0), this.vdat.p1v3.get(1));
-                ctx.fillText(posstr, pointInfo.x + pointInfo.radius + 2, pointInfo.y + pointInfo.radius + 2);
-            }
+            var posstr = sprintf("[%.1f:%.1f]",
+                                 this.vdat.posV3[pointInfo.idx].get(0), this.vdat.posV3[pointInfo.idx].get(1));
+            ctx.fillText(posstr, pointInfo.x + pointInfo.radius + 2, pointInfo.y + pointInfo.radius + 2);
         }
     },
 
@@ -582,7 +553,7 @@ Tangle.classes.TKNormalTransformCanvas = {
 Tangle.classes.TKMatrixTransformCanvas = {
 
     /// initialize view
-    initialize: function (element, options, tangle, p1x, p1y) {
+    initialize: function (element, options, tangle, ppx, ppy) {
         this.element = element;
 
         // view data object
@@ -724,16 +695,14 @@ Tangle.classes.TKMatrixTransformCanvas = {
 
         // which matrix effect to be shown?
         var manipmat = this.vdat.tangle.getValue(this.vdat.matrixType);
-        console.log("manipmat = " + this.vdat.matrixType + ", M:\n" + manipmat)
+        // console.log("manipmat = " + this.vdat.matrixType + ", M:\n" + manipmat)
         hyMatrix33.multiply(this.vdat.viewToScreenMat, manipmat, this.vdat.modelToScreenMat);
-        console.log("model to screen\n" + this.vdat.modelToScreenMat);
+        // console.log("model to screen\n" + this.vdat.modelToScreenMat);
         this.updateScreenToModelMatrix();
 
         for(i in this.vdat.axisModel){
             this.vdat.modelToScreenMat.transformPoint(this.vdat.axisModel[i], this.vdat.axisScrPos[i]);
         }
-
-        // console.log("update: " + this.vdat.p0v3 + "\n" + this.vdat.p1v3);
 
         // draw the axis on the screen
         this.drawAxis(ctx, this.vdat.axisScrPos)

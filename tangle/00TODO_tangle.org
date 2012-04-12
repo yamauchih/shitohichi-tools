@@ -12,7 +12,7 @@
 ** DONE add ex11 toggle on/off for normal on/off see http://worrydream.com/Tangle/pants.html
 
 
-* Normal transform fail example
+* Normal transform fail example Version 0.2
 ** DONE draw a line
 ** DONE show the 2d line image
 ** DONE add the translation GUI
@@ -22,11 +22,19 @@
 ** DONE control point movement on canvas
 ** DONE add normal on/off
 ** DONE add traslation, rotation, scaling matrix viewer.
+** TODO scale with x, y separated (with handle)
+** TODO translation with the handle point (if not handle, show message to grab the handle)
+** TODO rotate with the handle
 ** TODO remember the last rotation and scale
-** TODO add reset
-** TODO draw the translated normal
 ** TODO handle singular matrix case
-** TODO draw the correct normal
+** TODO draw the translated normal
+
+* Normal transform fail example Version 0.3
+
+** TODO add double click
+** TODO add reset
+** TODO show the matrix (with the numbers)
+** TODO shadow as the original position
 ** TODO draw an arrow
-** TODO rotation interface
+
 
