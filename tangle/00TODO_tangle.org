@@ -21,10 +21,8 @@
 ** DONE implement matrix inverse and its test.
 ** DONE control point movement on canvas
 ** DONE add normal on/off
-** DONE add traslation matrix viewer.
-*** DONE canvas drag control
-** TODO add rotation matrix viewer
-** TODO add scaling matrix viewer
+** DONE add traslation, rotation, scaling matrix viewer.
+** TODO remember the last rotation and scale
 ** TODO add reset
 ** TODO draw the translated normal
 ** TODO handle singular matrix case

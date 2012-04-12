@@ -632,8 +632,17 @@ Tangle.classes.TKMatrixTransformCanvas = {
         this.vdat.coordinateBg.onload = function(){
             // trigger update() and redraw canvas (are there better way than this hack?)
             var tx = vdRef.tangle.getValue("translation_x");
-            vdRef.tangle.setValue("translation_x", tx + 0.0001);
-            vdRef.tangle.setValue("translation_x", tx);
+            var sx = vdRef.tangle.getValue("scale_x");
+            var th = vdRef.tangle.getValue("rotate_theta_deg");
+            var obj = {};
+            obj['translation_x']    = tx + 0.0001;
+            obj['scale_x']          = sx + 0.0001;
+            obj['rotate_theta_deg'] = th + 0.0001;
+            vdRef.tangle.setValues(obj);
+            obj['translation_x']    = tx;
+            obj['scale_x']          = sx;
+            obj['rotate_theta_deg'] = th;
+            vdRef.tangle.setValues(obj);
         };
         this.vdat.coordinateBg.src  = 'Image/coordinate_system_nobase_half.png';
 
@@ -661,7 +670,8 @@ Tangle.classes.TKMatrixTransformCanvas = {
                 var translateVecModel = new hyVector3();
                 hyVector3.subtract(vdRef.mouseCurModelPosV3, vdRef.mouseStartModelPosV3, translateVecModel);
 
-                console.log(vdRef.mouseCurModelPosV3 + ' - ' + vdRef.mouseStartModelPosV3 + ' = ' + translateVecModel);
+                // console.log(vdRef.mouseCurModelPosV3 + ' - ' + vdRef.mouseStartModelPosV3 + ' = ' +
+                //             translateVecModel);
 
                 if(vdRef.matrixType == 'transMat'){
                     // translation
@@ -671,10 +681,17 @@ Tangle.classes.TKMatrixTransformCanvas = {
                     vdRef.tangle.setValues(obj);
                 }
                 else if(vdRef.matrixType == 'rotateMat'){
-
+                    // rotation
+                    var distToAngleFactor = 100.0;
+                    var obj = {};
+                    obj['rotate_theta_deg'] = translateVecModel.get(0) * distToAngleFactor;
+                    vdRef.tangle.setValues(obj);
                 }
                 else if(vdRef.matrixType == 'scaleMat'){
-
+                    var obj = {};
+                    obj['scale_x'] = translateVecModel.get(0) + 1.0;
+                    obj['scale_y'] = translateVecModel.get(1) + 1.0;
+                    vdRef.tangle.setValues(obj);
                 }
                 else{
                     throw new Error("No such matrix type.");
