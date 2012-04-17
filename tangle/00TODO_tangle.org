@@ -22,15 +22,19 @@
 ** DONE control point movement on canvas
 ** DONE add normal on/off
 ** DONE add traslation, rotation, scaling matrix viewer.
+** TODO translation with the handle point
 ** TODO scale with x, y separated (with handle)
-** TODO translation with the handle point (if not handle, show message to grab the handle)
 ** TODO rotate with the handle
 ** TODO remember the last rotation and scale
 ** TODO handle singular matrix case
 ** TODO draw the translated normal
 
+
 * Normal transform fail example Version 0.3
 
+** TODO show message to grab the handle when hover for translation
+** TODO show message to grab the handle when hover for scale
+** TODO show message to grab the handle when hover for rotation
 ** TODO add double click
 ** TODO add reset
 ** TODO show the matrix (with the numbers)
