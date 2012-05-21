@@ -8,7 +8,7 @@
 import os
 import urllib
 import urllib2
-import BeautifulSoup
+from bs4 import BeautifulSoup
 
 # to get the Nihon no shousetuka ichiran filename
 def getRoot():
@@ -17,7 +17,7 @@ def getRoot():
         # print fn
         url = 'file:///' + mydatadir + urllib.quote(fn)
         # data = urllib2.urlopen(url).read()
-        # soup = BeautifulSoup.BeautifulSoup(data)
+        # soup = BeautifulSoup(data)
         # print soup.prettify()
         print 'parsed: ' + url
         # print 'parsed: ' + urllib.unquote(url)

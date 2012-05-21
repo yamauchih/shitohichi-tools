@@ -5,13 +5,13 @@
 #
 
 import urllib2
-import BeautifulSoup
+from bs4 import BeautifulSoup
 
 def main():
     myprojdir = '/home/hitoshi/data/project/shitohichi-tools/graphfetcher/'
     url = 'file:///' + myprojdir + 'data/nihonnoshousetukaichiran_wiki.html'
     data = urllib2.urlopen(url).read()
-    soup = BeautifulSoup.BeautifulSoup(data)
+    soup = BeautifulSoup(data)
 
     print soup.prettify()
 
