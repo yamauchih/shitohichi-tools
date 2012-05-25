@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2012 Yamauchi, Hitoshi
+# For Rebecca from Hitoshi the fool
 #
 # Open a unicode filename's html and get the list of 'a' elements.
 # Optimized for Wikipedia ja
@@ -75,7 +76,11 @@ class ListFetcher(object):
                     # print 'ignore: ' + str(link)
                     pass
                 else:
-                    outfile.write(link.get('href') + ' ' + link.get('title') + '\n');
+                    # In Wiki, href and title are the same. No need to
+                    # output both.
+                    #
+                    # outfile.write(link.get('href') + ' ' + link.get('title') + '\n');
+                    outfile.write(link.get('href') + '\n');
 
             outfile.close()
         except IOError as (errno, strerror):
