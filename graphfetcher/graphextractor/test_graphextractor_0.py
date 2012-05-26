@@ -17,19 +17,20 @@ import unittest
 class TestGraphExtractor(unittest.TestCase):
     """test: GraphExtractor test."""
 
-    def test_listfetcher(self):
+    def test_graphextractor(self):
         """test graph (adjacent matrix) extractor."""
         # print u'# Need LC_ALL setting to utf-8, e.g., en_US.utf-8, ja_JP.utf-8.'
         graphfetcherdir = u'/home/hitoshi/data/project/shitohichi-tools/graphfetcher/'
         wikidatadir     = u'data/ja.wikipedia.org/wiki/'
         input_list_fname   = u'nihonno_shousetuka_ichiran.list'
         output_M_adj_fname = u'nihonno_shousetuka_ichiran.Madj'
-        input_path  = graphfetcherdir + wikidatadir + input_list_fname
-        output_path = graphfetcherdir + wikidatadir + output_M_adj_fname
-        print u'# input [' + input_path  + u']'
-        print u'# output[' + output_path + u']'
-        ge = GraphExtractor.GraphExtractor()
-        ge.get_adjacebt_matrix(input_path, output_path)
+        working_path  = graphfetcherdir + wikidatadir
+        print u'\n# input [' + working_path  + u'], filename[' + input_list_fname + u']'
+        print u'# filename[' + output_M_adj_fname + u']'
+
+        # ge = GraphExtractor.GraphExtractor()
+        ge = GraphExtractor.GraphExtractor([u'三島由紀夫'])
+        ge.get_adjacebt_matrix(working_path, input_list_fname, output_M_adj_fname)
 
 #
 # main test
