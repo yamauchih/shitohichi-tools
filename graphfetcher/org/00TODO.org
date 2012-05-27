@@ -1,0 +1,4 @@
+* TODO output connection html file
+* TODO output connection visualized html directory
+** Annotated original file
+* TODO English, German, SF authors
