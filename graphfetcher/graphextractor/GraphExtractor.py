@@ -86,10 +86,10 @@ class GraphExtractor(object):
         dst_link_list = []
         for link in src_link_list:
             dst = link.get('href')
-            print dst
+            # print dst
             if (self.__url_to_index_map.has_key(dst)):
                 # Show connection
-                print u'connect [' + _url + u']->[' + dst + u']'
+                # print u'connect [' + _url + u']->[' + dst + u']'
 
                 # no duplication test, unordered. But just use
                 # set(dst_link_list) solved them
@@ -99,7 +99,10 @@ class GraphExtractor(object):
         idx = self.__url_to_index_map[_url]
         self.__M_ij[idx] = dst_link_list
         # FIXME: not exclude itself and duplicated links
-        print _url + u' has ' + str(len(dst_link_list)) + u' recognizable links.'
+        rec_links = len(dst_link_list)
+        # print _url + u' has ' + str(rec_links) + u' recognizable links.'
+        return rec_links
+
 
     def __get_all_connectivity(self):
         """get all connectivity
@@ -110,15 +113,22 @@ class GraphExtractor(object):
         if (len(self.__test_url_list) > 0):
             # test mode
             for url in self.__test_url_list:
-                print u'test: analyzing [' + url + u']'
-                self.__get_one_page_connectivity(url)
+                rec_link_count = self.__get_one_page_connectivity(url)
+                print u'analyzed [' + url + u'] found ' + str(rec_link_count) +\
+                    u' links.'
+                if (rec_link_count == 0):
+                    print u'Warning! ' + url + u' has no recognizable links. Check the URL input.'
         else:
             cur_i = 0
             total_len_str = str(len(self.__index_to_url_map))
             for url in self.__index_to_url_map:
                 cur_i = cur_i + 1
-                print u'analyzing [' + url + u'] ' + str(cur_i) + u'/' + total_len_str
-                self.__get_one_page_connectivity(url)
+                rec_link_count = self.__get_one_page_connectivity(url)
+                print u'analyzed [' + url + u'] ' + str(cur_i) + u'/' + total_len_str +\
+                    u' found ' + str(rec_link_count) + u' links.'
+                if (rec_link_count == 0):
+                    print u'Warning! ' + url + u' has no recognizable links. Check the URL input.'
+
 
     def __output_adjacent_matrix(self, _output_fname):
         """output adjacent matrix
