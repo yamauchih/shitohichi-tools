@@ -23,13 +23,14 @@ class TestGraphExtractor(unittest.TestCase):
         graphfetcherdir = u'/home/hitoshi/data/project/shitohichi-tools/graphfetcher/'
         wikidatadir     = u'data/ja.wikipedia.org/wiki/'
         input_list_fname   = u'nihonno_shousetuka_ichiran.list'
-        output_M_adj_fname = u'nihonno_shousetuka_ichiran.Madj'
+        # output_M_adj_fname = u'nihonno_shousetuka_ichiran.Madj'
+        output_M_adj_fname = u'00test.Madj'
         working_path  = graphfetcherdir + wikidatadir
         print u'\n# input [' + working_path  + u'], filename[' + input_list_fname + u']'
         print u'# filename[' + output_M_adj_fname + u']'
 
-        # ge = GraphExtractor.GraphExtractor()
-        ge = GraphExtractor.GraphExtractor([u'三島由紀夫'])
+        # ge = GraphExtractor.GraphExtractor(None)
+        ge = GraphExtractor.GraphExtractor([u'三島由紀夫', u'大江健三郎'])
         ge.get_adjacebt_matrix(working_path, input_list_fname, output_M_adj_fname)
 
 #
