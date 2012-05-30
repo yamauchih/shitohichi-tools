@@ -21,7 +21,7 @@ class TestGraphExtractor(unittest.TestCase):
         """test graph (adjacent matrix) extractor."""
         # print u'# Need LC_ALL setting to utf-8, e.g., en_US.utf-8, ja_JP.utf-8.'
         graphfetcherdir = u'/home/hitoshi/data/project/shitohichi-tools/graphfetcher/'
-        wikidatadir     = u'data/ja.wikipedia.org/wiki/'
+        wikidatadir     = u'data/japanese_writer/ja.wikipedia.org/wiki/'
         input_list_fname   = u'nihonno_shousetuka_ichiran.list'
         # output_M_adj_fname = u'nihonno_shousetuka_ichiran.Madj'
         output_M_adj_fname = u'00test.Madj'
