@@ -1,4 +1,7 @@
-* TODO output connection html file
-* TODO output connection visualized html directory
-** Annotated original file
-* TODO English, German, SF authors
+* Rebecca's bundan related project.
+
+** TODO output connection visualized html directory
+*** Annotated original file: connected entry has different color.
+** TODO graph creation with dot
+** TODO English, German, SF authors
+

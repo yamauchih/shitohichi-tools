@@ -20,18 +20,21 @@ class TestGraphExtractor(unittest.TestCase):
     def test_graphextractor(self):
         """test graph (adjacent matrix) extractor."""
         # print u'# Need LC_ALL setting to utf-8, e.g., en_US.utf-8, ja_JP.utf-8.'
-        graphfetcherdir = u'/home/hitoshi/data/project/shitohichi-tools/graphfetcher/'
-        wikidatadir     = u'data/japanese_writer/ja.wikipedia.org/wiki/'
-        input_list_fname   = u'nihonno_shousetuka_ichiran.list'
-        # output_M_adj_fname = u'nihonno_shousetuka_ichiran.Madj'
-        output_M_adj_fname = u'00test.Madj'
-        working_path  = graphfetcherdir + wikidatadir
-        print u'\n# input [' + working_path  + u'], filename[' + input_list_fname + u']'
-        print u'# filename[' + output_M_adj_fname + u']'
+        graphfetcherdir   = u'/home/hitoshi/data/project/shitohichi-tools/graphfetcher/'
+        input_rpath       = u'data/japanese_writer/ja.wikipedia.org/wiki/'
+        output_rpath      = u'data/japanese_writer/ja.wikipedia.org/wiki_out/'
+        input_list_fname  = u'nihonno_shousetuka_ichiran.list'
+        output_Madj_fname = u'00test.Madj'
+        input_fullpath    = graphfetcherdir + input_rpath
+        output_fullpath   = graphfetcherdir + output_rpath
+        print u'\n# input  [' + input_fullpath  + u'], filename[' + input_list_fname  + u']'
+        print u'\n# output path [' + output_fullpath + u']'
+        print u'# filename [' + output_Madj_fname + u']'
 
         # ge = GraphExtractor.GraphExtractor(None)
         ge = GraphExtractor.GraphExtractor([u'三島由紀夫', u'大江健三郎'])
-        ge.get_adjacebt_matrix(working_path, input_list_fname, output_M_adj_fname)
+        ge.get_adjacent_matrix(input_fullpath,  input_list_fname,
+                               output_fullpath, output_Madj_fname)
 
 #
 # main test
