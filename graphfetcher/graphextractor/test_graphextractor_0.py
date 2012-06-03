@@ -33,7 +33,8 @@ class TestGraphExtractor(unittest.TestCase):
 
         # options
         # When print out connection, set this True
-        opt_dict = {'is_print_connectivity': False }
+        opt_dict = {'is_print_connectivity': False,
+                    'is_generate_annotated_html': True }
 
         # ge = GraphExtractor.GraphExtractor(None)
         ge = GraphExtractor.GraphExtractor([u'三島由紀夫', u'大江健三郎'], opt_dict)
