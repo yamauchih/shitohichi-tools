@@ -85,7 +85,8 @@ class ListFetcher(object):
             outfile.close()
         except IOError as (errno, strerror):
             print "# I/O error({0}): {1}".format(errno, strerror)
-            print '# Need LC_ALL setting to utf-8, e.g., en_US.utf-8, ja_JP.utf-8.'
+            print '# Does output directory exist?'
+            print '# Also you need LC_ALL setting to utf-8, e.g., en_US.utf-8, ja_JP.utf-8.'
 
         # Uncaught exception goes up.
 

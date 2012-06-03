@@ -10,6 +10,7 @@
 \brief ListFetcher test
 """
 
+import os
 import ListFetcher
 import unittest
 
@@ -20,15 +21,22 @@ class TestListFetcher(unittest.TestCase):
         """test 日本の小説家一覧を起点にした URL list を生成する．"""
         # print u'# Need LC_ALL setting to utf-8, e.g., en_US.utf-8, ja_JP.utf-8.'
         graphfetcherdir = u'/home/hitoshi/data/project/shitohichi-tools/graphfetcher/'
-        wikidatadir     = u'data/japanese_writer/ja.wikipedia.org/wiki/'
+
+        input_rpath       = u'data/japanese_writer/ja.wikipedia.org/wiki/'
         author_root_fname = u'日本の小説家一覧'
+        indir = os.path.join(graphfetcherdir, input_rpath)
+        input_fullpath = os.path.join(indir, author_root_fname)
+        root_url    = u'file:///' + input_fullpath
+
+        output_rpath      = u'data/japanese_writer/ja.wikipedia.org/wiki_out/'
         output_list_fname = u'nihonno_shousetuka_ichiran.list'
-        root_url    = u'file:///' + graphfetcherdir + wikidatadir + author_root_fname
-        output_path = graphfetcherdir + wikidatadir + output_list_fname
-        # print u'# input [' + root_url    + u']'
-        # print u'# output[' + output_path + u']'
+        outdir = os.path.join(graphfetcherdir, output_rpath)
+        output_full_path = os.path.join(outdir, output_list_fname)
+
+        print u'# input [' + root_url    + u']'
+        print u'# output[' + output_full_path + u']'
         lf = ListFetcher.ListFetcher()
-        lf.get_link_list(root_url, output_path)
+        lf.get_link_list(root_url, output_full_path)
 
 
 #
