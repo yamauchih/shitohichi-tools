@@ -31,8 +31,14 @@ class TestGraphExtractor(unittest.TestCase):
         print u'\n# output path [' + output_fullpath + u']'
         print u'# filename [' + output_Madj_fname + u']'
 
+        # options
+        # When print out connection, set this True
+        opt_dict = {'is_print_connectivity': False }
+
         # ge = GraphExtractor.GraphExtractor(None)
-        ge = GraphExtractor.GraphExtractor([u'三島由紀夫', u'大江健三郎'])
+        ge = GraphExtractor.GraphExtractor([u'三島由紀夫', u'大江健三郎'], opt_dict)
+
+
         ge.get_adjacent_matrix(input_fullpath,  input_list_fname,
                                output_fullpath, output_Madj_fname)
 

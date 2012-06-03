@@ -21,9 +21,11 @@ class GraphExtractor(object):
     """Extract graph structure from a web pages.
     An adjacent matrix is generated."""
 
-    def __init__(self, _test_url_list):
+    def __init__(self, _test_url_list, _opt_dict):
         """constructor
         \param[in] _test_url_list if None, only analyze this list URL
+        \param[in] _opt_dict options {'is_print_connectivity': bool,
+        '': }
         """
         sys.stdout = codecs.getwriter('utf_8')(sys.stdout)
 
@@ -43,6 +45,16 @@ class GraphExtractor(object):
 
         # adjacent matrix: list of [index list], idx -> [index list]
         self.__M_ij = []
+
+        #------------------------------------------------------------
+        # options
+        #------------------------------------------------------------
+        # is_print_connectivity
+        self.__is_print_connectivity = False;
+        if (_opt_dict.has_key('is_print_connectivity')):
+            self.__is_print_connectivity = _opt_dict['is_print_connectivity']
+
+        #
 
 
     def __load_input_vector(self, _input_vector_list_fname):
@@ -89,10 +101,11 @@ class GraphExtractor(object):
             # print dst
             if (self.__url_to_index_map.has_key(dst)):
                 # Show connection
-                # print u'connect [' + _url + u']->[' + dst + u']'
+                if (self.__is_print_connectivity == True):
+                    print u'connect [' + _url + u']->[' + dst + u']'
 
-                # no duplication test, unordered. But just use
-                # set(dst_link_list) solved them
+                # not yet duplication check
+                # list(set(dst_link_list)) may remove duplication using set
                 dst_link_list.append(self.__url_to_index_map[dst])
 
         # record the list
