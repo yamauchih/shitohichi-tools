@@ -1,7 +1,13 @@
 * Rebecca's bundan related project.
 
-** TODO output connection visualized html directory
-*** Annotated original file: connected entry has different color.
+** DONE output connection visualized html directory
+*** DONE Annotated original file: connected entry has different color.
+** TODO Improvements
+*** TODO Option: remove self link.
+*** TODO Option: Remove non referenced page.
+*** TODO Option: Remove dead end page.
+** TODO Sort number of links
+** TODO Adjacency matrix analysis
 ** TODO graph creation with dot
 ** TODO English, German, SF authors
 
