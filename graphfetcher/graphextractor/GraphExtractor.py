@@ -33,6 +33,8 @@ class GraphExtractor(object):
           annotated html pages in the output directory. The connected
           link has a color.
 
+        - 'is_remove_self_link': bool. when True, remove the self link.
+
         \param[in] _test_url_list if None, only analyze this list URL
         \param[in] _opt_dict options
         """
@@ -72,6 +74,13 @@ class GraphExtractor(object):
         if (_opt_dict.has_key('is_generate_annotated_html')):
             self.__is_generate_annotated_html = _opt_dict['is_generate_annotated_html']
         print u'# Option: is_generate_annotated_html:', str(self.__is_generate_annotated_html)
+
+        # is_remove_self_link
+        self.__is_remove_self_link = False;
+        if (_opt_dict.has_key('is_remove_self_link')):
+            self.__is_remove_self_link = _opt_dict['is_remove_self_link']
+        print u'# Option: is_remove_self_link:', str(self.__is_remove_self_link)
+
 
 
     def __load_input_vector(self, _input_vector_list_fname):
@@ -143,6 +152,11 @@ class GraphExtractor(object):
             dst = link.get('href')
             # print dst
             if (self.__url_to_index_map.has_key(dst)):
+                if (self.__is_remove_self_link):
+                    if (_url == dst):
+                        # print u'ignore self link [' + _url + u']->[' + dst + u']'
+                        continue
+
                 # Show connection
                 if (self.__is_print_connectivity == True):
                     print u'connect [' + _url + u']->[' + dst + u']'
