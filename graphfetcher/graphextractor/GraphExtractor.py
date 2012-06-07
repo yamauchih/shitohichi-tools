@@ -101,7 +101,7 @@ class GraphExtractor(object):
                     self.__index_to_url_map.append(line)
                     idx = idx + 1
                 else:
-                    print u'duplication found [' + line + u']' + ' at ' + str(idx) + \
+                    print u'duplication found [' + line + u'] at ' + str(idx) + \
                         u' ignored'
 
         assert len(self.__url_to_index_map) == len(self.__index_to_url_map)
@@ -150,6 +150,8 @@ class GraphExtractor(object):
         dst_link_list = []
         for link in src_link_list:
             dst = link.get('href')
+            # If this (print dst) doesnot work, some file corruption
+            # suspected. Sometimes see \E3 with gedit.
             # print dst
             if (self.__url_to_index_map.has_key(dst)):
                 if (self.__is_remove_self_link):
@@ -168,6 +170,7 @@ class GraphExtractor(object):
                 # not yet duplication check
                 # list(set(dst_link_list)) may remove duplication using set
                 dst_link_list.append(self.__url_to_index_map[dst])
+
 
         # record the list
         idx = self.__url_to_index_map[_url]
