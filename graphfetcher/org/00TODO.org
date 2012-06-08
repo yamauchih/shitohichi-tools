@@ -11,5 +11,7 @@
 ** TODO graph creation with dot
 ** TODO English, German, SF authors
 ** TODO Blog
-*** TODO How to detect the corrupted utf-8 file: checkutf8file.sh
-*** TODO How to fix the corrupted utf-8 file: FixUtf8File.py. 石原慎太郎のみファイルが壊れている
+*** DONE How to detect the corrupted utf-8 file: checkutf8file.sh
+*** DONE How to fix the corrupted utf-8 file: FixUtf8File.py. But wget's problem did not solved.
+*** 石原慎太郎のみファイルが壊れている try to download.
+*** wiki_out reconstruction. Using URL without wiki/ and replace it.
