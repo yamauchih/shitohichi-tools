@@ -147,7 +147,7 @@ class GraphExtractor(object):
                          u'//\n' +\
                          u'// dot -Tsvg ' + self.__dot_file_name + ' -o ' +\
                          self.__dot_file_name + '.svg\n' +\
-                         u'digraph G {\n'
+                         u'digraph Graph {\n'
         self.__dot_file_os.write(dotfile_header)
 
 

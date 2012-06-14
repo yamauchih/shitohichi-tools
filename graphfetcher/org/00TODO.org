@@ -5,7 +5,8 @@
 ** TODO Improvements
 *** DONE Option: remove self link.
 *** TODO Option: Remove non referenced page.
-*** TODO Option: Remove dead end page.
+** TODO Adjacent matrix (can be read by matlab)
+** TODO Adjacent matrix first (or n-th) order of Mishima, graph by dot.
 ** TODO Sort number of links
 ** TODO Adjacency matrix analysis
 ** DONE graph creation with dot
