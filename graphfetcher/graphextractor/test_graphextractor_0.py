@@ -34,11 +34,12 @@ class TestGraphExtractor(unittest.TestCase):
         # options
         # When print out connection, set this True
         opt_dict = {'is_print_connectivity': False,
+                    'dot_file_name': 'a.dot',
                     'is_generate_annotated_html': False,
                     'is_remove_self_link': True }
-        # ge = GraphExtractor.GraphExtractor([], opt_dict)
+        ge = GraphExtractor.GraphExtractor([], opt_dict)
         # ge = GraphExtractor.GraphExtractor([u'三島由紀夫', u'大江健三郎'], opt_dict)
-        ge = GraphExtractor.GraphExtractor([u'八切止夫'], opt_dict)
+        # ge = GraphExtractor.GraphExtractor([u'八切止夫'], opt_dict)
 
         ge.get_adjacent_matrix(input_fullpath,  input_list_fname,
                                output_fullpath, output_Madj_fname)

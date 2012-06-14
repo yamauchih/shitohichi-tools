@@ -28,7 +28,7 @@ class TestListFetcher(unittest.TestCase):
         input_fullpath = os.path.join(indir, author_root_fname)
         root_url    = u'file:///' + input_fullpath
 
-        output_rpath      = u'data/japanese_writer/ja.wikipedia.org/wiki_out/'
+        output_rpath      = u'data/japanese_writer/ja.wikipedia.org/wiki/'
         output_list_fname = u'nihonno_shousetuka_ichiran.list'
         outdir = os.path.join(graphfetcherdir, output_rpath)
         output_full_path = os.path.join(outdir, output_list_fname)
