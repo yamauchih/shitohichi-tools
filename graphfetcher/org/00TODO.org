@@ -8,7 +8,7 @@
 *** TODO Option: Remove dead end page.
 ** TODO Sort number of links
 ** TODO Adjacency matrix analysis
-** TODO graph creation with dot
+** DONE graph creation with dot
 ** TODO English, German, SF authors
 ** TODO Blog
 *** DONE How to detect the corrupted utf-8 file: checkutf8file.sh
