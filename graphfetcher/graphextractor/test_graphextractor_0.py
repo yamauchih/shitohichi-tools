@@ -24,7 +24,7 @@ class TestGraphExtractor(unittest.TestCase):
         input_rpath       = u'data/japanese_writer/ja.wikipedia.org/wiki/'
         output_rpath      = u'data/japanese_writer/ja.wikipedia.org/wiki_out/'
         input_list_fname  = u'nihonno_shousetuka_ichiran.list'
-        output_Madj_fname = u'00test.Madj'
+        output_Madj_fname = u'gen_madj.m'
         input_fullpath    = graphfetcherdir + input_rpath
         output_fullpath   = graphfetcherdir + output_rpath
         print u'\n# input  [' + input_fullpath  + u'], filename[' + input_list_fname  + u']'
@@ -44,8 +44,8 @@ class TestGraphExtractor(unittest.TestCase):
             # Output matrix type ['python', 'matlab']
             'output_matrix_type': 'matlab'
             }
-        # ge = GraphExtractor.GraphExtractor([], opt_dict)
-        ge = GraphExtractor.GraphExtractor([u'三島由紀夫', u'大江健三郎'], opt_dict)
+        ge = GraphExtractor.GraphExtractor([], opt_dict)
+        # ge = GraphExtractor.GraphExtractor([u'三島由紀夫', u'大江健三郎'], opt_dict)
         # ge = GraphExtractor.GraphExtractor([u'八切止夫'], opt_dict)
 
         ge.get_adjacent_matrix(input_fullpath,  input_list_fname,
