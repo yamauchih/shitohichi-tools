@@ -32,13 +32,20 @@ class TestGraphExtractor(unittest.TestCase):
         print u'# filename [' + output_Madj_fname + u']'
 
         # options
-        # When print out connection, set this True
-        opt_dict = {'is_print_connectivity': False,
-                    'dot_file_name': 'a.dot',
-                    'is_generate_annotated_html': False,
-                    'is_remove_self_link': True }
-        ge = GraphExtractor.GraphExtractor([], opt_dict)
-        # ge = GraphExtractor.GraphExtractor([u'三島由紀夫', u'大江健三郎'], opt_dict)
+        opt_dict = {
+            # When print out connection, set this True
+            'is_print_connectivity': False,
+            # When output the dot (graphviz) file, set non empty file name (e.g., a.dot)
+            'dot_file_name': '',
+            # When True, generate annotated html file
+            'is_generate_annotated_html': False,
+            # When True, remove self link
+            'is_remove_self_link': True,
+            # Output matrix type ['python', 'matlab']
+            'output_matrix_type': 'matlab'
+            }
+        # ge = GraphExtractor.GraphExtractor([], opt_dict)
+        ge = GraphExtractor.GraphExtractor([u'三島由紀夫', u'大江健三郎'], opt_dict)
         # ge = GraphExtractor.GraphExtractor([u'八切止夫'], opt_dict)
 
         ge.get_adjacent_matrix(input_fullpath,  input_list_fname,
