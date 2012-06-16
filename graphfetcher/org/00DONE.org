@@ -1,0 +1,10 @@
+* Rebecca's bundan related project.
+
+** Output connection visualized html directory
+*** DONE Annotated original file: connected entry has different color.
+
+** DONE Option: remove self link.
+** DONE Adjacent matrix (can be read by matlab)
+
+** DONE How to detect the corrupted utf-8 file: checkutf8file.sh
+** DONE How to fix the corrupted utf-8 file: FixUtf8File.py. But wget's problem did not solved.

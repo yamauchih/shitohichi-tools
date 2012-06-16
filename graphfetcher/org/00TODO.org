@@ -1,18 +1,13 @@
 * Rebecca's bundan related project.
 
-** DONE output connection visualized html directory
-*** DONE Annotated original file: connected entry has different color.
-** TODO Improvements
-*** DONE Option: remove self link.
-*** TODO Option: Remove non referenced page.
-** TODO Adjacent matrix (can be read by matlab)
+** Improvements
+** TODO Option: Remove non referenced page.
 ** TODO Adjacent matrix first (or n-th) order of Mishima, graph by dot.
 ** TODO Sort number of links
 ** TODO Adjacency matrix analysis
-** DONE graph creation with dot
+** TODO graph creation with dot
+*** TODO output node_num -> name
+*** TODO (M_{adj}), (M_{adj})^2 -> node_i -> node_j; list
 ** TODO English, German, SF authors
 ** TODO Blog
-*** DONE How to detect the corrupted utf-8 file: checkutf8file.sh
-*** DONE How to fix the corrupted utf-8 file: FixUtf8File.py. But wget's problem did not solved.
-*** 石原慎太郎のみファイルが壊れている try to download.
-*** wiki_out reconstruction. Using URL without wiki/ and replace it.
+*** 石原慎太郎のみファイルが壊れている fix
