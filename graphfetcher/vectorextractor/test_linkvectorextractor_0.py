@@ -17,7 +17,7 @@ import unittest
 class TestLinkVectorExtractor(unittest.TestCase):
     """test: LinkVectorExtractor test."""
 
-    def test_listfetcher(self):
+    def test_linkvectorextractor(self):
         """test 日本の小説家一覧を起点にした URL list を生成する．"""
         # print u'# Need LC_ALL setting to utf-8, e.g., en_US.utf-8, ja_JP.utf-8.'
         graphfetcherdir = u'/home/hitoshi/data/project/shitohichi-tools/graphfetcher/'
@@ -29,7 +29,7 @@ class TestLinkVectorExtractor(unittest.TestCase):
         root_url    = u'file:///' + input_fullpath
 
         output_rpath      = u'data/japanese_writer/ja.wikipedia.org/wiki/'
-        output_list_fname = u'nihonno_shousetuka_ichiran.list'
+        output_list_fname = u'nihonno_shousetuka_ichiran.vector'
         outdir = os.path.join(graphfetcherdir, output_rpath)
         output_full_path = os.path.join(outdir, output_list_fname)
 

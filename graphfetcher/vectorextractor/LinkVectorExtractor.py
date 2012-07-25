@@ -15,7 +15,7 @@ import codecs
 from bs4 import BeautifulSoup
 
 class LinkVectorExtractor(object):
-    """create link list from a meta page"""
+    """create a vector from a meta web page's link"""
 
     def __init__(self):
         """constructor
@@ -93,4 +93,4 @@ class LinkVectorExtractor(object):
 
 if __name__=="__main__":
 
-    print u'# Usage: run the test_listfetcher_0.sh.'
+    print u'# Usage: run the test_linkvectorextractor_0.py.'
