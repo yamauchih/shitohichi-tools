@@ -3,19 +3,19 @@
 #
 # Copyright (C) 2012 Yamauchi, Hitoshi
 #
-# ListFetcher test
+# LinkVectorExtractor test
 #
 """
 \file
-\brief ListFetcher test
+\brief LinkVectorExtractor test
 """
 
 import os
-import ListFetcher
+import LinkVectorExtractor
 import unittest
 
-class TestListFetcher(unittest.TestCase):
-    """test: ListFetcher test."""
+class TestLinkVectorExtractor(unittest.TestCase):
+    """test: LinkVectorExtractor test."""
 
     def test_listfetcher(self):
         """test 日本の小説家一覧を起点にした URL list を生成する．"""
@@ -35,7 +35,7 @@ class TestListFetcher(unittest.TestCase):
 
         print u'# input [' + root_url    + u']'
         print u'# output[' + output_full_path + u']'
-        lf = ListFetcher.ListFetcher()
+        lf = LinkVectorExtractor.LinkVectorExtractor()
         lf.get_link_list(root_url, output_full_path)
 
 
@@ -43,7 +43,7 @@ class TestListFetcher(unittest.TestCase):
 # main test
 #
 if __name__ == '__main__':
-    suit0   = unittest.TestLoader().loadTestsFromTestCase(TestListFetcher)
+    suit0   = unittest.TestLoader().loadTestsFromTestCase(TestLinkVectorExtractor)
     alltest = unittest.TestSuite([suit0])
     unittest.TextTestRunner(verbosity=2).run(alltest)
 
