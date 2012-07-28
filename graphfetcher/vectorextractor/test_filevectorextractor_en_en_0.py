@@ -23,6 +23,7 @@ class TestFileVectorExtractorEnEn(unittest.TestCase):
         graphfetcherdir = u'/home/hitoshi/data/project/shitohichi-tools/graphfetcher/'
 
         input_rpath = u'data/english_writer/en.wikipedia.org/wiki/'
+
         input_dir   = os.path.join(graphfetcherdir, input_rpath)
 
         output_rpath      = u'data/english_writer/en.wikipedia.org/'
@@ -37,7 +38,7 @@ class TestFileVectorExtractorEnEn(unittest.TestCase):
         print u'# output   [' + output_full_path + u']'
         print u'# blacklist[' + blist_full_path + u']'
         fve = FileVectorExtractor.FileVectorExtractor()
-        fve.read_blacklist(blacklist_fname)
+        fve.read_blacklist(blist_full_path)
         fve.get_vector(input_dir, output_full_path)
 
 
