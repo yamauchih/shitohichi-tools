@@ -54,8 +54,15 @@ class FileVectorExtractor(object):
     def has_writer_description(self, _fname):
         """check _fname has writer description
         """
-        print u'checking ['+ _fname + u']'
-        data = urllib2.urlopen(_fname).read()
+        print u'info: checking ['+ _fname + u']'
+
+        #
+        # It seems some filename is not considered unicode (even I
+        # made a unicode string with u'', so make sure the encoding is
+        # utf-8. For example, Lemprière's_Bibliotheca_Classica can not
+        # be passed in urlopen. 2012-7-29(Sun) Hitoshi
+        #
+        data = urllib2.urlopen(_fname.encode('utf-8')).read()
         soup = BeautifulSoup(data)
 
         # check persondata table
@@ -65,17 +72,17 @@ class FileVectorExtractor(object):
                 # pd.text
                 mat = self.__author_regex.search(pd.text)
                 if(mat != None):
-                    print u'found in persondata: ' + mat.string[mat.start():mat.end()]
+                    #print u'debug: found in persondata: ' + mat.string[mat.start():mat.end()]
                     return True
 
         # check category link
         catlinks = soup.find_all('div', { "id" : "mw-normal-catlinks" })
-        if ((catlinks != None) or (len(catlinks) > 0)):
+        if ((catlinks != None) and (len(catlinks) > 0)):
             for cat in catlinks[0].find_all('a'):
                 # print cat.text
                 mat = self.__author_regex.search(cat.text)
                 if(mat != None):
-                    print u'found in category: ' + mat.string[mat.start():mat.end()]
+                    # print u'debug: found in category: ' + mat.string[mat.start():mat.end()]
                     return True
 
         return False
@@ -99,8 +106,8 @@ class FileVectorExtractor(object):
             ufname = unicode(fname, encoding='utf-8', errors='strict')
 
 
-            if (ufname != u"Florence_Henrietta_Darwin"): # DEBUG
-                continue
+            # if (ufname != u"Lemprière's_Bibliotheca_Classica"): # DEBUG
+            #     continue
 
             if (ufname in self.__black_list_set):
                 print ufname, 'is in the blacklist. continue.'
@@ -110,9 +117,9 @@ class FileVectorExtractor(object):
 
             if (self.has_writer_description(url)):
                 self.__author_list.append(ufname)
-                print u'found author [' + ufname + ']'
+                # print u'found author [' + ufname + ']'
             else:
-                print u'seems not an author [' + ufname + ']'
+                print u'info: seems not an author [' + ufname + ']'
 
         # output
 
