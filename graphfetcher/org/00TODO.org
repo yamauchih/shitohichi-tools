@@ -1,8 +1,6 @@
 * Rebecca's bundan related project.
 
 ** Improvements
-** TODO VectorExtractor, scan file with black list
-*** read blacklist file  # comment. rest is name list
 ** TODO Option: Remove non referenced page.
 ** TODO Adjacent matrix first (or n-th) order of Mishima, graph by dot.
 ** TODO Sort number of links
