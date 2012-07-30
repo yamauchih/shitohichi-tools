@@ -8,3 +8,8 @@
 
 ** DONE How to detect the corrupted utf-8 file: checkutf8file.sh
 ** DONE How to fix the corrupted utf-8 file: FixUtf8File.py. But wget's problem did not solved.
+
+** FileVectorExtractor
+*** DONE : How many files remains (add progress)
+*** DONE : Blacklist
+*** DONE : Elapsed time
