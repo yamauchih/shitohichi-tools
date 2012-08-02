@@ -27,9 +27,7 @@ class FileVectorExtractor(object):
         self.__black_list_set = set()
         # result author list
         self.__author_list = []
-        self.__author_regex = \
-            re.compile('writer|author|novelist|poets|dramatists|playwrights|essayist',
-                       re.IGNORECASE)
+        self.__author_regex = re.compile('writer|author|novelist|poets|dramatists|playwrights|essayist', re.IGNORECASE)
         self.__is_show_proegress = True
 
 

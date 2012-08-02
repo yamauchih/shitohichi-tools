@@ -13,3 +13,5 @@
 *** DONE : How many files remains (add progress)
 *** DONE : Blacklist
 *** DONE : Elapsed time
+
+** DONE LinkVectorExtractorEnEn
