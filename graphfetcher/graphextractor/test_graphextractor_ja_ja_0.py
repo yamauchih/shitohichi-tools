@@ -21,15 +21,21 @@ class TestGraphExtractor(unittest.TestCase):
         """test graph (adjacent matrix) extractor."""
         # print u'# Need LC_ALL setting to utf-8, e.g., en_US.utf-8, ja_JP.utf-8.'
         graphfetcherdir   = u'/home/hitoshi/data/project/shitohichi-tools/graphfetcher/'
-        input_rpath       = u'data/japanese_writer/ja.wikipedia.org/wiki/'
-        output_rpath      = u'data/japanese_writer/ja.wikipedia.org/wiki_out/'
-        input_list_fname  = u'nihonno_shousetuka_ichiran.list'
-        output_Madj_fname = u'gen_madj_selected.m'
-        input_fullpath    = graphfetcherdir + input_rpath
-        output_fullpath   = graphfetcherdir + output_rpath
-        print u'\n# input  [' + input_fullpath  + u'], filename[' + input_list_fname  + u']'
-        print u'\n# output path [' + output_fullpath + u']'
-        print u'# filename [' + output_Madj_fname + u']'
+        input_rpath       = u'data/japanese_writer/ja.wikipedia.org/'
+        output_rpath      = u'data/japanese_writer/ja.wikipedia.org/'
+        input_vector_fname  = u'ja_ja_writer.list'
+        output_madj_fname = u'ja_ja_writer_adj_mat_selected.m'
+
+        input_html_dir     = graphfetcherdir + input_rpath  + 'wiki/'
+        input_vector_fpath = graphfetcherdir + input_rpath  + 'ja_ja_writer.vector'
+        output_html_dir    = graphfetcherdir + output_rpath + 'wiki_out/'
+        output_madj_fpath  = graphfetcherdir + output_rpath + output_madj_fname
+
+        print
+        print u'# input html dir    [' + input_html_dir     + u']'
+        print u'# input vector file [' + input_vector_fpath + u']'
+        print u'# output dir        [' + output_html_dir    + u']'
+        print u'# output madj file  [' + output_madj_fpath  + u']'
 
         # options
         opt_dict = {
@@ -52,8 +58,8 @@ class TestGraphExtractor(unittest.TestCase):
                                             u'加納朋子',   u'村上春樹',   u'武者小路実篤',
                                             u'夏目漱石' ], opt_dict)
 
-        ge.get_adjacent_matrix(input_fullpath,  input_list_fname,
-                               output_fullpath, output_Madj_fname)
+        ge.get_adjacent_matrix(input_html_dir,  input_vector_fpath,
+                               output_html_dir, output_madj_fpath)
 
 #
 # main test

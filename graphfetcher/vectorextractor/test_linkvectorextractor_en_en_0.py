@@ -29,7 +29,7 @@ class TestLinkVectorExtractor(unittest.TestCase):
         input_fullpath = os.path.join(indir, author_root_fname)
         root_url    = u'file:///' + input_fullpath
 
-        output_rpath      = u'data/english_writer/en.wikipedia.org/wiki/'
+        output_rpath      = u'data/english_writer/en.wikipedia.org/'
         output_list_fname = u'en_en_writer.vector'
         outdir = os.path.join(graphfetcherdir, output_rpath)
         output_full_path = os.path.join(outdir, output_list_fname)
@@ -42,6 +42,10 @@ class TestLinkVectorExtractor(unittest.TestCase):
             'List_of_English_novelists',
             'List_of_English_writers',
             'Lists_of_writers',
+            'English_literature',
+            'English_novel',
+            'Main_Page',
+            'Help:Contents',
             'Special:Random',
             'Special:RecentChanges',
             'Special:RecentChangesLinked/List_of_English_writers',
