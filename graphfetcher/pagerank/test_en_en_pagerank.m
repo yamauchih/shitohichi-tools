@@ -10,8 +10,14 @@ remain_vec = [1:nr]';
 madj(:, zero_idx_vec) = [];
 madj(zero_idx_vec, :) = [];
 remain_vec(zero_idx_vec) = [];
-[nr, nc ] = size(madj)
-madj(:,100:nr) = []
-madj(100:nr,:) = []
 
-pagerank(madj)
+one_in_node = find_one_input_node(madj);
+madj(:, one_in_node) = [];
+madj(one_in_node, :) = [];
+remain_vec(one_in_node) = [];
+
+%[nr, nc ] = size(madj)
+%madj(:,100:nr) = []
+%madj(100:nr,:) = []
+
+pagerank(madj')
