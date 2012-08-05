@@ -20,20 +20,12 @@ madj2(4,5) = 1;
 % full(madj2) == madj1
 
 madj = madj2;
+matsz = size(madj);
 
-% [nr, nc] = size(madj);
-% remain_vec = [1:nr];
-% source_node_idx = find(sum(madj)  == 0);
-% madj(:, source_node_idx) = [];
-% madj(source_node_idx, :) = [];
-% remain_vec(source_node_idx) = [];
-% 
-% sink_node_idx   = find(sum(madj') == 0);
-% madj(:, sink_node_idx) = [];
-% madj(sink_node_idx, :) = [];
-% remain_vec(sink_node_idx) = [];
+% all the indices are valid
+index_vec = [1:matsz(1)]';
 
-[simplified_madj remain_idx_vec]= remove_sink_source_node(madj)
+[simplified_madj remain_idx_vec]= remove_sink_source_node(madj, index_vec);
 
 full(madj)
 full(simplified_madj)
