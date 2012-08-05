@@ -3,24 +3,28 @@
 
 madj = en_en_writer_adj_mat_selected();
 
+% create the initial index vector
 [nr, nc] = size(madj);
+if (nr ~=nc)
+    error('madj is not a squere matrix.')
+end
+index_vec = [1:nr]';
 
-sum(madj)
+%
+% check the row vector has no zero vector. Row vector since Markov matrix
+% will be transposed (transposed column vector is checked.)
+%
+iter = 0
+while (~isempty(find(sum(madj') == 0)))
+    [ res_madj remain_idx_vec ] = remove_sink_source_node(madj, index_vec);
+    madj = res_madj;
+    index_vec = remain_idx_vec;
+    iter = iter + 1;
+    [nr, nc] = size(madj);
+    fprintf('%d iters. size(%d,%d)\n', iter, nr, nc);
+end
 
-zero_idx_vec = find_zero_column_vector(madj);
-remain_vec = [1:nr]';
-% remove zero columns
-madj(:, zero_idx_vec) = [];
-madj(zero_idx_vec, :) = [];
-remain_vec(zero_idx_vec) = [];
-
-one_in_node = find_one_input_node(madj);
-madj(:, one_in_node) = [];
-madj(one_in_node, :) = [];
-remain_vec(one_in_node) = [];
-
-%[nr, nc ] = size(madj)
-%madj(:,100:nr) = []
-%madj(100:nr,:) = []
-
-pagerank(madj')
+pagerank_vec = pagerank(res_madj');
+abs_pagerank_vec = abs(pagerank_vec);
+idx_idx = find(abs_pagerank_vec == max(abs_pagerank_vec))
+index_vec(idx_idx)
