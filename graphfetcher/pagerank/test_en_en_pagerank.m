@@ -1,9 +1,12 @@
 %TEST_EN_EN_PAGERANK Summary of this function goes here
 %   Detailed explanation goes here
 
-en_en_writer_adj_mat_selected;
+madj = en_en_writer_adj_mat_selected();
 
 [nr, nc] = size(madj);
+
+sum(madj)
+
 zero_idx_vec = find_zero_column_vector(madj);
 remain_vec = [1:nr]';
 % remove zero columns
