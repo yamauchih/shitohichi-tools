@@ -57,7 +57,10 @@ class TestLinkVectorExtractor(unittest.TestCase):
             '/w/index.php?title=Special:Cite&page=List_of_English_writers&id=494209347'
             ]
 
-        lf = LinkVectorExtractorEnEn.LinkVectorExtractorEnEn(ignore_href_list)
+        # optdict = {'export_encoding': 'utf-8'}
+        optdict = {'export_encoding': 'ascii'}
+        # optdict = {'export_encoding': 'shift-jis'}
+        lf = LinkVectorExtractorEnEn.LinkVectorExtractorEnEn(ignore_href_list, optdict)
         lf.get_link_list(root_url, output_full_path)
 
 

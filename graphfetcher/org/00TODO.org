@@ -2,6 +2,7 @@
 
 ** Improvements
 ** FileVectorExtractor
+*** TODO output authors in cell array format.
 *** TODO check the entry name's (writer|poet) and so on
 *** TODO check the list fetcher way also
 ** TODO Option: Remove non referenced page.
