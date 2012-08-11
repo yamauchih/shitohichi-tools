@@ -15,6 +15,7 @@
 *** DONE : Elapsed time
 
 ** DONE LinkVectorExtractorEnEn
+*** DONE output with specifying encoding.
 
 ** DONE GraphExtractor
 *** DONE export M_{adj} file should return a matrix.
