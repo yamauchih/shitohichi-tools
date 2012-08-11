@@ -1,0 +1,14 @@
+# -*-tcl-*-
+#
+# TMakefile for stlperf
+#
+
+# C++ module
+module { cxx }
+
+# module google test
+module { gtest }
+
+# module run unit test. tmk check runs all the test.
+module { run_unittest }
+
