@@ -1,8 +1,10 @@
 // ==========================================================================
-// performance of map copy
+// performance of map creation and copy
 // ==========================================================================
 // Copyright (C) 2012 Hitoshi Yamauchi
 // ==========================================================================
+/// \file
+/// \brief a simple performance test for STL nth_element
 
 #include <map>
 #include <string>
@@ -186,10 +188,7 @@ std::map< std::string, int > create_map_01()
     return amap;
 }
 
-//
-//  50 entries 1.44/100000 = 14.4 microsecond
-// 100 entries 3.30/100000 = 33   microsecond
-//
+/// main
 int main(int argc, char *argv[])
 {
     const int RepeatCount  = 100000;
@@ -208,3 +207,12 @@ int main(int argc, char *argv[])
         std::cout << "map copy: " << sw << ", " << milisec << " millisec/iter" << std::endl;
     }
 }
+
+// Result:
+// CPU: Intel(R) Core(TM) i7-2720QM CPU @ 2.20GHz
+// OS:  3.2.0-29-generic #46-Ubuntu SMP Fri Jul 27 17:03:23 UTC 2012 x86_64 x86_64 x86_64 GNU/Linux
+//
+// map creation and copy speed.
+//  50 entries 1.44/100000 = 14.4 microsecond/creation & copy
+// 100 entries 3.30/100000 = 33   microsecond/creation & copy
+//
