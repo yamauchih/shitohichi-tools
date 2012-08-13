@@ -1,8 +1,13 @@
 // ==========================================================================
-// Copyright (C) Hitoshi Yamauchi, Sunday Research
+// StopWatch class unit test.
 // ==========================================================================
 /// \file
-/// \brief unit test for the stop watch
+/// \brief unit test for the stop watch class
+//
+// New BSD License. <a href="http://en.wikipedia.org/wiki/BSD_licenses">
+// http://en.wikipedia.org/wiki/BSD_licenses</a>
+// Copyright (C) 2012 Hitoshi Yamauchi, Sunday Research
+//
 
 #include "StopWatch.hh"
 

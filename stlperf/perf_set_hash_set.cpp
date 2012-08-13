@@ -1,10 +1,13 @@
 // ==========================================================================
-// performance of map copy
-// ==========================================================================
-// Copyright (C) 2012 Hitoshi Yamauchi
+// Performance of set and hash_set comparison.
 // ==========================================================================
 /// \file
 /// \brief a simple performance test for STL set and hash_set
+//
+// New BSD License. <a href="http://en.wikipedia.org/wiki/BSD_licenses">
+// http://en.wikipedia.org/wiki/BSD_licenses</a>
+// Copyright (C) 2012 Hitoshi Yamauchi, Sunday Research
+//
 
 #include <set>
 #include <ext/hash_set>
@@ -15,7 +18,7 @@
 // performance comparison of set and hash_set
 int main(int argc, char *argv[])
 {
-    const int RepeatCount  = 2;
+    const int RepeatCount  = 1;
     const int ElementCount = 10000000;
 
     std::set< int >      test_set;
@@ -114,10 +117,33 @@ int main(int argc, char *argv[])
 // just my preference. Any hash functions you can fool if you know
 // it.)
 //
-// set.insert():      7.30689s
-// hash_set.insert(): 921.765ms
-// set.find():        4.95401s
-// hash_set.find():   254.803ms
-// set.erase():       2.11941s
-// hash_set.erase():  300.573ms
+// set.insert():      4.58868s
+// hash_set.insert(): 905.446ms
+// set.find():        2.47205s
+// hash_set.find():   344.448ms
+// set.erase():       2.1649s
+// hash_set.erase():  284.121ms
 //
+
+// <table border="1">
+//  <tr>
+//   <td>Method</td>
+//   <td>set</td>
+//   <td>hash_set</td>
+//  </tr>
+//  <tr>
+//   <td>insert()</td>
+//   <td>7.31 sec</td>
+//   <td>922  millisec</td>
+//  </tr>
+//  <tr>
+//   <td>find()</td>
+//   <td>4.95 sec</td>
+//   <td>255  millisec</td>
+//  </tr>
+//  <tr>
+//   <td>erase()</td>
+//   <td>2.12 sec</td>
+//   <td>301  millisec</td>
+//  </tr>
+// </table>
