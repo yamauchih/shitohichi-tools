@@ -1,16 +1,20 @@
 // ==========================================================================
-// Copyright (C) Hitoshi Yamauchi, Sunday Research
+// Elapsed time measurement.
 // ==========================================================================
 /// \file
 /// \brief a stop watch for elapsed time measurements
+//
+// New BSD License. <a href="http://en.wikipedia.org/wiki/BSD_licenses">
+// http://en.wikipedia.org/wiki/BSD_licenses</a>
+// Copyright (C) 2012 Hitoshi Yamauchi, Sunday Research
+//
+
 #ifndef SHITOHICHI_TOOLS_STLPERF_STOPWATCH_HH
 #define SHITOHICHI_TOOLS_STLPERF_STOPWATCH_HH
 
 #include <iostream>
 #include <string>
 #include <sstream>
-//#include <limits.h>
-//#include <sys/types.h>
 #include <sys/time.h>
 
 

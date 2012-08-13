@@ -1,10 +1,15 @@
 // ==========================================================================
-// performance of map copy
+// Performance comparison of sort() and nth_element() for median computation
 // ==========================================================================
 // Copyright (C) 2012 Hitoshi Yamauchi
 // ==========================================================================
 /// \file
 /// \brief a simple performance test for STL nth_element
+//
+// New BSD License. <a href="http://en.wikipedia.org/wiki/BSD_licenses">
+// http://en.wikipedia.org/wiki/BSD_licenses</a>
+// Copyright (C) 2012 Hitoshi Yamauchi, Sunday Research
+//
 
 //
 // (print (random) (current-buffer))
@@ -134,3 +139,43 @@ int main()
 // 32768       40.9374 s     9.3263 s
 // 65536       88.0514 s    18.7449 s
 //
+// <H3>
+// Median computation: nth_element() vs sort() (<a
+// href="perf_nth_element.cpp"><code>perf_nth_element.cpp</code></a>)
+// </H3>
+
+// Number of iterations = 100000. (each operation is performed 100000 times
+// the elapsed times are shown.)
+// <table border="1">
+//  <tr>
+//   <td>Array size</td>
+//   <td>sort</td>
+//   <td>nth_element</td>
+//  </tr>
+//  <tr>
+//   <td>4096</td>
+//   <td>4.20 sec</td>
+//   <td>1.18 sec</td>
+//  </tr>
+//  <tr>
+//   <td>8192</td>
+//   <td>8.98 sec</td>
+//   <td>2.30 sec</td>
+//  </tr>
+//  <tr>
+//   <td>16384</td>
+//   <td>19.2 sec</td>
+//   <td>4.59 sec</td>
+//  </tr>
+//  <tr>
+//   <td>32768</td>
+//   <td>40.9 sec</td>
+//   <td>9.32 sec</td>
+//  </tr>
+//  <tr>
+//   <td>65536</td>
+//   <td>88.1 sec</td>
+//   <td>18.7 sec</td>
+//  </tr>
+// </table>
+

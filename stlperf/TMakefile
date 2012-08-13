@@ -2,6 +2,10 @@
 #
 # TMakefile for stlperf
 #
+#  New BSD License. <a href="http://en.wikipedia.org/wiki/BSD_licenses">
+#  http://en.wikipedia.org/wiki/BSD_licenses</a>
+#  Copyright (C) 2012 Hitoshi Yamauchi, Sunday Research
+#
 
 # C++ module
 module { cxx }
@@ -12,4 +16,4 @@ module { gtest }
 # module run unit test. tmk check runs all the test.
 module { run_unittest }
 
-lappend EXCLUDE comp_set_hash_set.cc
+# lappend EXCLUDE comp_set_hash_set.cc

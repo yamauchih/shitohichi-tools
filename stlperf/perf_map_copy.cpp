@@ -1,10 +1,13 @@
 // ==========================================================================
-// performance of map creation and copy
-// ==========================================================================
-// Copyright (C) 2012 Hitoshi Yamauchi
+// Performance of map creation and copy
 // ==========================================================================
 /// \file
 /// \brief a simple performance test for STL nth_element
+//
+// New BSD License. <a href="http://en.wikipedia.org/wiki/BSD_licenses">
+// http://en.wikipedia.org/wiki/BSD_licenses</a>
+// Copyright (C) 2012 Hitoshi Yamauchi, Sunday Research
+//
 
 #include <map>
 #include <string>
@@ -216,3 +219,24 @@ int main(int argc, char *argv[])
 //  50 entries 1.44/100000 = 14.4 microsecond/creation & copy
 // 100 entries 3.30/100000 = 33   microsecond/creation & copy
 //
+
+
+// <H3>
+// <code>std::map</code> creation and copy (<code><a
+// href="perf_map_copy.cpp">perf_map_copy.cpp</a></code>)
+// </H3>
+// Number of iterations = 100000 and averaged elapsed times are shown.
+// <table border="1">
+//  <tr>
+//   <td>Key size</td>
+//   <td></td>
+//  </tr>
+//  <tr>
+//   <td>50 keys</td>
+//   <td>14 micro seconds (1.4x10<sup>-6</sup> sec)</td>
+//  </tr>
+//  <tr>
+//   <td>100 keys</td>
+//   <td>33 micro seconds (3.3x10<sup>-6</sup> sec)</td>
+//  </tr>
+// </table>
