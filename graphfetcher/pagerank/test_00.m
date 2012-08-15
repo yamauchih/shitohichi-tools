@@ -1,5 +1,6 @@
 %TEST_00 simple matrix pagerank test 
 %   7x7 matrix pagerank test
+clear;
 madj = [0, 1, 1, 1, 1, 0, 1;
         1, 0, 0, 0, 0, 0, 0;
         1, 1, 0, 0, 0, 0, 0;
@@ -8,7 +9,7 @@ madj = [0, 1, 1, 1, 1, 0, 1;
         1, 0, 0, 0, 1, 0, 0;
         0, 0, 0, 0, 1, 0, 0];
     
-pagerank_vec = pagerank01(madj')
+pagerank_vec = pagerank00(madj')
 
 if(sum(pagerank_vec) < 0)
     % eigen vector can be any multiplication of a scalar

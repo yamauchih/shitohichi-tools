@@ -24,19 +24,20 @@ if ((ir ~= nr) || (ic ~= 1))
 end
 
 iter = 0;
+% Note: can not use find(X,1) since a sparce matrix is expected.
 while ((~isempty(find(sum(madj') == 0))) || ...
        (~isempty(find(sum(madj)  == 0))))
     [ res_madj remain_idx_vec remain_name_carray ] = ...
         remove_sink_source_node_sub(madj, idx_vec, name_carray);
-    res_madj
-    remain_idx_vec
-    remain_name_carray
+    % res_madj
+    % remain_idx_vec
+    % remain_name_carray
     madj = res_madj;
     idx_vec   = remain_idx_vec;
     name_carray = remain_name_carray;
     iter = iter + 1;
     [nr, nc] = size(madj);
-    fprintf('%d iters. size(%d,%d)\n', iter, nr, nc);
+    fprintf('remove_sink_source_node: %d iters. size(%d,%d)\n', iter, nr, nc);
 end
 
 end
