@@ -14,7 +14,7 @@ index_vec = [1:nr]';
 % check the row vector has no zero vector. Row vector since Markov matrix
 % will be transposed (transposed column vector is checked.)
 %
-iter = 0
+iter = 0;
 while (~isempty(find(sum(madj') == 0)))
     [ res_madj remain_idx_vec ] = remove_sink_source_node(madj, index_vec);
     madj = res_madj;
@@ -24,7 +24,16 @@ while (~isempty(find(sum(madj') == 0)))
     fprintf('%d iters. size(%d,%d)\n', iter, nr, nc);
 end
 
-pagerank_vec = pagerank(res_madj');
-abs_pagerank_vec = abs(pagerank_vec);
-idx_idx = find(abs_pagerank_vec == max(abs_pagerank_vec))
-index_vec(idx_idx)
+%pagerank_vec = pagerank00(res_madj');
+pagerank_vec = pagerank01(res_madj');
+
+if(sum(pagerank_vec) < 0)
+   pagerank_vec = -1 * pagerank_vec;
+end
+
+%abs_pagerank_vec = abs(pagerank_vec);
+[sorted_pagerank_vec, sort_perm_idx] = sort(pagerank_vec, 'descend');
+
+ranked_idx = index_vec(sort_perm_idx);
+ranked_idx(1:10)
+sorted_pagerank_vec(1:10)
