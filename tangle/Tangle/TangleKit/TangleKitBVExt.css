@@ -1,0 +1,20 @@
+/*
+ *  TangleKitBVExt.css
+ *
+ *  By Bret Victor
+ *  (C) 2012 Bret Victor.
+ *
+ */
+
+/* TkExpandingList (http://worrydream.com/Tangle/pants.html) */
+
+.TkExpandingListItem {
+    color: #46f;
+    border-bottom: 1px dashed #46f;
+    cursor: pointer;
+}
+
+.TkExpandingListItem:hover {
+    color: #00c;
+    border-bottom: 1px dashed #00c;
+}

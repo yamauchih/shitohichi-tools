@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <base target="_top">
+
+    <title>Up and Down the Ladder of Abstraction</title>
+
+    <!-- fonts -->
+    <link href='http://fonts.googleapis.com/css?family=PT+Sans:400italic,400,700' rel='stylesheet' type='text/css'>
+
+    <!-- style -->
+    <link rel="stylesheet" href="style.css" type="text/css">
+
+    <!-- Tangle -->
+    <script type="text/javascript" src="../../Tangle/Tangle.js"></script>
+
+    <!-- TangleKit -->
+    <link rel="stylesheet" href="../../Tangle/TangleKit/TangleKit.css" type="text/css">
+    <script type="text/javascript" src="../../Tangle/TangleKit/mootools.js"></script>
+    <script type="text/javascript" src="../../Tangle/TangleKit/sprintf.js"></script>
+    <script type="text/javascript" src="../../Tangle/TangleKit/BVTouchable.js"></script>
+    <script type="text/javascript" src="../../Tangle/TangleKit/TangleKit.js"></script>
+
+    <!-- LayerScript -->
+    <script type="text/javascript" src="LayerScript/BVLayer.js"></script>
+    <script type="text/javascript" src="LayerScript/BVText.js"></script>
+    <script type="text/javascript" src="LayerScript/BVTouches.js"></script>
+    <script type="text/javascript" src="LayerScript/BVScrubbableLayer.js"></script>
+
+    <!-- project -->
+    <script type="text/javascript" src="Project/LadderMain.js"></script>
+    <script type="text/javascript" src="Project/LadderRoadViews.js"></script>
+    <script type="text/javascript" src="Project/LadderSimulation.js"></script>
+    <script type="text/javascript" src="Project/Slider.js"></script>
+    <script type="text/javascript" src="Project/Misc.js"></script>
+
+</head>
+
+<body>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!-- controlling time -->
+
+<div class="chapter">
+    <div class="chapterHeader"><span>Controlling Time</span></div>
+
+    <div class="columnLeft">
+        <p>Above, we watched the system evolve in real time.  A realtime view is useful for getting a direct, visceral sense of a system's behavior, especially for systems that are meant to be experienced by humans, such as visual effects.</p>
+        <p>However, real time is also quite limiting.  Imagine a film editor who has to watch the entire film from the beginning with every edit, and cannot even pause or rewind.  That would be absurd.  Yet, most of our interactive systems are designed in this fashion.</p>
+        <p>To understand a system, we must be able to explore it.  To explore, we must be able to move freely, under our own control.</p>
+    </div>
+    <div class="endOfColumns"></div>
+
+    <div class="columnLeft">
+        <p><strong><span class="ifMouse">Mouse over</span> <span class="ifTouch">Drag</span> the slider at the right</strong> to control time explicitly.  Notice that we can easily simulate realtime playback simply by <span class="ifMouse">moving the mouse over</span> <span class="ifTouch">dragging</span> the slider at a steady rate.  But we also have the ability to quickly skim over it, or stop at interesting events and examine them carefully, or quickly jump between interesting events and compare them.</p>
+        <p>A designer needs direct, interactive control over the independent variables of the system.  We must not be slaves to real time.</p>
+    </div>
+    <div class="columnRight">
+        <div class="tangle">
+            <div class="algorithm">
+                <div class="algorithmHeader">At each step:
+                    <div style="display:inline-block; position:relative; top:-19px; left:9px;"
+                        class="Slider" data-var="timeIndex lockedTimeIndex" data-width="280" data-min="0" data-max="560" data-format="step %d"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="endOfColumns"></div>
+
+</div>
+
+
+
+
+
+</body></html>
