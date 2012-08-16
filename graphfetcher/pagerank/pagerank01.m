@@ -1,6 +1,5 @@
 function [ pagerank_vec ] = pagerank01( M_adj )
-%PAGERANK get pagerank from an adjacency matrix
-% with random choise
+%PAGERANK01 get pagerank from an adjacency matrix with random choise
 % (C) 2012 Hitoshi Yamauchi
 %
 
