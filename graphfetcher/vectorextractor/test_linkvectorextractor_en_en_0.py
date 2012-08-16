@@ -18,7 +18,10 @@ class TestLinkVectorExtractor(unittest.TestCase):
     """test: LinkVectorExtractor test."""
 
     def test_linkvectorextractor(self):
-        """test generate URL list by List of English writers (en_en)."""
+        """test generate URL list by List of English writers (en_en).
+        The export encoding option 'ascii' gives you matlab readable
+        author vector.
+        """
         # print u'# Need LC_ALL setting to utf-8, e.g., en_US.utf-8, ja_JP.utf-8.'
         graphfetcherdir = u'/home/hitoshi/data/project/shitohichi-tools/graphfetcher/'
 
@@ -30,7 +33,7 @@ class TestLinkVectorExtractor(unittest.TestCase):
         root_url    = u'file:///' + input_fullpath
 
         output_rpath      = u'data/english_writer/en.wikipedia.org/'
-        output_list_fname = u'en_en_writer.vector'
+        output_list_fname = u'en_en_writer.ascii.vector'
         outdir = os.path.join(graphfetcherdir, output_rpath)
         output_full_path = os.path.join(outdir, output_list_fname)
 

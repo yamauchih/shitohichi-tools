@@ -73,7 +73,7 @@ class LinkVectorExtractorEnEn(object):
             export_encoding = self.__optdict['export_encoding']
 
         for i in _entry_list:
-            _outfile.write(i.encode(export_encoding, 'replace') + '\n');
+            outfile.write(i.encode(export_encoding, 'replace') + '\n');
 
         outfile.close()
 
