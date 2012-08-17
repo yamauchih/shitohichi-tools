@@ -130,8 +130,9 @@ class GraphExtractor(object):
                     self.__index_to_url_map.append(line)
                     idx = idx + 1
                 else:
-                    print u'duplication found [' + line + u'] at ' + str(idx) + \
-                        u' ignored'
+                    # duplication should not be allowed for graph extraction.
+                    raise StandardError('Error: duplication found [' + str(line) + '] at ' + str(idx))
+
 
         assert len(self.__url_to_index_map) == len(self.__index_to_url_map)
         print '# number of entries: ', len(self.__index_to_url_map)
