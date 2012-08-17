@@ -33,7 +33,8 @@ class TestLinkVectorExtractor(unittest.TestCase):
         root_url    = u'file:///' + input_fullpath
 
         output_rpath      = u'data/english_writer/en.wikipedia.org/'
-        output_list_fname = u'en_en_writer.ascii.vector'
+        output_list_fname = u'en_en_writer.vector'
+        # output_list_fname = u'en_en_writer.ascii.vector'
         outdir = os.path.join(graphfetcherdir, output_rpath)
         output_full_path = os.path.join(outdir, output_list_fname)
 
@@ -60,8 +61,8 @@ class TestLinkVectorExtractor(unittest.TestCase):
             '/w/index.php?title=Special:Cite&page=List_of_English_writers&id=494209347'
             ]
 
-        # optdict = {'export_encoding': 'utf-8'}
-        optdict = {'export_encoding': 'ascii'}
+        optdict = {'export_encoding': 'utf-8'}
+        # optdict = {'export_encoding': 'ascii'}
         # optdict = {'export_encoding': 'shift-jis'}
         lf = LinkVectorExtractorEnEn.LinkVectorExtractorEnEn(ignore_href_list, optdict)
         lf.get_link_list(root_url, output_full_path)
@@ -75,4 +76,15 @@ if __name__ == '__main__':
     alltest = unittest.TestSuite([suit0])
     unittest.TextTestRunner(verbosity=2).run(alltest)
 
-
+# Duplication list
+#
+# info: found duplication [Noël_Coward]
+# info: found duplication [Pierce_Egan]
+# info: found duplication [Douglas_William_Jerrold]
+# info: found duplication [Jane_Marcet]
+# info: found duplication [Henry_Peacham]
+# info: found duplication [Adelaide_Anne_Procter]
+# info: found duplication [Mary_Sidney]
+# info: found duplication [Lisa_St_Aubin_de_Terán]
+# info: found duplication [Anne_Isabella_Thackeray_Ritchie]
+# info: found duplication [William_Wycherley]
