@@ -21,7 +21,7 @@ M_markov = M_adj ./ (ones(nr,1) * sum(M_adj));
 % sum(M_markov)
 
 % get eigenvalues and eigen vectors
-[V, Lambda] = eig(M_markov);
+[V, Lambda] = eig(full(M_markov));
 
 % get max absolute value's index of L (get the first value max index)
 [m, idx] = max(diag(abs(Lambda)));

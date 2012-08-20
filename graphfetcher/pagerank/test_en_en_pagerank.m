@@ -2,30 +2,26 @@
 %   Detailed explanation goes here
 
 madj = en_en_writer_adj_mat_selected();
+author_vec = read_authorvector('en_en_writer.ascii.vector');
 
 % create the initial index vector
 [nr, nc] = size(madj);
 if (nr ~=nc)
     error('madj is not a squere matrix.')
 end
+
+[ar ac] = size(author_vec);
+if (nr ~= ar)
+    error('author vector size does not agree with madj.')
+end
 index_vec = [1:nr]';
 
-%
-% check the row vector has no zero vector. Row vector since Markov matrix
-% will be transposed (transposed column vector is checked.)
-%
-iter = 0;
-while (~isempty(find(sum(madj') == 0)))
-    [ res_madj remain_idx_vec ] = remove_sink_source_node(madj, index_vec);
-    madj = res_madj;
-    index_vec = remain_idx_vec;
-    iter = iter + 1;
-    [nr, nc] = size(madj);
-    fprintf('%d iters. size(%d,%d)\n', iter, nr, nc);
-end
+% remove source nodes and sink nodes
+[ res_madj res_idx_vec, res_author_vec ] = ...
+    remove_sink_source_node(madj, index_vec, author_vec);
 
 %pagerank_vec = pagerank00(res_madj');
-pagerank_vec = pagerank01(res_madj');
+pagerank_vec = pagerank00(res_madj');
 
 if(sum(pagerank_vec) < 0)
    pagerank_vec = -1 * pagerank_vec;

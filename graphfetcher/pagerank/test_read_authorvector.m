@@ -3,7 +3,7 @@ function [] = test_read_authorvector()
 %
 % 
 
-lines = read_authorvector('en_en_writer.vector.ascii');
+lines = read_authorvector('en_en_writer.ascii.vector');
 % disp(lines)
 
 
