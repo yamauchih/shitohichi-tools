@@ -1,6 +1,6 @@
 <!DOCTYPE HTML  PUBLIC  "-//W3C//DTD HTML 4.01//EN">
 <!-- Copyright (C) 2012 By Yamauchi Hitoshi -->
-<html lang="en">
+<html lang="ja">
 <head>
 <title>A mini STL performance Benchmark</title>
 <meta name="GENERATOR" content="User-Agent: yahtml">
@@ -32,8 +32,8 @@
 
 <hr>
 <h2>ライセンス</h2>
-New BSD License. <a href="http://en.wikipedia.org/wiki/BSD_licenses">
-http://en.wikipedia.org/wiki/BSD_licenses</a>
+<p>New BSD License. <a href="http://en.wikipedia.org/wiki/BSD_licenses">
+http://en.wikipedia.org/wiki/BSD_licenses</a></p>
 
 <hr>
 <h2>ベンチマーク結果</h2>
@@ -57,7 +57,7 @@ http://en.wikipedia.org/wiki/BSD_licenses</a>
 <code>std::map</code> 生成とコピー (<code><a
 href="perf_map_copy.cpp">perf_map_copy.cpp</a></code>)
 </H3>
-繰り返しの数 = 100000．結果の経過時間はこの平均を示す．(10万回試してその平均時間を示した．)
+<p>繰り返しの数 = 100000．結果の経過時間はこの平均を示す．(10万回試してその平均時間を示した．)</p>
 <table border="1">
  <tr>
   <td>Key の数</td>
@@ -72,14 +72,14 @@ href="perf_map_copy.cpp">perf_map_copy.cpp</a></code>)
   <td>33 micro seconds (3.3x10<sup>-6</sup> sec)</td>
  </tr>
 </table>
-コメント: 私は数ミリセカンドかかる関数の結果の報告に map を使っている．この計測によって結果の報告のオーバーヘッドは無視できるものとわかった．最初に心配したのは，結果の報告の部分が，実際に必要な計算に対して重大な割合を占めていたらどうしようというものであった．実はこの関数を python のインタープリタに bind して python から 10万回 呼び出してみたが，bind によってもう一度 map (python dict) を作成する時間のオーバーヘッドのみであることがわかった．(ここでは，boost::python 1.48 を使った．)
+<p>コメント: 私は数ミリセカンドかかる関数の結果の報告に map を使っている．この計測によって結果の報告のオーバーヘッドは無視できるものとわかった．最初に心配したのは，結果の報告の部分が，実際に必要な計算に対して重大な割合を占めていたらどうしようというものであった．実はこの関数を python のインタープリタに bind して python から 10万回 呼び出してみたが，bind によってもう一度 map (python dict) を作成する時間のオーバーヘッドのみであることがわかった．(ここでは，boost::python 1.48 を使った．)</p>
 
 <H3>
 Median の計算: nth_element() vs sort() (<a
 href="perf_nth_element.cpp"><code>perf_nth_element.cpp</code></a>)
 </H3>
 
-繰り返しの数 = 100000. (それぞれの操作を 100000 回繰り返したものの経過時間を示す．)
+<p>繰り返しの数 = 100000. (それぞれの操作を 100000 回繰り返したものの経過時間を示す．)</p>
 <table border="1">
  <tr>
   <td>Array の大きさ(要素数)</td>
@@ -112,14 +112,14 @@ href="perf_nth_element.cpp"><code>perf_nth_element.cpp</code></a>)
   <td>18.7 sec</td>
  </tr>
 </table>
-コメント: median の値を小さな array に対して求める必要があった．nth_element の実装は予想された通り，sort したものより高速であることが確認された．
+<p>コメント: median の値を小さな array に対して求める必要があった．nth_element の実装は予想された通り，sort したものより高速であることが確認された．</p>
 
 <H3>
 <code>set</code> と <code>hash_set</code> の性能比較. (<a
 href="perf_set_hash_set.cpp"><code>perf_set_hash_set.cpp</code></a>)
 </H3>
-繰り返しの数 = 1000000. (百万回の insert を行い，続いて継いで百万回の
-find, そして最後に継いで百万回の remove を行なった．経過時間を示す．
+<p>繰り返しの数 = 1000000. (百万回の insert を行い，続いて継いで百万回の
+find, そして最後に継いで百万回の remove を行なった．経過時間を示す．</p>
 <table border="1">
  <tr>
   <td>Method</td>
@@ -142,7 +142,7 @@ find, そして最後に継いで百万回の remove を行なった．経過時
   <td>301  millisec</td>
  </tr>
 </table>
-コメント: コードの入力のシーケンスに注意して欲しい．これらのクラスのメソッドの性能は入力のシーケンスに依存する可能性がある．ここで示したものは連続したシーケンスで人工的である．もし特定のパターンが入力されることがわかっている場合には，その入力でテストするべきである．ここでの結果は set の方が常に遅いことが示されている．しかし，私の好みは遅くても setである．なぜなら，入力が任意の場合，どんな hash 関数でも最悪の振舞いが表れる場合があるためである．たとえ，randomize なものを使うことができても，時に最悪のケースを顧客がみつけて文句を言う場合がある．我々の顧客はそのようなケースをみつけることが上手い．set の性能がクリティカルでない場合，より安定した性能を示す set を使う方が私は多い．驚きが少ないし，hash の最悪のケースを修正することはできても，いつまた顧客が他の最悪のケースをみつけてくるかもしれないからである．同じようなバグが何回も出てくるのは顧客との関係にはあまりよくないことである．
+<p>コメント: コードの入力のシーケンスに注意して欲しい．これらのクラスのメソッドの性能は入力のシーケンスに依存する可能性がある．ここで示したものは連続したシーケンスで人工的である．もし特定のパターンが入力されることがわかっている場合には，その入力でテストするべきである．ここでの結果は set の方が常に遅いことが示されている．しかし，私の好みは遅くても setである．なぜなら，入力が任意の場合，どんな hash 関数でも最悪の振舞いが表れる場合があるためである．たとえ，randomize なものを使うことができても，時に最悪のケースを顧客がみつけて文句を言う場合がある．我々の顧客はそのようなケースをみつけることが上手い．set の性能がクリティカルでない場合，より安定した性能を示す set を使う方が私は多い．驚きが少ないし，hash の最悪のケースを修正することはできても，いつまた顧客が他の最悪のケースをみつけてくるかもしれないからである．同じようなバグが何回も出てくるのは顧客との関係にはあまりよくないことである．</p>
 
 <hr>
 <address>
