@@ -1,0 +1,23 @@
+* Rebecca's bundan related project.
+
+** Improvements
+
+** TODO Option: Remove non referenced page.
+** TODO Adjacent matrix first (or n-th) order of Mishima, graph by dot.
+** TODO Sort number of links
+** TODO Adjacency matrix analysis
+** TODO graph creation with dot
+*** TODO output node_num -> name
+*** TODO (M_{adj}), (M_{adj})^2 -> node_i -> node_j; list
+** TODO English, German, SF authors
+** TODO Blog
+*** 石原慎太郎のみファイルが壊れている fix
+
+** TODO GraphExtractor
+
+** TODO pagerank
+*** TODO sort して高い順に出す．
+*** TODO sink and source の話を書く
+*** TODO matrix は full rank ではない．どこかに sink loop がある．これは避けられるか．
+*** TODO sink loop を PageRank と同じ方法で避けてみる．
+

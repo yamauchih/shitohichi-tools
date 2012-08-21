@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>test scope 0</title>
+</head>
+
+<h1>JavaScript test: scope 0</h1>
+
+<ul>
+ <li>This displays "local"
+</ul>
+
+<!-- test javascript scope 0 -->
+<script type="text/javascript">
+  var x = "global";
+  function f() {
+     var x = "local";
+     function g() { alert(x); }
+     g();
+  }
+  f(); // displays "local"
+</script>
+
+</body>
+</html>

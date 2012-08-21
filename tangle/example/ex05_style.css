@@ -1,0 +1,10 @@
+
+
+
+.TKCanvasArea {
+	position:relative;
+	width:300px;
+	height:300px;
+	border-left:1px solid #222;
+	border-bottom:1px solid #222;
+}

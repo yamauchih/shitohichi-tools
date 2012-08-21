@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <base target="_top">
+    <title>Tangle: a JavaScript library for reactive documents</title>
+
+    <!-- stylesheets -->
+    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="Fonts/Insolent/stylesheet.css" type="text/css">
+    <link rel="stylesheet" href="Fonts/BorisBlackBloxx/stylesheet.css" type="text/css">
+    <link rel="stylesheet" href="style.css" type="text/css">
+
+    <!-- Tangle -->
+    <script type="text/javascript" src="../../Tangle/Tangle.js"></script>
+
+    <!-- TangleKit -->
+    <link rel="stylesheet" href="../../Tangle/TangleKit/TangleKit.css" type="text/css">
+    <script type="text/javascript" src="../../Tangle/TangleKit/mootools.js"></script>
+    <script type="text/javascript" src="../../Tangle/TangleKit/sprintf.js"></script>
+    <script type="text/javascript" src="../../Tangle/TangleKit/BVTouchable.js"></script>
+    <script type="text/javascript" src="../../Tangle/TangleKit/TangleKit.js"></script>
+
+    <!-- examples -->
+    <script type="text/javascript" src="FilterExample.js"></script>
+    <script type="text/javascript" src="FilterExampleDSP.js"></script>
+
+</head>
+
+<body>
+<div id="everything">
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!-- body -->
+
+<div id="body">
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!-- filter example -->
+
+<div class="example">
+  <div class="exampleTop"></div>
+    <div class="exampleCenter">
+      <div id="filterExample">
+
+      <p>Some example frequency responses:</p>
+
+      <div class="filterIndent" style="position:relative;">
+        <div class="filterFreqPlot">  <!-- filterFreqPlot is in the style.css -->
+        <canvas class="FilterFreqPlot" data-var="kf1 kq1" width="256" height="128"></canvas>
+          <div class="FilterKnob" data-var="fc1 q1"></div>
+          <div class="filterParams" style="left:5px;top:0px;">
+            <i>X</i> = <span data-var="fc1" data-format="freq"></span><br>
+            <i>Y</i> = <span data-var="q1" data-format="p2"></span>
+        </div>
+        <div class="filterUnstable TKIf" data-var="unstable1">Unstable</div>
+        </div>
+      </div>
+      </div>
+    </div>
+<div class="exampleBottom"></div>
+</div>
+
+</div> <!-- body -->
+</div> <!-- everything -->
+</body></html>

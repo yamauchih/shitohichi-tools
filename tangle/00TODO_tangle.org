@@ -1,0 +1,44 @@
+* TODO Tangle
+
+
+* Tangle tutorial
+** Example 06 extract how to use the slider ... This is difficult.
+** DONE Example 06 draw background bar of the slider.
+** DONE value <-> x coodrds translation via tangle.
+** DONE ex08 multiple slidebar test
+** DONE Add data-format documentation
+** DONE ex09 multiple slidebar with point move (virtical slide bar?)
+
+** DONE add ex11 toggle on/off for normal on/off see http://worrydream.com/Tangle/pants.html
+
+
+* Normal transform fail example Version 0.2
+** DONE draw a line
+** DONE show the 2d line image
+** DONE add the translation GUI
+** DONE add matrix/vector labels
+** DONE connect to matrix
+** DONE implement matrix inverse and its test.
+** DONE control point movement on canvas
+** DONE add normal on/off
+** DONE add traslation, rotation, scaling matrix viewer.
+** TODO translation with the handle point
+** TODO scale with x, y separated (with handle)
+** TODO rotate with the handle
+** TODO remember the last rotation and scale
+** TODO handle singular matrix case
+** TODO draw the translated normal
+
+
+* Normal transform fail example Version 0.3
+
+** TODO show message to grab the handle when hover for translation
+** TODO show message to grab the handle when hover for scale
+** TODO show message to grab the handle when hover for rotation
+** TODO add double click
+** TODO add reset
+** TODO show the matrix (with the numbers)
+** TODO shadow as the original position
+** TODO draw an arrow
+
+

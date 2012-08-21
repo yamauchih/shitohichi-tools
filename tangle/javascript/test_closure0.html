@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>test closure 0</title>
+</head>
+
+<h1>JavaScript test: closure with lexical scope</h1>
+
+<ul>
+ <li>The same function call, but different scope
+ <li>display 0 ... function litetral uses creation time scope
+ <li>display 1
+ <li>display 2
+ <li>display global ... new Function() doesn't use local scope
+</ul>
+
+<!-- test javascript closure 0 -->
+<script type="text/javascript">
+// The scope makes differnt x for each call
+function makeFunction(x) {
+  return function() { return x; }
+}
+// call makeFunction()s and save the results in fary
+var fary = [ makeFunction(0), makeFunction(1), makeFunction(2), makeFunctionWithNew(3) ];
+
+// display results
+alert(fary[0]()); // display 0
+alert(fary[1]()); // display 1
+alert(fary[2]()); // display 2
+
+
+var y = "global";
+function makeFunctionWithNew() {
+  var y = "local";
+  return new Function("return y;");
+}
+
+// display global, since new Function() doesn't use local scope.
+alert(makeFunctionWithNew()());
+</script>
+
+</body>
+</html>
