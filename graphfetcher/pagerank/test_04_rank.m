@@ -23,7 +23,7 @@ name_carray{6,1} = 'Dodo';
 name_carray{7,1} = 'Dormause';
 
 index_vec = [1:7]';
-[ res_madj remain_idx_vec, res_name_carray ] = ...
+[ res_madj remain_idx_vec res_name_carray ] = ...
     remove_sink_source_node(madj, index_vec, name_carray);
 
 pagerank_vec = pagerank00(res_madj');
