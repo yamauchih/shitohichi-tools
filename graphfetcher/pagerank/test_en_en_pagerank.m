@@ -17,11 +17,11 @@ end
 index_vec = [1:nr]';
 
 % remove source nodes and sink nodes
-[ res_madj res_idx_vec, res_author_vec ] = ...
+[ res_madj res_idx_vec res_name_carray ] = ...
     remove_sink_source_node(madj, index_vec, author_vec);
 
 %pagerank_vec = pagerank00(res_madj');
-pagerank_vec = pagerank00(res_madj');
+pagerank_vec = pagerank01(res_madj');
 
 if(sum(pagerank_vec) < 0)
    pagerank_vec = -1 * pagerank_vec;
@@ -31,5 +31,6 @@ end
 [sorted_pagerank_vec, sort_perm_idx] = sort(pagerank_vec, 'descend');
 
 ranked_idx = index_vec(sort_perm_idx);
-ranked_idx(1:10)
-sorted_pagerank_vec(1:10)
+%ranked_idx(1:100)
+%sorted_pagerank_vec(1:100)
+res_name_carray(sort_perm_idx(1:50))
