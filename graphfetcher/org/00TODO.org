@@ -16,8 +16,19 @@
 ** TODO GraphExtractor
 
 ** TODO pagerank
-*** TODO sort して高い順に出す．
+
+*** TODO en_ja pagerank computation
+*** TODO en_de pagerank computation
+*** TODO ja_ja pagerank computation
+*** TODO ja_en pagerank computation
+*** TODO ja_de pagerank computation
+*** TODO de_de pagerank computation
+*** TODO de_en pagerank computation
+*** TODO de_ja pagerank computation
+
+*** TODO English wikipedia update
+
 *** TODO sink and source の話を書く
-*** TODO matrix は full rank ではない．どこかに sink loop がある．これは避けられるか．
-*** TODO sink loop を PageRank と同じ方法で避けてみる．
+*** TODO matrix は full rank ではない．どこかに sink loop がある．これはどうも避けられない
+
 

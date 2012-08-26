@@ -19,3 +19,8 @@
 
 ** DONE GraphExtractor
 *** DONE export M_{adj} file should return a matrix.
+
+** DONE pagerank
+*** DONE sort the pagerank and show the decedent order.
+*** DONE sink loop is avoided by the same method of PageRank
+*** DONE en_en pagerank computation
