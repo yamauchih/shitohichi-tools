@@ -3,7 +3,7 @@
 #
 # Copyright (C) 2012 Yamauchi, Hitoshi
 #
-# LinkVectorExtractorEnEn test with a small dataset
+# LinkVectorExtractor test with a small dataset
 #
 """
 \file

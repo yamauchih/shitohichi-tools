@@ -14,8 +14,8 @@ import os
 import FileVectorExtractor
 import unittest
 
-class TestFileVectorExtractorEnEn(unittest.TestCase):
-    """test: FileVectorExtractorEnEn test."""
+class TestFileVectorExtractor(unittest.TestCase):
+    """test: FileVectorExtractor test."""
 
     def test_en_en(self):
         """test English weiter vector of """
@@ -46,7 +46,7 @@ class TestFileVectorExtractorEnEn(unittest.TestCase):
 # main test
 #
 if __name__ == '__main__':
-    suit0   = unittest.TestLoader().loadTestsFromTestCase(TestFileVectorExtractorEnEn)
+    suit0   = unittest.TestLoader().loadTestsFromTestCase(TestFileVectorExtractor)
     alltest = unittest.TestSuite([suit0])
     unittest.TextTestRunner(verbosity=2).run(alltest)
 

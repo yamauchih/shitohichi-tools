@@ -19,7 +19,7 @@ class LinkVectorExtractor(object):
 
     def __init__(self, _ignore_href_list, _optdict):
         """constructor
-        \param[in] _ignore_href_list ignore hyper link reference list
+        \param[in] _ignore_href_list    ignore hyper link reference list
         \param[in] _optdict     option dict
                     - 'export_encoding': ['utf-8'|'ascii'|'shift_jis']
         """
@@ -53,8 +53,9 @@ class LinkVectorExtractor(object):
         # filter out some specific links in Wikipedia
         href_string = _link.get('href')
         for words in self.__ignore_href_substring_list:
-            if ( href_string.find(words) >= 0):
+            if (href_string.find(words) >= 0):
                 return False
+
         return True
 
     def __is_duplicated(self, _entry_set, _href_item):
