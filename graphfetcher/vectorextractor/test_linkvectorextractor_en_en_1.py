@@ -11,7 +11,7 @@
 """
 
 import os
-import LinkVectorExtractorEnEn
+import LinkVectorExtractor
 import unittest
 
 class TestLinkVectorExtractor(unittest.TestCase):
@@ -40,8 +40,12 @@ class TestLinkVectorExtractor(unittest.TestCase):
         print u'# output[' + output_full_path + u']'
         ignore_href_list = [
             '../w/index.php', 'Category', '/wiki', 'Wikipedia:', 'Portal'  ]
-        lf = LinkVectorExtractorEnEn.LinkVectorExtractorEnEn(ignore_href_list)
-        lf.get_link_list(root_url, output_full_path)
+        optdict = {'export_encoding': 'utf-8'}
+        # optdict = {'export_encoding': 'ascii'}
+        # optdict = {'export_encoding': 'shift-jis'}
+        lf = LinkVectorExtractor.LinkVectorExtractor(ignore_href_list, optdict)
+        lf.get_link_list(root_url)
+        lf.export_to_file(output_full_path)
 
 
 #
