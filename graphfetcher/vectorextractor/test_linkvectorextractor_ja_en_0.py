@@ -55,14 +55,14 @@ class TestLinkVectorExtractor(unittest.TestCase):
         output_rpath      = u'data/japanese_writer/en.wikipedia.org/'
         outdir = os.path.join(graphfetcherdir, output_rpath)
 
-        output_list_fname = u'ja_en_writer.vector'
-        # output_list_fname = u'en_en_writer.ascii.vector'
-        output_full_path = os.path.join(outdir, output_list_fname)
+        output_list_basename = u'ja_en_writer'
 
-        # optdict = {'export_encoding': 'utf-8'}
-        optdict = {'export_encoding': 'ascii'}
+        optdict = {'export_encoding': 'utf-8'}
+        # optdict = {'export_encoding': 'ascii'}
         # optdict = {'export_encoding': 'shift-jis'}
 
+        output_list_fname = output_list_basename + '.' + optdict['export_encoding'] + '.vector'
+        output_full_path = os.path.join(outdir, output_list_fname)
         lf = LinkVectorExtractor.LinkVectorExtractor(ignore_href_list, optdict)
 
         for prefix_ch in author_first_char_list:
