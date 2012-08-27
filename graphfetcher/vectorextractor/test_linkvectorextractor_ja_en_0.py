@@ -25,6 +25,8 @@ class TestLinkVectorExtractor(unittest.TestCase):
         graphfetcherdir = u'/home/hitoshi/data/project/shitohichi-tools/graphfetcher/'
 
         input_rpath       = u'data/japanese_writer/en.wikipedia.org/wiki/'
+
+        # if substring of the following list matches the href, ignore.
         ignore_href_list = [
             '../w/index.php', 'Category', '/wiki', 'Wikipedia:', 'Portal',
             "List_of_children's_literature_authors",
@@ -40,10 +42,9 @@ class TestLinkVectorExtractor(unittest.TestCase):
             'Special:RecentChangesLinked/List_of_English_writers',
             'Special:SpecialPages',
             'Special:WhatLinksHere/List_of_English_writers',
-            'Talk:List_of_English_writers',
-            '/w/index.php?title=List_of_English_writers&oldid=494209347',
-            '/w/index.php?title=Special:Book&bookcmd=book_creator&referer=List+of+English+writers',
-            '/w/index.php?title=Special:Cite&page=List_of_English_writers&id=494209347'
+            'List_of_Japanese_writers',
+            '/w/index.php?title=',
+            'http://en.wikipedia.org/w/index.php?title=Special:UserLogin'
             ]
 
         author_root_fname = u'List_of_Japanese_writers:_'
