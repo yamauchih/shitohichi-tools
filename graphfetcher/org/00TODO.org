@@ -1,9 +1,7 @@
 * Rebecca's bundan related project.
 
 ** Improvements
-** FileVectorExtractor
-*** TODO check the entry name's (writer|poet) and so on
-*** TODO check the list fetcher way also
+
 ** TODO Option: Remove non referenced page.
 ** TODO Adjacent matrix first (or n-th) order of Mishima, graph by dot.
 ** TODO Sort number of links
@@ -14,5 +12,23 @@
 ** TODO English, German, SF authors
 ** TODO Blog
 *** 石原慎太郎のみファイルが壊れている fix
+
+** TODO GraphExtractor
+
+** TODO pagerank
+
+*** TODO en_ja pagerank computation
+*** TODO en_de pagerank computation
+*** TODO ja_ja pagerank computation
+*** TODO ja_en pagerank computation
+*** TODO ja_de pagerank computation
+*** TODO de_de pagerank computation
+*** TODO de_en pagerank computation
+*** TODO de_ja pagerank computation
+
+*** TODO English wikipedia update
+
+*** TODO sink and source の話を書く
+*** TODO matrix は full rank ではない．どこかに sink loop がある．これはどうも避けられない
 
 
