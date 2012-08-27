@@ -128,13 +128,15 @@ class LinkVectorExtractor(object):
             export_encoding = 'utf-8'
             if ('export_encoding' in self.__optdict):
                 export_encoding = self.__optdict['export_encoding']
+            outfile.write(u'# export encoding: ' + export_encoding + '\n');
 
-                if (export_encoding != 'utf-8'):
-                    for i in self.__entry_list:
-                        outfile.write(i.encode(export_encoding, 'replace') + '\n');
-                else:
-                    for i in self.__entry_list:
-                        outfile.write(i + '\n');
+            if (export_encoding != 'utf-8'):
+                for i in self.__entry_list:
+                    outfile.write(i.encode(export_encoding, 'replace') + '\n');
+            else:
+                for i in self.__entry_list:
+                    outfile.write(i + '\n');
+
 
             outfile.close()
 

@@ -32,14 +32,11 @@ class TestLinkVectorExtractor(unittest.TestCase):
         input_fullpath = os.path.join(indir, author_root_fname)
         root_url    = u'file:///' + input_fullpath
 
-        output_rpath      = u'data/english_writer/en.wikipedia.org/'
-        output_list_fname = u'en_en_writer.vector'
-        # output_list_fname = u'en_en_writer.ascii.vector'
+        output_rpath         = u'data/english_writer/en.wikipedia.org/'
+        output_list_basename = u'en_en_writer'
         outdir = os.path.join(graphfetcherdir, output_rpath)
-        output_full_path = os.path.join(outdir, output_list_fname)
 
         print u'# input [' + root_url    + u']'
-        print u'# output[' + output_full_path + u']'
         ignore_href_list = [
             '../w/index.php', 'Category', '/wiki', 'Wikipedia:', 'Portal',
             "List_of_children's_literature_authors",
@@ -61,9 +58,15 @@ class TestLinkVectorExtractor(unittest.TestCase):
             '/w/index.php?title=Special:Cite&page=List_of_English_writers&id=494209347'
             ]
 
-        optdict = {'export_encoding': 'utf-8'}
-        # optdict = {'export_encoding': 'ascii'}
+        # optdict = {'export_encoding': 'utf-8'}
+        optdict = {'export_encoding': 'ascii'}
         # optdict = {'export_encoding': 'shift-jis'}
+
+        output_list_fname = output_list_basename + '.' + optdict['export_encoding'] + '.vector'
+        output_full_path = os.path.join(outdir, output_list_fname)
+        print u'# output[' + output_full_path + u']'
+
+
         lf = LinkVectorExtractor.LinkVectorExtractor(ignore_href_list, optdict)
         lf.get_link_list(root_url)
 
