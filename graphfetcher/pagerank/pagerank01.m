@@ -9,6 +9,7 @@ if (~isempty(zero_idx_vec))
     error('zero index column vector found.');
 end
 
+% norm of random surfer vectors norm ||E||_1
 pagerank_factor = 0.15;
 
 %
