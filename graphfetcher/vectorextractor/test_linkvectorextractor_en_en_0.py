@@ -62,6 +62,9 @@ class TestLinkVectorExtractor(unittest.TestCase):
         optdict = {'export_encoding': 'ascii'}
         # optdict = {'export_encoding': 'shift-jis'}
 
+        # what tag have the links?
+        optdict['tag_in_each_link'] = 'li'
+
         output_list_fname = output_list_basename + '.' + optdict['export_encoding'] + '.vector'
         output_full_path = os.path.join(outdir, output_list_fname)
         print u'# output[' + output_full_path + u']'
