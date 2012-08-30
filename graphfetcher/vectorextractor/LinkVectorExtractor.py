@@ -32,7 +32,9 @@ class LinkVectorExtractor(object):
         self.__entry_list = []
         self.__entry_set = set()        # for duplication check
         self.__read_file = []           # record read files
-
+        # print _optdict
+        self.__tag_in_each_link = _optdict['tag_in_each_link']
+        assert(self.__tag_in_each_link != None)
 
     def __can_add_entry(self, _link):
         """check the _link has real link in Wiki
@@ -76,7 +78,7 @@ class LinkVectorExtractor(object):
         try:
             data = urllib2.urlopen(_root_url).read()
             soup = BeautifulSoup(data)
-            linklist = soup.find_all('li')
+            linklist = soup.find_all(self.__tag_in_each_link)
             for link in linklist:
                 atag = link.a
                 if(atag == None):

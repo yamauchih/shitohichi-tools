@@ -43,6 +43,10 @@ class TestLinkVectorExtractor(unittest.TestCase):
         optdict = {'export_encoding': 'utf-8'}
         # optdict = {'export_encoding': 'ascii'}
         # optdict = {'export_encoding': 'shift-jis'}
+
+        # what tag have the links?
+        optdict['tag_in_each_link'] = 'li'
+
         lf = LinkVectorExtractor.LinkVectorExtractor(ignore_href_list, optdict)
         lf.get_link_list(root_url)
         lf.export_to_file(output_full_path)
