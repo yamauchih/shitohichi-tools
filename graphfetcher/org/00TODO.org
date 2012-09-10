@@ -13,22 +13,35 @@
 ** TODO Blog
 *** 石原慎太郎のみファイルが壊れている fix
 
+** TODO Baseline vector files
+
 ** TODO GraphExtractor
 
 ** TODO pagerank
 
-*** TODO en_ja pagerank computation
+*** DONE ja_en pagerank computation
+*** DONE de_en pagerank computation
 *** TODO en_de pagerank computation
-*** TODO ja_ja pagerank computation
-*** TODO ja_en pagerank computation
+**** Liste_englischsprachiger_Schriftsteller has many non-coverted links 2012-9-4(Tue)
 *** TODO ja_de pagerank computation
+**** TODO Duplication check and change the Wikipedia
+**** TODO Yoshino_Hideo の Wiki に間違いがある．Ryōkan が Ryokan になっている．多くの Wiki Page がそうらしい．Link が切れている
 *** TODO de_de pagerank computation
-*** TODO de_en pagerank computation
+*** TODO en_ja pagerank computation
+*** TODO ja_ja pagerank computation
 *** TODO de_ja pagerank computation
-
-*** TODO English wikipedia update
 
 *** TODO sink and source の話を書く
 *** TODO matrix は full rank ではない．どこかに sink loop がある．これはどうも避けられない
+
+*** TODO English wikipedia update ... sent email. Just update with Yamauchi Hitoshi name
+
+*** TODO French (Daniel L.)
+*** TODO Romanian (Adriana)
+*** TODO Italian (Enzo)
+*** TODO Rossian (Alexander Belyev, Olga)
+
+
+
 
 
