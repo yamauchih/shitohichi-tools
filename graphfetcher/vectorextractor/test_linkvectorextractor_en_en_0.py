@@ -17,7 +17,7 @@ import unittest
 class TestLinkVectorExtractor(unittest.TestCase):
     """test: LinkVectorExtractor test."""
 
-    def test_linkvectorextractor(self):
+    def linkvectorextractor(self, _opt_dict):
         """test generate URL list by List of English writers (en_en).
         The export encoding option 'ascii' gives you matlab readable
         author vector.
@@ -58,23 +58,30 @@ class TestLinkVectorExtractor(unittest.TestCase):
             '/w/index.php?title=Special:Cite&page=List_of_English_writers&id=494209347'
             ]
 
-        # optdict = {'export_encoding': 'utf-8'}
-        optdict = {'export_encoding': 'ascii'}
-        # optdict = {'export_encoding': 'shift-jis'}
-
         # what tag have the links?
-        optdict['tag_in_each_link'] = 'li'
+        _opt_dict['tag_in_each_link'] = 'li'
 
-        output_list_fname = output_list_basename + '.' + optdict['export_encoding'] + '.vector'
+        output_list_fname = output_list_basename + '.' + _opt_dict['export_encoding'] + '.vector'
         output_full_path = os.path.join(outdir, output_list_fname)
         print u'# output[' + output_full_path + u']'
 
 
-        lf = LinkVectorExtractor.LinkVectorExtractor(ignore_href_list, optdict)
+        lf = LinkVectorExtractor.LinkVectorExtractor(ignore_href_list, _opt_dict)
         lf.get_link_list(root_url)
 
         print u'# export [' + output_full_path + u']'
         lf.export_to_file(output_full_path)
+
+
+    def test_linkvectorextractor_ascii(self):
+        opt_dict = {'export_encoding': 'ascii'}
+        # opt_dict = {'export_encoding': 'shift-jis'}
+        self.linkvectorextractor(opt_dict)
+
+
+    def test_linkvectorextractor_utf8(self):
+        opt_dict = {'export_encoding': 'utf-8'}
+        self.linkvectorextractor(opt_dict)
 
 
 #

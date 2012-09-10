@@ -3,11 +3,11 @@
 #
 # Copyright (C) 2012 Yamauchi, Hitoshi
 #
-# LinkVectorExtractor test: ja_ja (Japanese Writer, Japanese Wiki)
+# LinkVectorExtractor test: en_de (English Writer, German Wiki)
 #
 """
 \file
-\brief LinkVectorExtractor test: ja_ja (Japanese Writer, Japanese Wiki)
+\brief LinkVectorExtractor test: en_de (English Writer, German Wiki)
 """
 
 import os
@@ -18,26 +18,27 @@ class TestLinkVectorExtractor(unittest.TestCase):
     """test: LinkVectorExtractor test."""
 
     def test_linkvectorextractor(self):
-        """test 日本の小説家一覧を起点にした URL list を生成する．"""
+        """test generate URL list by List of Deutsch writers from English wiki (de_en).
+        The export encoding option 'ascii' gives you matlab readable author vector.
+        """
         # print u'# Need LC_ALL setting to utf-8, e.g., en_US.utf-8, ja_JP.utf-8.'
         graphfetcherdir = u'/home/hitoshi/data/project/shitohichi-tools/graphfetcher/'
 
-        input_rpath       = u'data/japanese_writer/ja.wikipedia.org/wiki/'
-        author_root_fname = u'日本の小説家一覧'
-        indir = os.path.join(graphfetcherdir, input_rpath)
-        input_fullpath = os.path.join(indir, author_root_fname)
-        root_url    = u'file:///' + input_fullpath
+        input_rpath       = u'data/english_writer/de.wikipedia.org/wiki/'
 
-        output_rpath = u'data/japanese_writer/ja.wikipedia.org/'
-        output_list_basename = u'ja_ja_writer.vector'
+        # if substring of the following list matches the href, ignore.
+        ignore_href_list = [
+            '../w/index.php', 'Category', '/wiki', 'Wikipedia:', 'Portal',
+            'List_of_German-language_philosophers',
+            'List_of_German-language_playwrights',
+            'List_of_German-language_poets'
+            ]
+
+        author_root_fname = u'Liste_englischsprachiger_Schriftsteller'
+        output_rpath      = u'data/english_writer/de.wikipedia.org/'
         outdir = os.path.join(graphfetcherdir, output_rpath)
 
-        print u'# input [' + root_url    + u']'
-        ignore_href_list = [
-            '../w/index.php', 'Category', '/wiki', 'Wikipedia:', 'Portal', u'特別',
-            'Help', 'http://wikimediafoundation.org', u'小説', u'作家', u'一覧',
-            u'日本', u'メインページ', u'協定世界時' ]
-
+        output_list_basename = u'en_de_writer'
 
         optdict = {'export_encoding': 'utf-8'}
         # optdict = {'export_encoding': 'ascii'}
@@ -49,6 +50,12 @@ class TestLinkVectorExtractor(unittest.TestCase):
         output_list_fname = output_list_basename + '.' + optdict['export_encoding'] + '.vector'
         output_full_path = os.path.join(outdir, output_list_fname)
         lf = LinkVectorExtractor.LinkVectorExtractor(ignore_href_list, optdict)
+
+        indir = os.path.join(graphfetcherdir, input_rpath)
+        input_fullpath = os.path.join(indir, author_root_fname)
+        root_url    = u'file:///' + input_fullpath
+
+        print u'# input [' + root_url    + u']'
         lf.get_link_list(root_url)
 
         print u'# export [' + output_full_path + u']'
@@ -63,4 +70,6 @@ if __name__ == '__main__':
     alltest = unittest.TestSuite([suit0])
     unittest.TextTestRunner(verbosity=2).run(alltest)
 
+# Duplication list
+#
 

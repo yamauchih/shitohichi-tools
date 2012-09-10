@@ -11,7 +11,7 @@
 import os, sys
 import urllib
 import urllib2
-import codecs
+import codecs, quopri
 from bs4 import BeautifulSoup
 
 class LinkVectorExtractor(object):
@@ -97,6 +97,8 @@ class LinkVectorExtractor(object):
                         self.__entry_list.append(href_item)
                         self.__entry_set.add(href_item)
                     else:
+                        print 'href_item type =', type(href_item)
+                        print 'href_item', href_item
                         print u'info: found duplication [{0}]'.format(href_item)
 
             # record read file
