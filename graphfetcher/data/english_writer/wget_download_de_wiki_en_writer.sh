@@ -13,6 +13,9 @@
 # characters are escaped with %hex values. So I need to set nocontrol
 # and export LC_ALL=en_US.utf-8 to see the files.
 #
-# イギリスの小説家
+# イギリスの小説家 Liste_britischer_Schriftsteller
+# 英語の小説家     Liste_englischsprachiger_Schriftsteller
 #
 wget --restrict-file-names=nocontrol --limit-rate=100K -e 'robots=off' --random-wait --wait=15 -r --level=1 -k -p http://de.wikipedia.org/wiki/Liste_britischer_Schriftsteller
+
+# wget --restrict-file-names=nocontrol --limit-rate=100K -e 'robots=off' --random-wait --wait=15 -r --level=1 -k -p http://de.wikipedia.org/wiki/Liste_englischsprachiger_Schriftsteller
