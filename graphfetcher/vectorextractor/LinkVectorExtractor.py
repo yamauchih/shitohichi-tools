@@ -23,7 +23,9 @@ class LinkVectorExtractor(object):
         \param[in] _optdict     option dict
                     - 'export_encoding': ['utf-8'|'ascii'|'shift_jis']
         """
-        sys.stdout = codecs.getwriter('utf_8')(sys.stdout)
+        # make stdout utf-8, some problem...
+        #sys.stdout = codecs.getwriter('utf_8')(sys.stdout)
+        #sys.stderr = codecs.getwriter('utf_8')(sys.stderr)
 
         # this class of 'a' element has no link
         self.__ignore_link_class_set = {'new', 'noprint', 'image'}
@@ -35,6 +37,17 @@ class LinkVectorExtractor(object):
         # print _optdict
         self.__tag_in_each_link = _optdict['tag_in_each_link']
         assert(self.__tag_in_each_link != None)
+
+    def __print_str(self, _str):
+        """convenient function for print unicode or string using utf-8
+        without casting exception.
+        \param[in] _str type unicode or type str.
+        """
+        if type(_str) == type(u'a'):
+            sys.stdout.write(_str.encode('utf-8', 'replace') + '\n')
+        else:
+            sys.stdout.write(_str + '\n')
+
 
     def __can_add_entry(self, _link):
         """check the _link has real link in Wiki
@@ -97,9 +110,8 @@ class LinkVectorExtractor(object):
                         self.__entry_list.append(href_item)
                         self.__entry_set.add(href_item)
                     else:
-                        print 'href_item type =', type(href_item)
-                        print 'href_item', href_item
-                        print u'info: found duplication [{0}]'.format(href_item)
+                        dupstr = u'info: found duplication [{0}]'.format(href_item)
+                        self.__print_str(dupstr)
 
             # record read file
             self.__read_file.append(_root_url)

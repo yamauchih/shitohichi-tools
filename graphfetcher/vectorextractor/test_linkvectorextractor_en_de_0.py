@@ -34,7 +34,8 @@ class TestLinkVectorExtractor(unittest.TestCase):
             'List_of_German-language_poets'
             ]
 
-        author_root_fname = u'Liste_englischsprachiger_Schriftsteller'
+        # author_root_fname = u'Liste_englischsprachiger_Schriftsteller'
+        author_root_fname = u'Liste_britischer_Schriftsteller'
         output_rpath      = u'data/english_writer/de.wikipedia.org/'
         outdir = os.path.join(graphfetcherdir, output_rpath)
 

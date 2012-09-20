@@ -29,10 +29,17 @@
 *** TODO de_de pagerank computation
 *** TODO en_ja pagerank computation
 *** TODO ja_ja pagerank computation
+**** TODO 漢字から読み仮名を抽出し，それを romaji にする．
+
 *** TODO de_ja pagerank computation
 
+** TODO Blog contents
 *** TODO sink and source の話を書く
 *** TODO matrix は full rank ではない．どこかに sink loop がある．これはどうも避けられない
+*** TODO complex eigenvalue について30講を読む
+*** TODO Impact factor で page rank を使っているものを探して mention
+
+
 
 *** TODO English wikipedia update ... sent email. Just update with Yamauchi Hitoshi name
 
