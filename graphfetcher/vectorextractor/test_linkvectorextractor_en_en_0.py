@@ -12,15 +12,15 @@
 
 import os
 import LinkVectorExtractor
-import unittest
+import unittest, filecmp
 
 class TestLinkVectorExtractor(unittest.TestCase):
     """test: LinkVectorExtractor test."""
 
     def linkvectorextractor(self, _opt_dict):
-        """test generate URL list by List of English writers (en_en).
-        The export encoding option 'ascii' gives you matlab readable
-        author vector.
+        """test generate URL list by List of English writers from
+        English wiki (en_en).  The export encoding option 'ascii'
+        gives you matlab readable author vector.
         """
         # print u'# Need LC_ALL setting to utf-8, e.g., en_US.utf-8, ja_JP.utf-8.'
         graphfetcherdir = u'/home/hitoshi/data/project/shitohichi-tools/graphfetcher/'
@@ -36,6 +36,7 @@ class TestLinkVectorExtractor(unittest.TestCase):
         output_list_basename = u'en_en_writer'
         outdir = os.path.join(graphfetcherdir, output_rpath)
 
+        print
         print u'# input [' + root_url    + u']'
         ignore_href_list = [
             '../w/index.php', 'Category', '/wiki', 'Wikipedia:', 'Portal',
@@ -68,20 +69,29 @@ class TestLinkVectorExtractor(unittest.TestCase):
 
         lf = LinkVectorExtractor.LinkVectorExtractor(ignore_href_list, _opt_dict)
         lf.get_link_list(root_url)
-
-        print u'# export [' + output_full_path + u']'
         lf.export_to_file(output_full_path)
+
+        # return
+        return (output_full_path, output_list_fname)
 
 
     def test_linkvectorextractor_ascii(self):
         opt_dict = {'export_encoding': 'ascii'}
         # opt_dict = {'export_encoding': 'shift-jis'}
-        self.linkvectorextractor(opt_dict)
+        (output_full_path, output_fname) = self.linkvectorextractor(opt_dict)
+
+        # compare to the baseline file
+        ref_fname = os.path.join('baseline', output_fname)
+        self.assertEqual(filecmp.cmp(output_full_path, ref_fname), True)
 
 
     def test_linkvectorextractor_utf8(self):
         opt_dict = {'export_encoding': 'utf-8'}
-        self.linkvectorextractor(opt_dict)
+        (output_full_path, output_fname) = self.linkvectorextractor(opt_dict)
+
+        # compare to the baseline file
+        ref_fname = os.path.join('baseline', output_fname)
+        self.assertEqual(filecmp.cmp(output_full_path, ref_fname), True)
 
 
 #

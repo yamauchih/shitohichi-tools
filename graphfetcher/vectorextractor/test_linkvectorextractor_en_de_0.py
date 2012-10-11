@@ -12,19 +12,23 @@
 
 import os
 import LinkVectorExtractor
-import unittest
+import unittest, filecmp
 
 class TestLinkVectorExtractor(unittest.TestCase):
     """test: LinkVectorExtractor test."""
 
-    def test_linkvectorextractor(self):
-        """test generate URL list by List of Deutsch writers from English wiki (de_en).
-        The export encoding option 'ascii' gives you matlab readable author vector.
+    def linkvectorextractor(self):
+        """test generate URL list by List of English writers from
+        German wiki (en_de).  The export encoding option 'ascii'
+        gives you matlab readable author vector.
         """
         # print u'# Need LC_ALL setting to utf-8, e.g., en_US.utf-8, ja_JP.utf-8.'
         graphfetcherdir = u'/home/hitoshi/data/project/shitohichi-tools/graphfetcher/'
 
         input_rpath       = u'data/english_writer/de.wikipedia.org/wiki/'
+        author_root_fname = u'Liste_britischer_Schriftsteller'
+        # FIXME herehere
+
 
         # if substring of the following list matches the href, ignore.
         ignore_href_list = [
@@ -34,8 +38,8 @@ class TestLinkVectorExtractor(unittest.TestCase):
             'List_of_German-language_poets'
             ]
 
-        # author_root_fname = u'Liste_englischsprachiger_Schriftsteller'
-        author_root_fname = u'Liste_britischer_Schriftsteller'
+
+
         output_rpath      = u'data/english_writer/de.wikipedia.org/'
         outdir = os.path.join(graphfetcherdir, output_rpath)
 
