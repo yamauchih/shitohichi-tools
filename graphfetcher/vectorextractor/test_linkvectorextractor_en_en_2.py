@@ -12,7 +12,7 @@
 
 import os
 import LinkVectorExtractor
-import unittest
+import unittest, filecmp
 
 class TestLinkVectorExtractor(unittest.TestCase):
     """test: LinkVectorExtractor test."""
@@ -31,32 +31,48 @@ class TestLinkVectorExtractor(unittest.TestCase):
         input_fullpath = os.path.join(indir, author_root_fname)
         root_url    = u'file:///' + input_fullpath
 
-        output_rpath      = u'data/english_writer/en.wikipedia.org/wiki/'
-        output_list_fname = u'en_en_writer.vector'
+        output_rpath         = u'data/english_writer/en.wikipedia.org/wiki/'
+        output_list_basename = u'en_en_2_writer'
         outdir = os.path.join(graphfetcherdir, output_rpath)
-        output_full_path = os.path.join(outdir, output_list_fname)
 
+        print
         print u'# input [' + root_url    + u']'
-        print u'# output[' + output_full_path + u']'
         ignore_href_list = [
             '../w/index.php', 'Category', '/wiki', 'Wikipedia:', 'Portal'  ]
 
         # what tag have the links?
         _opt_dict['tag_in_each_link'] = 'li'
 
+        output_list_fname = output_list_basename + '.' + _opt_dict['export_encoding'] + '.vector'
+        output_full_path = os.path.join(outdir, output_list_fname)
+        print u'# output[' + output_full_path + u']'
+
+
         lf = LinkVectorExtractor.LinkVectorExtractor(ignore_href_list, _opt_dict)
         lf.get_link_list(root_url)
         lf.export_to_file(output_full_path)
 
+        # return
+        return (output_full_path, output_list_fname)
+
 
     def test_linkvectorextractor_ascii(self):
-        optdict = {'export_encoding': 'ascii'}
-        self.linkvectorextractor(optdict)
+        opt_dict = {'export_encoding': 'ascii'}
+        (output_full_path, output_fname) = self.linkvectorextractor(opt_dict)
+
+        # compare to the baseline file
+        ref_fname = os.path.join('baseline', output_fname)
+        self.assertEqual(filecmp.cmp(output_full_path, ref_fname), True)
 
 
     def test_linkvectorextractor_utf8(self):
-        optdict = {'export_encoding': 'utf-8'}
-        self.linkvectorextractor(optdict)
+        opt_dict = {'export_encoding': 'utf-8'}
+        (output_full_path, output_fname) = self.linkvectorextractor(opt_dict)
+
+        # compare to the baseline file
+        ref_fname = os.path.join('baseline', output_fname)
+        self.assertEqual(filecmp.cmp(output_full_path, ref_fname), True)
+
 
 #
 # main test
