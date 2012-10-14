@@ -39,6 +39,7 @@ class TestLinkVectorExtractor(unittest.TestCase):
         print
         # print u'# input [' + root_url    + u']'
         # if substring of the following list matches the href, ignore.
+        # If exact match filter is needed, use blacklistset option.
         ignore_href_list = [
             'w/index.php', 'Kategory', '/wiki', 'Wikipedia:', 'Portal',
             'Liste_von_Autoren', 'Spezial', 'Hilfe', 'Diskussion',
