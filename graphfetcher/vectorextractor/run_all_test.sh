@@ -30,7 +30,3 @@ for tpy in ${TEST_PY}
 do
     python ${tpy}
 done
-
-
-
-

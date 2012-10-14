@@ -17,11 +17,17 @@ from bs4 import BeautifulSoup
 class LinkVectorExtractor(object):
     """create a vector from a meta web page's link"""
 
-    def __init__(self, _ignore_href_list, _optdict):
+    def __init__(self, _ignore_href_list, _opt_dict):
         """constructor
-        \param[in] _ignore_href_list    ignore hyper link reference list
-        \param[in] _optdict     option dict
+        \param[in] _ignore_href_list  ignore hyper link reference list
+        \param[in] _opt_dict          option dict
                     - 'export_encoding': ['utf-8'|'ascii'|'shift_jis']
+                    - 'result_path_split': [True|False'] (optional)
+                       The result sometimes in a relative path, remove
+                       the dirname. Because of subdirectory structure
+                       (ex. de_de) e.g., ../Foo_bar -> Foo_bar
+                    - 'blacklistset': blacklist string set (optional)
+                       Exact match is filtered out.
         """
         # make stdout utf-8, some problem...
         #sys.stdout = codecs.getwriter('utf_8')(sys.stdout)
@@ -30,13 +36,17 @@ class LinkVectorExtractor(object):
         # this class of 'a' element has no link
         self.__ignore_link_class_set = {'new', 'noprint', 'image'}
         self.__ignore_href_substring_list = _ignore_href_list
-        self.__optdict = _optdict
+        self.__opt_dict   = _opt_dict
         self.__entry_list = []
-        self.__entry_set = set()        # for duplication check
-        self.__read_file = []           # record read files
-        # print _optdict
-        self.__tag_in_each_link = _optdict['tag_in_each_link']
+        self.__entry_set  = set()        # for duplication check
+        self.__read_file  = []           # record read files
+        # print _opt_dict
+        self.__tag_in_each_link = _opt_dict['tag_in_each_link']
         assert(self.__tag_in_each_link != None)
+        self.__blacklist_set = None
+        if('blacklistset' in _opt_dict):
+            self.__blacklist_set = _opt_dict['blacklistset']
+
 
     def __print_str(self, _str):
         """convenient function for print unicode or string using utf-8
@@ -65,10 +75,15 @@ class LinkVectorExtractor(object):
         if (linktitle == None):
             return False
 
-        # filter out some specific links in Wikipedia
+        # filter out some specific links in Wikipedia (substring partial match)
         href_string = _link.get('href')
         for words in self.__ignore_href_substring_list:
             if (href_string.find(words) >= 0):
+                return False
+
+        # filter out specific words (exact match)
+        if(self.__blacklist_set != None):
+            if(href_string in self.__blacklist_set):
                 return False
 
         return True
@@ -142,9 +157,16 @@ class LinkVectorExtractor(object):
             outfile.write(u'# item size: ' + str(len(self.__entry_list)) + '\n');
 
             export_encoding = 'utf-8'
-            if ('export_encoding' in self.__optdict):
-                export_encoding = self.__optdict['export_encoding']
+            if ('export_encoding' in self.__opt_dict):
+                export_encoding = self.__opt_dict['export_encoding']
             outfile.write(u'# export encoding: ' + export_encoding + '\n');
+
+            # if optional result_path_split exists, filter
+            if('result_path_split' in self.__opt_dict):
+                if(self.__opt_dict['result_path_split'] == True):
+                    for i in xrange(0, len(self.__entry_list)):
+                        (dir, fname) = os.path.split(self.__entry_list[i])
+                        self.__entry_list[i] = fname
 
             if (export_encoding != 'utf-8'):
                 for i in self.__entry_list:
