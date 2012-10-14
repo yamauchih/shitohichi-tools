@@ -69,7 +69,7 @@ class TestLinkVectorExtractor(unittest.TestCase):
             indir = os.path.join(graphfetcherdir, input_rpath)
             input_fullpath = os.path.join(indir, author_root_fname + prefix_ch)
             root_url    = u'file:///' + input_fullpath
-            print u'# input [' + root_url    + u']'
+            # print u'# input [' + root_url    + u']'
             lf.get_link_list(root_url)
 
         lf.export_to_file(output_full_path)
