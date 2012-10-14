@@ -53,16 +53,16 @@
 
 *** English Writer
 **** DONE test_linkvectorextractor_en_en_0.py
-**** TODO test_linkvectorextractor_en_de_0.py
+**** DONE test_linkvectorextractor_en_de_0.py
 **** TODO test_linkvectorextractor_en_ja_0.py
 
 *** German Writer
-**** TODO test_linkvectorextractor_de_en_0.py
+**** DONE test_linkvectorextractor_de_en_0.py
 **** TODO test_linkvectorextractor_de_de_0.py
 **** TODO test_linkvectorextractor_de_ja_0.py
 
 *** Japanese Writer
-**** TODO test_linkvectorextractor_ja_en_0.py
+**** DONE test_linkvectorextractor_ja_en_0.py
 **** TODO test_linkvectorextractor_ja_de_0.py
 **** TODO test_linkvectorextractor_ja_ja_0.py
 
