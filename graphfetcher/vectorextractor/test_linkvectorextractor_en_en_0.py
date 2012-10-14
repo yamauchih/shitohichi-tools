@@ -7,7 +7,7 @@
 #
 """
 \file
-\brief LinkVectorExtractor test: en_en (English Writer, English Author)
+\brief LinkVectorExtractor test: en_en (English Writer, English Wiki)
 """
 
 import os
