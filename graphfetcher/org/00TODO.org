@@ -18,7 +18,6 @@
 ** TODO GraphExtractor
 
 ** TODO pagerank
-
 *** DONE ja_en pagerank computation
 *** DONE de_en pagerank computation
 *** TODO en_de pagerank computation
@@ -29,9 +28,8 @@
 *** TODO de_de pagerank computation
 *** TODO en_ja pagerank computation
 *** TODO ja_ja pagerank computation
-**** TODO 漢字から読み仮名を抽出し，それを romaji にする．
-
 *** TODO de_ja pagerank computation
+
 
 ** TODO Blog contents
 *** TODO sink and source の話を書く
@@ -39,9 +37,9 @@
 *** TODO complex eigenvalue について30講を読む
 *** TODO Impact factor で page rank を使っているものを探して mention
 
+*** TODO English wikipedia update ... sent email.
 
 
-*** TODO English wikipedia update ... sent email. Just update with Yamauchi Hitoshi name
 
 *** TODO French (Daniel L.)
 *** TODO Romanian (Adriana)
@@ -49,17 +47,5 @@
 *** TODO Russian (Alexander Belyev, Olga)
 
 
-*** English Writer
-**** DONE test_linkvectorextractor_en_en_0.py
-**** DONE test_linkvectorextractor_en_de_0.py
-**** TODO test_linkvectorextractor_en_ja_0.py
 
-*** German Writer
-**** DONE test_linkvectorextractor_de_en_0.py
-**** DONE test_linkvectorextractor_de_de_0.py
-**** TODO test_linkvectorextractor_de_ja_0.py
 
-*** Japanese Writer
-**** DONE test_linkvectorextractor_ja_en_0.py
-**** DONE test_linkvectorextractor_ja_de_0.py
-**** TODO test_linkvectorextractor_ja_ja_0.py
