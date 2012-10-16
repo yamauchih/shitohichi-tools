@@ -15,16 +15,16 @@ import GraphExtractor
 import unittest
 
 class TestGraphExtractor(unittest.TestCase):
-    """test: GraphExtractor test."""
+    """test: GraphExtractor test. en_de English Writer, German Wiki"""
 
     def test_graphextractor(self):
-        """test graph (adjacent matrix) extractor. en_en English Writer, English Wiki"""
+        """test graph (adjacent matrix) extractor."""
         # print u'# Need LC_ALL setting to utf-8, e.g., en_US.utf-8, ja_JP.utf-8.'
         graphfetcherdir    = u'/home/hitoshi/data/project/shitohichi-tools/graphfetcher/'
-        input_rpath        = u'data/english_writer/en.wikipedia.org/'
-        output_rpath       = u'data/english_writer/en.wikipedia.org/'
-        input_vector_fname = u'en_en_writer.utf-8.vector'
-        output_madj_fname  = u'en_en_writer_adj_mat.m'
+        input_rpath        = u'data/english_writer/de.wikipedia.org/'
+        output_rpath       = u'data/english_writer/de.wikipedia.org/'
+        input_vector_fname = u'en_de_writer.utf-8.vector'
+        output_madj_fname  = u'en_de_writer_adj_mat.m'
 
         input_html_dir     = graphfetcherdir + input_rpath  + 'wiki/'
         input_vector_fpath = graphfetcherdir + input_rpath  + input_vector_fname
@@ -44,7 +44,7 @@ class TestGraphExtractor(unittest.TestCase):
             # When print out connection, set this True
             'is_print_connectivity': False,
             # When output the dot (graphviz) file, set non empty file name (e.g., a.dot)
-            'dot_file_name': 'en_en_writer_adj_mat.dot',
+            'dot_file_name': 'en_de_writer_adj_mat.dot',
             # When True, generate annotated html file
             'is_generate_annotated_html': False,
             # When True, remove self link
