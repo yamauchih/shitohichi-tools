@@ -13,13 +13,21 @@
 ** TODO Blog
 *** 石原慎太郎のみファイルが壊れている fix
 
-** TODO Baseline vector files
-
 ** TODO GraphExtractor
+*** en_en graphextractor, add baseline
+*** en_de graphextractor, add baseline
+*** en_ja graphextractor, add baseline
+*** de_en graphextractor, add baseline
+*** de_de graphextractor, add baseline
+*** de_ja graphextractor, add baseline
+*** ja_en graphextractor, add baseline
+*** ja_de graphextractor, add baseline
+*** ja_ja graphextractor, add baseline
+
 
 ** TODO pagerank
-*** DONE ja_en pagerank computation
-*** DONE de_en pagerank computation
+*** TODO ja_en pagerank computation
+*** TODO de_en pagerank computation
 *** TODO en_de pagerank computation
 **** Liste_englischsprachiger_Schriftsteller has many non-coverted links 2012-9-4(Tue)
 *** TODO ja_de pagerank computation

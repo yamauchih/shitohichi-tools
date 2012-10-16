@@ -26,6 +26,9 @@ class GraphExtractor(object):
 
         Options:
 
+        - 'log_level': int. 0 ... error, 1 ... info, 2 ... debug level
+          log output
+
         - 'is_print_connectivity': bool. when True, print out the
           detected connectivity.
 
@@ -45,7 +48,7 @@ class GraphExtractor(object):
         \param[in] _test_url_list if None, only analyze this list URL
         \param[in] _opt_dict options
         """
-        sys.stdout = codecs.getwriter('utf_8')(sys.stdout)
+        # sys.stdout = codecs.getwriter('utf_8')(sys.stdout)
 
         # index to url map. list implementation
         self.__index_to_url_map = []
@@ -76,31 +79,39 @@ class GraphExtractor(object):
         #------------------------------------------------------------
         # options
         #------------------------------------------------------------
+        self.__log_level = 2
+        if (_opt_dict.has_key('log_level')):
+            self.info_out(u'# Option: log_level: ' + str(_opt_dict['log_level']))
+            self.__log_level = _opt_dict['log_level']
+        else:
+            self.info_out(u'# Option: log_level: ' + str(self.__log_level))
+
+
         # is_print_connectivity
         self.__is_print_connectivity = False;
         if (_opt_dict.has_key('is_print_connectivity')):
             self.__is_print_connectivity = _opt_dict['is_print_connectivity']
-        print u'# Option: is_print_connectivity:', str(self.__is_print_connectivity)
+        self.info_out(u'# Option: is_print_connectivity: ' + str(self.__is_print_connectivity))
 
         # dot file generation
         if (_opt_dict.has_key('dot_file_name')):
             self.__dot_file_name = _opt_dict['dot_file_name'].strip()
         if (len(self.__dot_file_name) > 0):
             self.__is_generate_dotfile = True
-        print u'# Option: is_generate_dotfile:', str(self.__is_generate_dotfile),\
-              u'[' + self.__dot_file_name + u']'
+        self.info_out(u'# Option: is_generate_dotfile: ' + str(self.__is_generate_dotfile) +
+                      u' [' + self.__dot_file_name + u']')
 
         # is_generate_annotated_html
         self.__is_generate_annotated_html = False;
         if (_opt_dict.has_key('is_generate_annotated_html')):
             self.__is_generate_annotated_html = _opt_dict['is_generate_annotated_html']
-        print u'# Option: is_generate_annotated_html:', str(self.__is_generate_annotated_html)
+        self.info_out(u'# Option: is_generate_annotated_html: ' + str(self.__is_generate_annotated_html))
 
         # is_remove_self_link
         self.__is_remove_self_link = False;
         if (_opt_dict.has_key('is_remove_self_link')):
             self.__is_remove_self_link = _opt_dict['is_remove_self_link']
-        print u'# Option: is_remove_self_link:', str(self.__is_remove_self_link)
+        self.info_out(u'# Option: is_remove_self_link:' + str(self.__is_remove_self_link))
 
         # output matrix type
         self.__output_matrix_type = 'python';
@@ -109,7 +120,23 @@ class GraphExtractor(object):
         valid_matrix_type_list = ['python', 'matlab']
         if (self.__output_matrix_type not in valid_matrix_type_list):
             raise StandardError, ('Unknown outout matrix type [' + self.__output_matrix_type + ']')
-        print u'# Option: output_matrix_type:', self.__output_matrix_type
+        self.info_out(u'# Option: output_matrix_type: ' + self.__output_matrix_type)
+
+
+    def error_out(self, _mes):
+        """errlr level log output"""
+        if(self.__log_level == 0):
+            print 'error:', _mes
+
+    def info_out(self, _mes):
+        """info level log output"""
+        if(self.__log_level >= 1):
+            print 'info:', _mes
+
+    def debug_out(self, _mes):
+        """debug level log output"""
+        if(self.__log_level >= 2):
+            print 'debug:', _mes
 
 
     def __load_input_vector(self, _input_vector_fpath):
@@ -135,7 +162,7 @@ class GraphExtractor(object):
 
 
         assert len(self.__url_to_index_map) == len(self.__index_to_url_map)
-        print '# number of entries: ', len(self.__index_to_url_map)
+        self.info_out('# number of entries: ' + str(len(self.__index_to_url_map)))
 
         # initialize adjacent matrix
         for i in xrange(0, len(self.__index_to_url_map)):
@@ -211,7 +238,7 @@ class GraphExtractor(object):
         \param[in] _fname file name to output
         """
         out_full_path = os.path.join(self.__output_dir, _fname)
-        print u'Writing [' + out_full_path + u']'
+        self.info_out(u'Writing [' + out_full_path + u']')
         if (os.path.isfile(out_full_path)):
             raise StandardError, ('Output file exists')
 
@@ -248,7 +275,7 @@ class GraphExtractor(object):
 
                 # Show connection
                 if (self.__is_print_connectivity == True):
-                    print u'connect [' + _url + u']->[' + dst + u']'
+                    self.info_out(u'connect [' + _url + u']->[' + dst + u']')
 
                 # add connection to the dotfile
                 if (self.__is_generate_dotfile == True):
@@ -289,10 +316,11 @@ class GraphExtractor(object):
             # test mode
             for url in self.__test_url_list:
                 rec_link_count = self.__get_one_page_connectivity(url)
-                print u'analyzed [' + url + u'] found ' + str(rec_link_count) +\
-                    u' links.'
+                self.debug_out(u'analyzed [' + url + u'] found ' + str(rec_link_count) +
+                               u' links.')
                 if (rec_link_count == 0):
-                    print u'Warning! ' + url + u' has no recognizable links. Check the URL input.'
+                    self.debug_out(u'Warning! ' + url +
+                                   u' has no recognizable links. Check the URL input.')
 
         else:
             cur_i = 0
@@ -300,10 +328,13 @@ class GraphExtractor(object):
             for url in self.__index_to_url_map:
                 cur_i = cur_i + 1
                 rec_link_count = self.__get_one_page_connectivity(url)
-                print u'analyzed [' + url + u'] ' + str(cur_i) + u'/' + total_len_str +\
-                    u' found ' + str(rec_link_count) + u' links.'
+                self.debug_out(u'analyzed [' + url + u'] ' + str(cur_i) + u'/' + total_len_str +
+                               u' found ' + str(rec_link_count) + u' links.')
                 if (rec_link_count == 0):
-                    print u'Warning! ' + url + u' has no recognizable links. Check the URL input.'
+                    self.debug_out(u'Warning! ' + url +
+                                   u' has no recognizable links. Check the URL input.')
+                if ((cur_i % 100) == 0):
+                    self.info_out('progress ' + str(cur_i) + u'/' + total_len_str)
 
 
     def __output_matlab_sparse_marix(self, _ostream, _output_fname):

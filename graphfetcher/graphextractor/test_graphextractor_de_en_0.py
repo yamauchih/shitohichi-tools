@@ -39,6 +39,8 @@ class TestGraphExtractor(unittest.TestCase):
 
         # options
         opt_dict = {
+            # log level: int. 0 ... error, 1 ... info, 2 ... debug
+            'log_level': 1
             # When print out connection, set this True
             'is_print_connectivity': False,
             # When output the dot (graphviz) file, set non empty file name (e.g., a.dot)
