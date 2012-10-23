@@ -15,13 +15,13 @@
 
 ** TODO GraphExtractor
 *** DONE en_en graphextractor, add baseline
-*** TODO en_de graphextractor, add baseline
-*** TODO en_ja graphextractor, add baseline
-*** TODO de_en graphextractor, add baseline
-*** TODO de_de graphextractor, add baseline
-*** TODO de_ja graphextractor, add baseline
-*** TODO ja_en graphextractor, add baseline
-*** TODO ja_de graphextractor, add baseline
+*** DONE en_de graphextractor, add baseline
+*** DONE en_ja graphextractor, add baseline
+*** DONE de_en graphextractor, add baseline
+*** DONE de_de graphextractor, add baseline
+*** DONE de_ja graphextractor, add baseline
+*** DONE ja_en graphextractor, add baseline
+*** DONE ja_de graphextractor, add baseline
 *** TODO ja_ja graphextractor, add baseline
 
 
@@ -55,5 +55,9 @@
 *** TODO Russian (Alexander Belyev, Olga)
 
 
-
-
+15 min exercises
+Think about the things that are important to you. Perhaps you care
+about creativity, family relationships, your career, or having a sense
+of humour. Pick two or three of these values and write a few sentences
+about why they are important to you. You have fifteen minutes. It
+could change your life.

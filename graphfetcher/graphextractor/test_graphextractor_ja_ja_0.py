@@ -8,11 +8,11 @@
 #
 """
 \file
-\brief GraphExtractor test
+\brief GraphExtractor test: ja_ja (Japanese writer on Japanese wiki)
 """
 
 import GraphExtractor
-import unittest
+import os, unittest, filecmp
 
 class TestGraphExtractor(unittest.TestCase):
     """test: GraphExtractor test."""
@@ -20,14 +20,14 @@ class TestGraphExtractor(unittest.TestCase):
     def test_graphextractor(self):
         """test graph (adjacent matrix) extractor."""
         # print u'# Need LC_ALL setting to utf-8, e.g., en_US.utf-8, ja_JP.utf-8.'
-        graphfetcherdir   = u'/home/hitoshi/data/project/shitohichi-tools/graphfetcher/'
-        input_rpath       = u'data/japanese_writer/ja.wikipedia.org/'
-        output_rpath      = u'data/japanese_writer/ja.wikipedia.org/'
-        input_vector_fname  = u'ja_ja_writer.list'
-        output_madj_fname = u'ja_ja_writer_adj_mat_selected.m'
+        graphfetcherdir    = u'/home/hitoshi/data/project/shitohichi-tools/graphfetcher/'
+        input_rpath        = u'data/japanese_writer/ja.wikipedia.org/'
+        output_rpath       = u'data/japanese_writer/ja.wikipedia.org/'
+        input_vector_fname = u'ja_ja_writer.utf-8.vector'
+        output_madj_fname  = u'ja_ja_writer_adj_mat.m'
 
         input_html_dir     = graphfetcherdir + input_rpath  + 'wiki/'
-        input_vector_fpath = graphfetcherdir + input_rpath  + 'ja_ja_writer.vector'
+        input_vector_fpath = graphfetcherdir + input_rpath  + input_vector_fname
         output_html_dir    = graphfetcherdir + output_rpath + 'wiki_out/'
         output_madj_fpath  = graphfetcherdir + output_rpath + output_madj_fname
 
@@ -39,10 +39,12 @@ class TestGraphExtractor(unittest.TestCase):
 
         # options
         opt_dict = {
+            # log level: int. 0 ... error, 1 ... info, 2 ... debug
+            'log_level': 1,
             # When print out connection, set this True
             'is_print_connectivity': False,
             # When output the dot (graphviz) file, set non empty file name (e.g., a.dot)
-            'dot_file_name': 'selected.dot',
+            'dot_file_name': 'ja_ja_writer_adj_mat.dot',
             # When True, generate annotated html file
             'is_generate_annotated_html': False,
             # When True, remove self link
@@ -50,16 +52,24 @@ class TestGraphExtractor(unittest.TestCase):
             # Output matrix type ['python', 'matlab']
             'output_matrix_type': 'matlab'
             }
-        # ge = GraphExtractor.GraphExtractor([], opt_dict)
-        # ge = GraphExtractor.GraphExtractor([u'三島由紀夫', u'大江健三郎'], opt_dict)
-        # ge = GraphExtractor.GraphExtractor([u'八切止夫'], opt_dict)
-        ge = GraphExtractor.GraphExtractor([u'三島由紀夫', u'大江健三郎', u'芥川龍之介',
-                                            u'阿刀田高',   u'江戸川乱歩', u'遠藤周作',
-                                            u'加納朋子',   u'村上春樹',   u'武者小路実篤',
-                                            u'夏目漱石' ], opt_dict)
+        tracelist = [u'三島由紀夫', u'大江健三郎']
+        tracelist = [u'八切止夫']
+        tracelist = [u'三島由紀夫', u'大江健三郎', u'芥川龍之介',
+                     u'阿刀田高',   u'江戸川乱歩', u'遠藤周作',
+                     u'加納朋子',   u'村上春樹',   u'武者小路実篤',
+                     u'夏目漱石' ]
+        ge = GraphExtractor.GraphExtractor(tracelist, opt_dict)
 
         ge.get_adjacent_matrix(input_html_dir,  input_vector_fpath,
                                output_html_dir, output_madj_fpath)
+
+        # compare to the baseline file
+        ref_fname = os.path.join(graphfetcherdir,
+                                 'graphextractor/baseline/' + output_madj_fname)
+        if(os.path.isfile(ref_fname)):
+            self.assertEqual(filecmp.cmp(output_madj_fpath, ref_fname), True)
+        else:
+            print 'not found basefile [' + ref_fname + ']'
 
 #
 # main test
