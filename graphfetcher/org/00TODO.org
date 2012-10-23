@@ -14,15 +14,15 @@
 *** 石原慎太郎のみファイルが壊れている fix
 
 ** TODO GraphExtractor
-*** en_en graphextractor, add baseline
-*** en_de graphextractor, add baseline
-*** en_ja graphextractor, add baseline
-*** de_en graphextractor, add baseline
-*** de_de graphextractor, add baseline
-*** de_ja graphextractor, add baseline
-*** ja_en graphextractor, add baseline
-*** ja_de graphextractor, add baseline
-*** ja_ja graphextractor, add baseline
+*** DONE en_en graphextractor, add baseline
+*** TODO en_de graphextractor, add baseline
+*** TODO en_ja graphextractor, add baseline
+*** TODO de_en graphextractor, add baseline
+*** TODO de_de graphextractor, add baseline
+*** TODO de_ja graphextractor, add baseline
+*** TODO ja_en graphextractor, add baseline
+*** TODO ja_de graphextractor, add baseline
+*** TODO ja_ja graphextractor, add baseline
 
 
 ** TODO pagerank

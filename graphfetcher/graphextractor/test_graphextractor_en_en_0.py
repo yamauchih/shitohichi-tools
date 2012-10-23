@@ -60,7 +60,8 @@ class TestGraphExtractor(unittest.TestCase):
                                output_html_dir, output_madj_fpath)
 
         # compare to the baseline file
-        ref_fname = os.path.join('baseline', output_madj_fname)
+        ref_fname = os.path.join(graphfetcherdir,
+                                 'graphextractor/baseline/' + output_madj_fname)
         self.assertEqual(filecmp.cmp(output_madj_fpath, ref_fname), True)
 
 #

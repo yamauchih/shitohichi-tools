@@ -32,7 +32,7 @@ class TestLinkVectorExtractor(unittest.TestCase):
         input_fullpath = os.path.join(indir, author_root_fname)
         root_url    = u'file:///' + input_fullpath
 
-        output_rpath         = u'data/english_writer/en.wikipedia.org/'
+        output_rpath         = u'data/english_writer/de.wikipedia.org/'
         output_list_basename = u'en_de_writer'
         outdir = os.path.join(graphfetcherdir, output_rpath)
 
