@@ -8,11 +8,11 @@
 #
 """
 \file
-\brief GraphExtractor test
+\brief GraphExtractor test: en_en (English writer on English wiki)
 """
 
 import GraphExtractor
-import unittest
+import os, unittest, filecmp
 
 class TestGraphExtractor(unittest.TestCase):
     """test: GraphExtractor test."""
@@ -58,6 +58,10 @@ class TestGraphExtractor(unittest.TestCase):
 
         ge.get_adjacent_matrix(input_html_dir,  input_vector_fpath,
                                output_html_dir, output_madj_fpath)
+
+        # compare to the baseline file
+        ref_fname = os.path.join('baseline', output_madj_fname)
+        self.assertEqual(filecmp.cmp(output_madj_fpath, ref_fname), True)
 
 #
 # main test
