@@ -3,21 +3,22 @@
 
 clear
 
-% adjacent matrix
-adj_mat_data_dir = '/../graphextractor/baseline/';
-vector_data_dir  = '/../vectorextractor/baseline/';
-
-current_dir = pwd()
-addpath(strcat(current_dir, adj_mat_data_dir))
-addpath(strcat(current_dir, vector_data_dir))
-
-madj = en_en_writer_adj_mat();
+% data
+vector_fname = '/../vectorextractor/baseline/en_en_writer.ascii.vector';
+res_fname    = 'pagerank_result/en_en_writer.pagerank_res.vector'; 
 
 % author vector
-author_vec_fname = strcat(current_dir, ...
-                          '../vectorextractor/baseline/en_en_writer.ascii.vector')
+current_dir = pwd();
+author_vec_fpath = strcat(current_dir, vector_fname);
+author_vec = read_authorvector(author_vec_fpath);
 
-author_vec = read_authorvector(author_vec_fname);
+% adjacent matrix
+%
+% if adjacent matrix cannot be found, add the path.
+% adj_mat_data_dir = '/../graphextractor/baseline/';
+% addpath(strcat(current_dir, adj_mat_data_dir));
+%
+madj = en_en_writer_adj_mat();
 
 % create the initial index vector
 [nr, nc] = size(madj);
@@ -25,14 +26,14 @@ if (nr ~=nc)
     error('madj is not a squere matrix.')
 end
 
-[ar ac] = size(author_vec);
+[ar, ac] = size(author_vec);
 if (nr ~= ar)
     error('author vector size does not agree with madj.')
 end
 index_vec = [1:nr]';
 
 % remove source nodes and sink nodes
-[ res_madj res_idx_vec res_name_carray ] = ...
+[ res_madj, res_idx_vec, res_name_carray ] = ...
     remove_sink_source_node(madj, index_vec, author_vec);
 
 %pagerank_vec = pagerank00(res_madj');
@@ -48,4 +49,6 @@ end
 ranked_idx = index_vec(sort_perm_idx);
 %ranked_idx(1:100)
 %sorted_pagerank_vec(1:100)
-res_name_carray(sort_perm_idx(1:50))
+%res_name_carray(sort_perm_idx(1:50));
+
+save_authorvector(res_name_carray(sort_perm_idx), res_fname);

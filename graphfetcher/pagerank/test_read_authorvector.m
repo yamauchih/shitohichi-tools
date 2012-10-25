@@ -3,8 +3,5 @@ function [] = test_read_authorvector()
 %
 % 
 
-lines = read_authorvector('en_en_writer.ascii.vector');
-% disp(lines)
-
-
-        
+lines = read_authorvector('../vectorextractor/baseline/en_en_writer.ascii.vector');
+disp(lines)
