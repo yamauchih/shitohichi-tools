@@ -34,9 +34,6 @@ for i = 1:nr
     if lines{i, 1}(1) == '#'
         % fprintf('%s\n', lines{i,1});
         comment_line = [comment_line i];
-        continue;
-    else
-        break;
     end
 end
 lines(comment_line) = [];
