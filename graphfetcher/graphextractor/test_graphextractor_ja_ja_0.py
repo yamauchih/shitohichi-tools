@@ -52,12 +52,14 @@ class TestGraphExtractor(unittest.TestCase):
             # Output matrix type ['python', 'matlab']
             'output_matrix_type': 'matlab'
             }
-        tracelist = [u'三島由紀夫', u'大江健三郎']
-        tracelist = [u'八切止夫']
-        tracelist = [u'三島由紀夫', u'大江健三郎', u'芥川龍之介',
-                     u'阿刀田高',   u'江戸川乱歩', u'遠藤周作',
-                     u'加納朋子',   u'村上春樹',   u'武者小路実篤',
-                     u'夏目漱石' ]
+
+        tracelist = []
+        # tracelist = [u'三島由紀夫', u'大江健三郎']
+        # tracelist = [u'八切止夫', u'石原慎太郎'] # 石原慎太郎 の file は圧縮されている
+        # tracelist = [u'三島由紀夫', u'大江健三郎', u'芥川龍之介',
+        #              u'阿刀田高',   u'江戸川乱歩', u'遠藤周作',
+        #              u'加納朋子',   u'村上春樹',   u'武者小路実篤',
+        #              u'夏目漱石' ]
         ge = GraphExtractor.GraphExtractor(tracelist, opt_dict)
 
         ge.get_adjacent_matrix(input_html_dir,  input_vector_fpath,
