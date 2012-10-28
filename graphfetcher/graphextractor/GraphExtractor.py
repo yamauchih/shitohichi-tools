@@ -48,8 +48,6 @@ class GraphExtractor(object):
         \param[in] _test_url_list if None, only analyze this list URL
         \param[in] _opt_dict options
         """
-        # sys.stdout = codecs.getwriter('utf_8')(sys.stdout)
-
         # index to url map. list implementation
         self.__index_to_url_map = []
         # url to index map. dict implementation
@@ -86,6 +84,14 @@ class GraphExtractor(object):
         else:
             self.info_out(u'# Option: log_level: ' + str(self.__log_level))
 
+
+        # is_enable_stdout_utf8_codec
+        if (_opt_dict.has_key('is_enable_stdout_utf8_codec')):
+            if(_opt_dict['is_enable_stdout_utf8_codec'] == True):
+                sys.stdout = codecs.getwriter('utf_8')(sys.stdout)
+                self.info_out(u'# Option: is_enable_stdout_utf8_codec: True')
+            else:
+                self.info_out(u'# Option: is_enable_stdout_utf8_codec: False')
 
         # is_print_connectivity
         self.__is_print_connectivity = False;
@@ -126,17 +132,17 @@ class GraphExtractor(object):
     def error_out(self, _mes):
         """errlr level log output"""
         if(self.__log_level == 0):
-            print 'error:', _mes
+            print u'error:', _mes
 
     def info_out(self, _mes):
         """info level log output"""
         if(self.__log_level >= 1):
-            print 'info:', _mes
+            print u'info:', _mes
 
     def debug_out(self, _mes):
         """debug level log output"""
         if(self.__log_level >= 2):
-            print 'debug:', _mes
+            print u'debug:', _mes
 
 
     def __load_input_vector(self, _input_vector_fpath):
@@ -275,7 +281,9 @@ class GraphExtractor(object):
 
                 # Show connection
                 if (self.__is_print_connectivity == True):
-                    self.info_out(u'connect [' + _url + u']->[' + dst + u']')
+                    self.info_out(u'connect [' + _url + u'](' + \
+                                  str(self.__url_to_index_map[_url]) + ')->[' + \
+                                  dst + u'](' + str(self.__url_to_index_map[dst]) +')')
 
                 # add connection to the dotfile
                 if (self.__is_generate_dotfile == True):
