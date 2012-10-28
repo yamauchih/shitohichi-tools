@@ -43,6 +43,8 @@ class TestGraphExtractor(unittest.TestCase):
             'log_level': 1,
             # When print out connection, set this True
             'is_print_connectivity': False,
+            # When the entry is UTF8 and conversion failed, try set this.
+            'is_enable_stdout_utf8_codec': False,
             # When output the dot (graphviz) file, set non empty file name (e.g., a.dot)
             'dot_file_name': 'en_de_writer_adj_mat.dot',
             # When True, generate annotated html file
