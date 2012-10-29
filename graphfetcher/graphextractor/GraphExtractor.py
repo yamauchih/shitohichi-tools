@@ -11,11 +11,10 @@
 # the pages are in one directory. (Assumption)
 #
 
-import os, sys
-import urllib
-import urllib2
-import codecs
+import os, sys, urllib, urllib2, codecs
+import SoupUtil
 from bs4 import BeautifulSoup
+
 
 class GraphExtractor(object):
     """Extract graph structure from a web pages.
@@ -32,6 +31,9 @@ class GraphExtractor(object):
         - 'is_print_connectivity': bool. when True, print out the
           detected connectivity.
 
+        - 'is_enable_stdout_utf8_codec': bool. When True, sys.stdout is UTF8 outout
+          when you see a conversion error, try set this.
+
         - 'dot_file_name': string. When non empty, generate a dot file
           with this name. '' when not generate file.
 
@@ -44,6 +46,9 @@ class GraphExtractor(object):
         - 'output_matrix_type': string. ['python', 'matlab']
            'python': python list
            'matlab': matlab sparse matrix
+
+        - 'is_remove_navbox': bool (option) When True, <table class='navbox'></table>
+           entries will be deleted. This is a special handling for the Japanese wiki.
 
         \param[in] _test_url_list if None, only analyze this list URL
         \param[in] _opt_dict options
@@ -127,6 +132,12 @@ class GraphExtractor(object):
         if (self.__output_matrix_type not in valid_matrix_type_list):
             raise StandardError, ('Unknown outout matrix type [' + self.__output_matrix_type + ']')
         self.info_out(u'# Option: output_matrix_type: ' + self.__output_matrix_type)
+
+        # remove <table class='navbox'></table> entries?
+        self.__is_remove_navbox = False
+        if (_opt_dict.has_key('is_remove_navbox')):
+            self.__is_remove_navbox = _opt_dict['is_remove_navbox']
+            self.info_out(u'# Option: is_remove_navbox:' + str(self.__is_remove_navbox))
 
 
     def error_out(self, _mes):
@@ -261,6 +272,12 @@ class GraphExtractor(object):
         # print file_url
         data = urllib2.urlopen(file_url).read()
         soup = BeautifulSoup(data)
+
+        # special handling for Japanese wiki: a bit of hack...
+        if (self.__is_remove_navbox == True):
+            SoupUtil.delete_navbox(soup)
+
+
         src_link_list = soup.find_all('a')
         dst_link_set = set()
 

@@ -52,7 +52,9 @@ class TestGraphExtractor(unittest.TestCase):
             # When True, remove self link
             'is_remove_self_link': True,
             # Output matrix type ['python', 'matlab']
-            'output_matrix_type': 'matlab'
+            'output_matrix_type': 'matlab',
+            # do you want to remove the navbox entries?
+            'is_remove_navbox': True
             }
 
         tracelist = []
