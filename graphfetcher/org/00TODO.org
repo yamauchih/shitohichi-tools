@@ -2,25 +2,18 @@
 
 ** Improvements
 
-** TODO Option: Remove non referenced page.
-** TODO Adjacent matrix first (or n-th) order of Mishima, graph by dot.
-** TODO Sort number of links
-** TODO Adjacency matrix analysis
-** TODO graph creation with dot
-*** TODO output node_num -> name
-*** TODO (M_{adj}), (M_{adj})^2 -> node_i -> node_j; list
-** TODO English, German, SF authors
-** TODO Blog
-*** 石原慎太郎のみファイルが壊れている fix. gedit said, it is compressed.
-
+** TODO Remapper
+*** read data and removed sink source node
+*** remap the utf-8 data
 
 **** TODO Duplication check and change the Wikipedia
 **** TODO Yoshino_Hideo の Wiki に間違いがある．Ryōkan が Ryokan になっている．多くの Wiki Page がそうらしい．Link が切れている
 
-
 ** TODO Blog contents
 *** TODO sink and source の話を書く
 *** TODO Impact factor で page rank を使っているものを探して mention
+
+
 
 *** TODO English wikipedia update ... sent email.
 
@@ -36,25 +29,3 @@ about creativity, family relationships, your career, or having a sense
 of humour. Pick two or three of these values and write a few sentences
 about why they are important to you. You have fifteen minutes. It
 could change your life.
-
-http://ja.wikipedia.org/wiki/Category:%E3%82%A4%E3%82%AE%E3%83%AA%E3%82%B9%E3%81%AE%E8%91%97%E4%BD%9C%E5%AE%B6
-
-日本語の Wiki (2012-10-28(Sun))では「イギリスの著作家」にはシェイクスピ
-アが存在しない．これはおかしいと思っていたら，シェイクスピアは「イギリ
-スの著作家」にはいないが，「イギリスの劇作家」にあり，そこにはサブカテ
-ゴリ，「シェイクスピア」と「オスカーワイルド」いうカテゴリもある．プロ
-グラムはこのような Wiki の構造を考慮しておらず，単純に「イギリスの著作
-家」をデータとしたので，シェイクスピアは存在していないことになってしまっ
-た．
-
-石原慎太郎のファイルのみ圧縮されており，いくつか処理にあたって問題があった．
- - url が quote されたままだったので，urllib.unquote() を使って処理した．
- - quote された url には href="/wiki/名前" となっていたので，/wiki/ を除いた．
- - この処理のために，
-     - kde の日本語の package を install する必要があった
-     - emacs の default 設定に
-       (set-buffer-file-coding-system 'utf-8)
-       (set-default-coding-systems 'utf-8)
-       (set-terminal-coding-system 'utf-8)
-       を加えた．(そのため EUC-JP ではなくなる．)
-

@@ -26,18 +26,21 @@ class TestLinkVectorExtractor(unittest.TestCase):
         graphfetcherdir = u'/home/hitoshi/data/project/shitohichi-tools/graphfetcher/'
 
         input_rpath       = u'data/japanese_writer/en.wikipedia.org/wiki/'
-        author_root_fname = u'List_of_English_writers'
 
-        indir = os.path.join(graphfetcherdir, input_rpath)
-        input_fullpath = os.path.join(indir, author_root_fname)
-        root_url    = u'file:///' + input_fullpath
+        # The input list file is not one file. This is handled later.
+        #
+        # author_root_fname = u'List_of_English_writers'
+        # indir = os.path.join(graphfetcherdir, input_rpath)
+        # input_fullpath = os.path.join(indir, author_root_fname)
+        # root_url    = u'file:///' + input_fullpath
 
         output_rpath         = u'data/japanese_writer/en.wikipedia.org/'
         output_list_basename = u'ja_en_writer'
         outdir = os.path.join(graphfetcherdir, output_rpath)
 
         print
-        print u'# input [' + root_url    + u']'
+        # print u'# input [' + root_url    + u']'
+
         # if substring of the following list matches the href, ignore.
         # If exact match filter is needed, use blacklistset option.
         ignore_href_list = [

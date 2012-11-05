@@ -60,4 +60,5 @@
 ** DONE misc
 *** DONE matrix は full rank ではない．どこかに sink loop がある．これはどうも避けられない
 *** DONE complex eigenvalue について30講を読む
+*** DONE 石原慎太郎のみファイルが壊れている fix. gedit said, it is compressed.
 
