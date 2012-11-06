@@ -1,6 +1,8 @@
 #!/bin/bash
-# Run all test
-# Copyright (C) 2012 Hitoshi Yamauchi
+#
+# Run all the tests
+# Copyright (C) 2012 Yamauchi, Hitoshi
+# For Rebecca from Hitoshi the fool
 #
 
 # English Writer

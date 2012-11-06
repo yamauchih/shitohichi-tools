@@ -1,0 +1,669 @@
+hitoshi@hitoshi-VirtualBox[78]bash % ./run_all_test.sh | tee test.log 2>&1
+test_graphextractor (__main__.TestGraphExtractor)
+test graph (adjacent matrix) extractor. de_de Deutsche Writer, Deutsche Wiki ... /usr/lib/python2.7/dist-packages/bs4/dammit.py:218: UnicodeWarning: Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+  "Some characters could not be decoded, and were "
+ok
+
+----------------------------------------------------------------------
+Ran 1 test in 535.454s
+
+OK
+
+# input html dir    [/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/german_writer/de.wikipedia.org/wiki/]
+# input vector file [/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/german_writer/de.wikipedia.org/de_de_writer.utf-8.vector]
+# output dir        [/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/german_writer/de.wikipedia.org/wiki_out/]
+# output madj file  [/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/german_writer/de.wikipedia.org/de_de_writer_adj_mat.m]
+info: # Option: log_level: 1
+info: # Option: is_enable_stdout_utf8_codec: False
+info: # Option: is_print_connectivity: False
+info: # Option: is_generate_dotfile: True [de_de_writer_adj_mat.dot]
+info: # Option: is_generate_annotated_html: False
+info: # Option: is_remove_self_link:True
+info: # Option: output_matrix_type: matlab
+info: check the input file header... pass.
+info: number of entries: 5975
+info: progress 100/5975
+info: progress 200/5975
+info: progress 300/5975
+info: progress 400/5975
+info: progress 500/5975
+info: progress 600/5975
+info: progress 700/5975
+info: progress 800/5975
+info: progress 900/5975
+info: progress 1000/5975
+info: progress 1100/5975
+info: progress 1200/5975
+info: progress 1300/5975
+info: progress 1400/5975
+info: progress 1500/5975
+info: progress 1600/5975
+info: progress 1700/5975
+info: progress 1800/5975
+info: progress 1900/5975
+info: progress 2000/5975
+info: progress 2100/5975
+info: progress 2200/5975
+info: progress 2300/5975
+info: progress 2400/5975
+info: progress 2500/5975
+info: progress 2600/5975
+info: progress 2700/5975
+info: progress 2800/5975
+info: progress 2900/5975
+info: progress 3000/5975
+info: progress 3100/5975
+info: progress 3200/5975
+info: progress 3300/5975
+info: progress 3400/5975
+info: progress 3500/5975
+info: progress 3600/5975
+info: progress 3700/5975
+info: progress 3800/5975
+info: progress 3900/5975
+info: progress 4000/5975
+info: progress 4100/5975
+info: progress 4200/5975
+info: progress 4300/5975
+info: progress 4400/5975
+info: progress 4500/5975
+info: progress 4600/5975
+info: progress 4700/5975
+info: progress 4800/5975
+info: progress 4900/5975
+info: progress 5000/5975
+info: progress 5100/5975
+info: progress 5200/5975
+info: progress 5300/5975
+info: progress 5400/5975
+info: progress 5500/5975
+info: progress 5600/5975
+info: progress 5700/5975
+info: progress 5800/5975
+info: progress 5900/5975
+test_graphextractor (__main__.TestGraphExtractor)
+test graph (adjacent matrix) extractor. de_en Deutsche Writer, English Wiki ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 85.201s
+
+OK
+
+# input html dir    [/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/german_writer/en.wikipedia.org/wiki/]
+# input vector file [/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/german_writer/en.wikipedia.org/de_en_writer.utf-8.vector]
+# output dir        [/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/german_writer/en.wikipedia.org/wiki_out/]
+# output madj file  [/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/german_writer/en.wikipedia.org/de_en_writer_adj_mat.m]
+info: # Option: log_level: 1
+info: # Option: is_enable_stdout_utf8_codec: False
+info: # Option: is_print_connectivity: False
+info: # Option: is_generate_dotfile: True [de_en_writer_adj_mat.dot]
+info: # Option: is_generate_annotated_html: False
+info: # Option: is_remove_self_link:True
+info: # Option: output_matrix_type: matlab
+info: check the input file header... pass.
+info: number of entries: 756
+info: progress 100/756
+info: progress 200/756
+info: progress 300/756
+info: progress 400/756
+info: progress 500/756
+info: progress 600/756
+info: progress 700/756
+test_graphextractor (__main__.TestGraphExtractor)
+test graph (adjacent matrix) extractor. de_ja Deutsche Writer, Japanese Wiki ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 21.386s
+
+OK
+
+# input html dir    [/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/german_writer/ja.wikipedia.org/wiki/]
+# input vector file [/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/german_writer/ja.wikipedia.org/de_ja_writer.utf-8.vector]
+# output dir        [/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/german_writer/ja.wikipedia.org/wiki_out/]
+# output madj file  [/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/german_writer/ja.wikipedia.org/de_ja_writer_adj_mat.m]
+info: # Option: log_level: 1
+info: # Option: is_enable_stdout_utf8_codec: False
+info: # Option: is_print_connectivity: False
+info: # Option: is_generate_dotfile: True [de_ja_writer_adj_mat.dot]
+info: # Option: is_generate_annotated_html: False
+info: # Option: is_remove_self_link:True
+info: # Option: output_matrix_type: matlab
+info: check the input file header... pass.
+info: number of entries: 136
+info: progress 100/136
+test_graphextractor (__main__.TestGraphExtractor)
+test graph (adjacent matrix) extractor. en_de English Writer, German Wiki ... /usr/lib/python2.7/dist-packages/bs4/dammit.py:218: UnicodeWarning: Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+  "Some characters could not be decoded, and were "
+ok
+
+----------------------------------------------------------------------
+Ran 1 test in 44.149s
+
+OK
+
+# input html dir    [/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/english_writer/de.wikipedia.org/wiki/]
+# input vector file [/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/english_writer/de.wikipedia.org/en_de_writer.utf-8.vector]
+# output dir        [/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/english_writer/de.wikipedia.org/wiki_out/]
+# output madj file  [/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/english_writer/de.wikipedia.org/en_de_writer_adj_mat.m]
+info: # Option: log_level: 1
+info: # Option: is_enable_stdout_utf8_codec: False
+info: # Option: is_print_connectivity: False
+info: # Option: is_generate_dotfile: True [en_de_writer_adj_mat.dot]
+info: # Option: is_generate_annotated_html: False
+info: # Option: is_remove_self_link:True
+info: # Option: output_matrix_type: matlab
+info: check the input file header... pass.
+info: number of entries: 465
+info: progress 100/465
+info: progress 200/465
+info: progress 300/465
+info: progress 400/465
+test_graphextractor (__main__.TestGraphExtractor)
+test graph (adjacent matrix) extractor. en_en English Writer, English Wiki ... /usr/lib/python2.7/dist-packages/bs4/dammit.py:218: UnicodeWarning: Some characters could not be decoded, and were replaced with REPLACEMENT CHARACTER.
+  "Some characters could not be decoded, and were "
+ok
+
+----------------------------------------------------------------------
+Ran 1 test in 473.913s
+
+OK
+
+# input html dir    [/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/english_writer/en.wikipedia.org/wiki/]
+# input vector file [/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/english_writer/en.wikipedia.org/en_en_writer.utf-8.vector]
+# output dir        [/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/english_writer/en.wikipedia.org/wiki_out/]
+# output madj file  [/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/english_writer/en.wikipedia.org/en_en_writer_adj_mat.m]
+info: # Option: log_level: 1
+info: # Option: is_enable_stdout_utf8_codec: False
+info: # Option: is_print_connectivity: False
+info: # Option: is_generate_dotfile: True [en_en_writer_adj_mat.dot]
+info: # Option: is_generate_annotated_html: False
+info: # Option: is_remove_self_link:True
+info: # Option: output_matrix_type: matlab
+info: check the input file header... pass.
+info: number of entries: 3397
+info: progress 100/3397
+info: progress 200/3397
+info: progress 300/3397
+info: progress 400/3397
+info: progress 500/3397
+info: progress 600/3397
+info: progress 700/3397
+info: progress 800/3397
+info: progress 900/3397
+info: progress 1000/3397
+info: progress 1100/3397
+info: progress 1200/3397
+info: progress 1300/3397
+info: progress 1400/3397
+info: progress 1500/3397
+info: progress 1600/3397
+info: progress 1700/3397
+info: progress 1800/3397
+info: progress 1900/3397
+info: progress 2000/3397
+info: progress 2100/3397
+info: progress 2200/3397
+info: progress 2300/3397
+info: progress 2400/3397
+info: progress 2500/3397
+info: progress 2600/3397
+info: progress 2700/3397
+info: progress 2800/3397
+info: progress 2900/3397
+info: progress 3000/3397
+info: progress 3100/3397
+info: progress 3200/3397
+info: progress 3300/3397
+test_graphextractor (__main__.TestGraphExtractor)
+test graph (adjacent matrix) extractor. en_ja English Writer, Japanese Wiki ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 35.613s
+
+OK
+
+# input html dir    [/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/english_writer/ja.wikipedia.org/wiki/]
+# input vector file [/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/english_writer/ja.wikipedia.org/en_ja_writer.utf-8.vector]
+# output dir        [/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/english_writer/ja.wikipedia.org/wiki_out/]
+# output madj file  [/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/english_writer/ja.wikipedia.org/en_ja_writer_adj_mat.m]
+info: # Option: log_level: 1
+info: # Option: is_enable_stdout_utf8_codec: False
+info: # Option: is_print_connectivity: False
+info: # Option: is_generate_dotfile: True [en_ja_writer_adj_mat.dot]
+info: # Option: is_generate_annotated_html: False
+info: # Option: is_remove_self_link:True
+info: # Option: output_matrix_type: matlab
+info: check the input file header... pass.
+info: number of entries: 166
+info: progress 100/166
+test_graphextractor (__main__.TestGraphExtractor)
+test graph (adjacent matrix) extractor. ja_de Japanese Writer, Deutsche Wiki ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 35.324s
+
+OK
+
+# input html dir    [/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/japanese_writer/de.wikipedia.org/wiki/]
+# input vector file [/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/japanese_writer/de.wikipedia.org/ja_de_writer.utf-8.vector]
+# output dir        [/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/japanese_writer/de.wikipedia.org/wiki_out/]
+# output madj file  [/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/japanese_writer/de.wikipedia.org/ja_de_writer_adj_mat.m]
+info: # Option: log_level: 1
+info: # Option: is_enable_stdout_utf8_codec: False
+info: # Option: is_print_connectivity: False
+info: # Option: is_generate_dotfile: True [ja_de_writer_adj_mat.dot]
+info: # Option: is_generate_annotated_html: False
+info: # Option: is_remove_self_link:True
+info: # Option: output_matrix_type: matlab
+info: check the input file header... pass.
+info: number of entries: 497
+info: progress 100/497
+info: progress 200/497
+info: progress 300/497
+info: progress 400/497
+test_graphextractor (__main__.TestGraphExtractor)
+test graph (adjacent matrix) extractor. ja_en Japanese Writer, English Wiki ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 40.826s
+
+OK
+
+# input html dir    [/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/japanese_writer/en.wikipedia.org/wiki/]
+# input vector file [/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/japanese_writer/en.wikipedia.org/ja_en_writer.utf-8.vector]
+# output dir        [/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/japanese_writer/en.wikipedia.org/wiki_out/]
+# output madj file  [/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/japanese_writer/en.wikipedia.org/ja_en_writer_adj_mat.m]
+info: # Option: log_level: 1
+info: # Option: is_enable_stdout_utf8_codec: False
+info: # Option: is_print_connectivity: False
+info: # Option: is_generate_dotfile: True [ja_en_writer_adj_mat.dot]
+info: # Option: is_generate_annotated_html: False
+info: # Option: is_remove_self_link:True
+info: # Option: output_matrix_type: matlab
+info: check the input file header... pass.
+info: number of entries: 412
+info: progress 100/412
+info: progress 200/412
+info: progress 300/412
+info: progress 400/412
+test_graphextractor (__main__.TestGraphExtractor)
+test graph (adjacent matrix) extractor. ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 160.284s
+
+OK
+
+# input html dir    [/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/japanese_writer/ja.wikipedia.org/wiki/]
+# input vector file [/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/japanese_writer/ja.wikipedia.org/ja_ja_writer.utf-8.vector]
+# output dir        [/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/japanese_writer/ja.wikipedia.org/wiki_out/]
+# output madj file  [/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/japanese_writer/ja.wikipedia.org/ja_ja_writer_adj_mat.m]
+info: # Option: log_level: 1
+info: # Option: is_enable_stdout_utf8_codec: False
+info: # Option: is_print_connectivity: False
+info: # Option: is_generate_dotfile: True [ja_ja_writer_adj_mat.dot]
+info: # Option: is_generate_annotated_html: False
+info: # Option: is_remove_self_link:True
+info: # Option: output_matrix_type: matlab
+info: # Option: is_remove_navbox:True
+info: check the input file header... pass.
+info: number of entries: 1034
+info: progress 100/1034
+info: progress 200/1034
+info: progress 300/1034
+info: progress 400/1034
+info: progress 500/1034
+info: progress 600/1034
+info: progress 700/1034
+info: progress 800/1034
+info: progress 900/1034
+info: progress 1000/1034
+test_graphextractor (__main__.TestGraphExtractor)
+test graph (adjacent matrix) extractor. ... 
+# input html dir    [/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/japanese_writer/ja.wikipedia.org/wiki/]
+# input vector file [/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/japanese_writer/ja.wikipedia.org/ja_ja_writer.utf-8.vector]
+# output dir        [/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/japanese_writer/ja.wikipedia.org/wiki_out/]
+# output madj file  [/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/japanese_writer/ja.wikipedia.org/ja_ja_writer_1_adj_mat.m]
+info: # Option: log_level: 1
+info: # Option: is_enable_stdout_utf8_codec: True
+info: # Option: is_print_connectivity: True
+info: # Option: is_generate_dotfile: True [ja_ja_writer_adj_mat.dot]
+info: # Option: is_generate_annotated_html: False
+info: # Option: is_remove_self_link:True
+info: # Option: output_matrix_type: matlab
+info: # Option: is_remove_navbox:True
+info: check the input file header... pass.
+info: number of entries: 1034
+info: connect [三島由紀夫](893)->[森鴎外](938)
+info: connect [三島由紀夫](893)->[谷崎潤一郎](593)
+info: connect [三島由紀夫](893)->[川端康成](286)
+info: connect [三島由紀夫](893)->[小池真理子](367)
+info: connect [三島由紀夫](893)->[島田雅彦](482)
+info: connect [三島由紀夫](893)->[平野啓一郎](794)
+info: connect [三島由紀夫](893)->[浅田次郎](27)
+info: connect [三島由紀夫](893)->[永井荷風](664)
+info: connect [三島由紀夫](893)->[泉鏡花](104)
+info: connect [三島由紀夫](893)->[小川未明](210)
+info: connect [三島由紀夫](893)->[芥川龍之介](22)
+info: connect [三島由紀夫](893)->[谷崎潤一郎](593)
+info: connect [三島由紀夫](893)->[森鴎外](938)
+info: connect [三島由紀夫](893)->[伊藤左千夫](110)
+info: connect [三島由紀夫](893)->[富士正晴](813)
+info: connect [三島由紀夫](893)->[富士正晴](813)
+info: connect [三島由紀夫](893)->[中河与一](669)
+info: connect [三島由紀夫](893)->[泉鏡花](104)
+info: connect [三島由紀夫](893)->[川端康成](286)
+info: connect [三島由紀夫](893)->[川端康成](286)
+info: connect [三島由紀夫](893)->[太宰治](577)
+info: connect [三島由紀夫](893)->[森鴎外](938)
+info: connect [三島由紀夫](893)->[川端康成](286)
+info: connect [三島由紀夫](893)->[林房雄](761)
+info: connect [三島由紀夫](893)->[福永武彦](811)
+info: connect [三島由紀夫](893)->[中村真一郎](691)
+info: connect [三島由紀夫](893)->[椎名麟三](457)
+info: connect [三島由紀夫](893)->[梅崎春生](159)
+info: connect [三島由紀夫](893)->[武田泰淳](572)
+info: connect [三島由紀夫](893)->[安部公房](48)
+info: connect [三島由紀夫](893)->[原民喜](767)
+info: connect [三島由紀夫](893)->[船山馨](835)
+info: connect [三島由紀夫](893)->[石原慎太郎](100)
+info: connect [三島由紀夫](893)->[安部譲二](49)
+info: connect [三島由紀夫](893)->[石原慎太郎](100)
+info: connect [三島由紀夫](893)->[中井英夫](663)
+info: connect [三島由紀夫](893)->[星新一](843)
+info: connect [三島由紀夫](893)->[遠藤周作](172)
+info: connect [三島由紀夫](893)->[森鴎外](938)
+info: connect [三島由紀夫](893)->[深沢七郎](802)
+info: connect [三島由紀夫](893)->[大江健三郎](176)
+info: connect [三島由紀夫](893)->[谷崎潤一郎](593)
+info: connect [三島由紀夫](893)->[川端康成](286)
+info: connect [三島由紀夫](893)->[太宰治](577)
+info: connect [三島由紀夫](893)->[林房雄](761)
+info: connect [三島由紀夫](893)->[林房雄](761)
+info: connect [三島由紀夫](893)->[川端康成](286)
+info: connect [三島由紀夫](893)->[石川淳](94)
+info: connect [三島由紀夫](893)->[安部公房](48)
+info: connect [三島由紀夫](893)->[林房雄](761)
+info: connect [三島由紀夫](893)->[川端康成](286)
+info: connect [三島由紀夫](893)->[武田泰淳](572)
+info: connect [三島由紀夫](893)->[村松友視](925)
+info: connect [三島由紀夫](893)->[川端康成](286)
+info: connect [三島由紀夫](893)->[舟橋聖一](834)
+info: connect [三島由紀夫](893)->[川端康成](286)
+info: connect [三島由紀夫](893)->[富士正晴](813)
+info: connect [三島由紀夫](893)->[志賀直哉](459)
+info: connect [三島由紀夫](893)->[佐藤春夫](447)
+info: connect [三島由紀夫](893)->[川端康成](286)
+info: connect [三島由紀夫](893)->[太宰治](577)
+info: connect [三島由紀夫](893)->[林房雄](761)
+info: connect [三島由紀夫](893)->[川端康成](286)
+info: connect [三島由紀夫](893)->[林房雄](761)
+info: connect [三島由紀夫](893)->[井上光晴](123)
+info: connect [三島由紀夫](893)->[島田雅彦](482)
+info: connect [三島由紀夫](893)->[芥川龍之介](22)
+info: connect [三島由紀夫](893)->[野坂昭如](730)
+info: connect [三島由紀夫](893)->[野坂昭如](730)
+info: connect [三島由紀夫](893)->[野坂昭如](730)
+info: connect [三島由紀夫](893)->[林房雄](761)
+info: connect [三島由紀夫](893)->[芥川龍之介](22)
+info: connect [三島由紀夫](893)->[江戸川乱歩](166)
+info: connect [三島由紀夫](893)->[檀一雄](604)
+info: connect [三島由紀夫](893)->[川端康成](286)
+info: connect [三島由紀夫](893)->[横光利一](998)
+info: connect [三島由紀夫](893)->[谷崎潤一郎](593)
+info: connect [三島由紀夫](893)->[林房雄](761)
+info: connect [三島由紀夫](893)->[円地文子](171)
+info: connect [三島由紀夫](893)->[武田麟太郎](573)
+info: connect [三島由紀夫](893)->[島木健作](477)
+info: connect [三島由紀夫](893)->[尾崎紅葉](221)
+info: connect [三島由紀夫](893)->[泉鏡花](104)
+info: connect [三島由紀夫](893)->[尾崎一雄](220)
+info: connect [三島由紀夫](893)->[外村繁](647)
+info: connect [三島由紀夫](893)->[上林暁](288)
+info: connect [三島由紀夫](893)->[牧野信一](855)
+info: connect [三島由紀夫](893)->[稲垣足穂](116)
+info: connect [三島由紀夫](893)->[石原慎太郎](100)
+info: connect [三島由紀夫](893)->[石原慎太郎](100)
+info: connect [三島由紀夫](893)->[大江健三郎](176)
+info: connect [三島由紀夫](893)->[伊藤整](111)
+info: connect [三島由紀夫](893)->[安部公房](48)
+info: connect [三島由紀夫](893)->[林房雄](761)
+info: connect [三島由紀夫](893)->[野坂昭如](730)
+info: connect [三島由紀夫](893)->[川端康成](286)
+info: connect [三島由紀夫](893)->[石川淳](94)
+info: connect [三島由紀夫](893)->[埴谷雄高](755)
+info: connect [三島由紀夫](893)->[高橋和巳](552)
+info: connect [三島由紀夫](893)->[堤清二](614)
+info: connect [三島由紀夫](893)->[武田泰淳](572)
+info: connect [三島由紀夫](893)->[川端康成](286)
+info: connect [三島由紀夫](893)->[石川淳](94)
+info: connect [三島由紀夫](893)->[安部公房](48)
+info: connect [三島由紀夫](893)->[平野啓一郎](794)
+info: connect [三島由紀夫](893)->[深沢七郎](802)
+info: connect [三島由紀夫](893)->[安部譲二](49)
+info: connect [三島由紀夫](893)->[石原慎太郎](100)
+info: connect [三島由紀夫](893)->[小田実](229)
+info: connect [三島由紀夫](893)->[野坂昭如](730)
+info: connect [三島由紀夫](893)->[遠藤周作](172)
+info: connect [三島由紀夫](893)->[川端康成](286)
+info: connect [三島由紀夫](893)->[太宰治](577)
+info: connect [三島由紀夫](893)->[谷崎潤一郎](593)
+info: connect [三島由紀夫](893)->[北杜夫](303)
+info: connect [三島由紀夫](893)->[檀一雄](604)
+info: connect [三島由紀夫](893)->[石原慎太郎](100)
+info: connect [三島由紀夫](893)->[澁澤龍彦](475)
+info: connect [三島由紀夫](893)->[高橋和巳](552)
+info: connect [三島由紀夫](893)->[野間宏](736)
+info: connect [三島由紀夫](893)->[林房雄](761)
+info: connect [三島由紀夫](893)->[澁澤龍彦](475)
+info: connect [三島由紀夫](893)->[澁澤龍彦](475)
+info: connect [三島由紀夫](893)->[稲垣足穂](116)
+info: connect [三島由紀夫](893)->[林房雄](761)
+info: connect [三島由紀夫](893)->[林房雄](761)
+info: connect [三島由紀夫](893)->[五味康祐](396)
+info: connect [三島由紀夫](893)->[山岡荘八](959)
+info: connect [三島由紀夫](893)->[伊藤桂一](108)
+info: connect [三島由紀夫](893)->[倉橋由美子](346)
+info: connect [三島由紀夫](893)->[中河与一](669)
+info: connect [三島由紀夫](893)->[平林たい子](795)
+info: connect [三島由紀夫](893)->[水上勉](894)
+info: connect [三島由紀夫](893)->[中村彰彦](688)
+info: connect [三島由紀夫](893)->[浅田次郎](27)
+info: connect [三島由紀夫](893)->[佐藤雅美](448)
+info: connect [三島由紀夫](893)->[高橋克彦](553)
+info: connect [三島由紀夫](893)->[戸川昌子](641)
+info: connect [三島由紀夫](893)->[遠藤周作](172)
+info: connect [三島由紀夫](893)->[川口松太郎](281)
+info: connect [三島由紀夫](893)->[川端康成](286)
+info: connect [三島由紀夫](893)->[上林暁](288)
+info: connect [三島由紀夫](893)->[久世光彦](335)
+info: connect [三島由紀夫](893)->[倉橋由美子](346)
+info: connect [三島由紀夫](893)->[今東光](403)
+info: connect [三島由紀夫](893)->[柴田錬三郎](474)
+info: connect [三島由紀夫](893)->[立松和平](581)
+info: connect [三島由紀夫](893)->[田村泰次郎](599)
+info: connect [三島由紀夫](893)->[寺内大吉](630)
+info: connect [三島由紀夫](893)->[中河与一](669)
+info: connect [三島由紀夫](893)->[林房雄](761)
+info: connect [三島由紀夫](893)->[平林たい子](795)
+info: connect [三島由紀夫](893)->[村上元三](921)
+info: connect [三島由紀夫](893)->[平野啓一郎](794)
+info: connect [三島由紀夫](893)->[川端康成](286)
+info: connect [三島由紀夫](893)->[太宰治](577)
+info: connect [三島由紀夫](893)->[中井英夫](663)
+info: connect [三島由紀夫](893)->[林房雄](761)
+info: connect [三島由紀夫](893)->[村松友視](925)
+info: connect [三島由紀夫](893)->[武田泰淳](572)
+info: connect [三島由紀夫](893)->[川端康成](286)
+info: connect [三島由紀夫](893)->[川端康成](286)
+info: connect [三島由紀夫](893)->[川端康成](286)
+info: connect [三島由紀夫](893)->[林房雄](761)
+info: connect [三島由紀夫](893)->[島田雅彦](482)
+info: connect [三島由紀夫](893)->[梶山季之](253)
+info: connect [三島由紀夫](893)->[野坂昭如](730)
+info: connect [三島由紀夫](893)->[夏目漱石](704)
+info: connect [三島由紀夫](893)->[遠藤周作](172)
+info: connect [三島由紀夫](893)->[檀一雄](604)
+info: connect [三島由紀夫](893)->[澁澤龍彦](475)
+info: connect [三島由紀夫](893)->[島田雅彦](482)
+info: connect [三島由紀夫](893)->[村上龍](924)
+info: connect [三島由紀夫](893)->[村上春樹](923)
+info: connect [三島由紀夫](893)->[中上健次](668)
+info: connect [三島由紀夫](893)->[梶山季之](253)
+info: connect [大江健三郎](176)->[石原慎太郎](100)
+info: connect [大江健三郎](176)->[開高健](239)
+info: connect [大江健三郎](176)->[石川淳](94)
+info: connect [大江健三郎](176)->[安部公房](48)
+info: connect [大江健三郎](176)->[川端康成](286)
+info: connect [大江健三郎](176)->[井上靖](124)
+info: connect [大江健三郎](176)->[舟橋聖一](834)
+info: connect [大江健三郎](176)->[開高健](239)
+info: connect [大江健三郎](176)->[安岡章太郎](953)
+info: connect [大江健三郎](176)->[川端康成](286)
+info: connect [大江健三郎](176)->[石原慎太郎](100)
+info: connect [大江健三郎](176)->[芥川龍之介](22)
+info: connect [大江健三郎](176)->[石原慎太郎](100)
+info: connect [大江健三郎](176)->[深沢七郎](802)
+info: connect [大江健三郎](176)->[川端康成](286)
+info: connect [大江健三郎](176)->[三島由紀夫](893)
+info: connect [大江健三郎](176)->[小田実](229)
+info: connect [大江健三郎](176)->[中野孝次](682)
+info: connect [大江健三郎](176)->[三島由紀夫](893)
+info: connect [大江健三郎](176)->[阿川弘之](18)
+info: connect [大江健三郎](176)->[大藪春彦](198)
+info: connect [大江健三郎](176)->[井上ひさし](122)
+info: connect [大江健三郎](176)->[筒井康隆](618)
+info: connect [大江健三郎](176)->[井上ひさし](122)
+info: connect [大江健三郎](176)->[安部公房](48)
+info: connect [大江健三郎](176)->[川端康成](286)
+info: connect [大江健三郎](176)->[井上ひさし](122)
+info: connect [大江健三郎](176)->[筒井康隆](618)
+info: connect [大江健三郎](176)->[中上健次](668)
+info: connect [大江健三郎](176)->[井上靖](124)
+info: connect [大江健三郎](176)->[大岡昇平](178)
+info: connect [大江健三郎](176)->[埴谷雄高](755)
+info: connect [大江健三郎](176)->[小田実](229)
+info: connect [芥川龍之介](22)->[久米正雄](343)
+info: connect [芥川龍之介](22)->[菊池寛](292)
+info: connect [芥川龍之介](22)->[菊池寛](292)
+info: connect [芥川龍之介](22)->[夏目漱石](704)
+info: connect [芥川龍之介](22)->[堀辰雄](849)
+info: connect [芥川龍之介](22)->[宇野浩二](155)
+info: connect [芥川龍之介](22)->[国木田独歩](338)
+info: connect [芥川龍之介](22)->[川端康成](286)
+info: connect [芥川龍之介](22)->[谷崎潤一郎](593)
+info: connect [芥川龍之介](22)->[志賀直哉](459)
+info: connect [芥川龍之介](22)->[豊島与志雄](655)
+info: connect [芥川龍之介](22)->[内田百間](148)
+info: connect [芥川龍之介](22)->[久米正雄](343)
+info: connect [芥川龍之介](22)->[菊池寛](292)
+info: connect [芥川龍之介](22)->[室生犀星](931)
+info: connect [芥川龍之介](22)->[菊池寛](292)
+info: connect [芥川龍之介](22)->[菊池寛](292)
+info: connect [芥川龍之介](22)->[夏目漱石](704)
+info: connect [芥川龍之介](22)->[江口渙](164)
+info: connect [芥川龍之介](22)->[森鴎外](938)
+info: connect [芥川龍之介](22)->[菊池寛](292)
+info: connect [阿刀田高](42)->[星新一](843)
+info: connect [阿刀田高](42)->[黒井千次](352)
+info: connect [阿刀田高](42)->[松本清張](874)
+info: connect [江戸川乱歩](166)->[菊池幽芳](294)
+info: connect [江戸川乱歩](166)->[押川春浪](226)
+info: connect [江戸川乱歩](166)->[横溝正史](997)
+info: connect [江戸川乱歩](166)->[筒井康隆](618)
+info: connect [江戸川乱歩](166)->[戸板康二](634)
+info: connect [江戸川乱歩](166)->[小林信彦](391)
+info: connect [江戸川乱歩](166)->[矢野徹](956)
+info: connect [江戸川乱歩](166)->[小林信彦](391)
+info: connect [江戸川乱歩](166)->[小林信彦](391)
+info: connect [江戸川乱歩](166)->[三島由紀夫](893)
+info: connect [遠藤周作](172)->[阿川弘之](18)
+info: connect [遠藤周作](172)->[堀辰雄](849)
+info: connect [遠藤周作](172)->[安岡章太郎](953)
+info: connect [遠藤周作](172)->[神西清](508)
+info: connect [遠藤周作](172)->[柴田錬三郎](474)
+info: connect [遠藤周作](172)->[原民喜](767)
+info: connect [遠藤周作](172)->[堀田善衛](846)
+info: connect [遠藤周作](172)->[安岡章太郎](953)
+info: connect [遠藤周作](172)->[小島信夫](378)
+info: connect [遠藤周作](172)->[庄野潤三](498)
+info: connect [遠藤周作](172)->[三浦朱門](885)
+info: connect [遠藤周作](172)->[吉行淳之介](1014)
+info: connect [遠藤周作](172)->[伊藤整](111)
+info: connect [遠藤周作](172)->[野間宏](736)
+info: connect [遠藤周作](172)->[神西清](508)
+info: connect [遠藤周作](172)->[安岡章太郎](953)
+info: connect [遠藤周作](172)->[三浦朱門](885)
+info: connect [遠藤周作](172)->[三浦朱門](885)
+info: connect [遠藤周作](172)->[曽野綾子](537)
+info: connect [遠藤周作](172)->[北杜夫](303)
+info: connect [遠藤周作](172)->[阿川弘之](18)
+info: connect [遠藤周作](172)->[北杜夫](303)
+info: connect [遠藤周作](172)->[北杜夫](303)
+info: connect [遠藤周作](172)->[北杜夫](303)
+info: connect [遠藤周作](172)->[阿川弘之](18)
+info: connect [遠藤周作](172)->[北杜夫](303)
+info: connect [遠�ok
+
+----------------------------------------------------------------------
+Ran 1 test in 6.220s
+
+OK
+��周作](172)->[三浦朱門](885)
+info: connect [遠藤周作](172)->[安岡章太郎](953)
+info: connect [遠藤周作](172)->[吉行淳之介](1014)
+info: connect [遠藤周作](172)->[加賀乙彦](242)
+info: connect [遠藤周作](172)->[瀬戸内寂聴](530)
+info: connect [遠藤周作](172)->[堀辰雄](849)
+info: connect [遠藤周作](172)->[原民喜](767)
+info: connect [遠藤周作](172)->[柴田錬三郎](474)
+info: connect [遠藤周作](172)->[梅崎春生](159)
+info: connect [遠藤周作](172)->[中村真一郎](691)
+info: connect [加納朋子](270)->[貫井徳郎](726)
+info: connect [加納朋子](270)->[貫井徳郎](726)
+info: connect [加納朋子](270)->[北村薫](310)
+info: connect [村上春樹](923)->[夏目漱石](704)
+info: connect [村上春樹](923)->[村上龍](924)
+info: connect [村上春樹](923)->[丸谷才一](882)
+info: connect [村上春樹](923)->[大江健三郎](176)
+info: connect [村上春樹](923)->[瀧井孝作](562)
+info: connect [村上春樹](923)->[吉行淳之介](1014)
+info: connect [村上春樹](923)->[井上靖](124)
+info: connect [村上春樹](923)->[松浦寿輝](866)
+info: connect [村上春樹](923)->[夏目漱石](704)
+info: connect [村上春樹](923)->[村上龍](924)
+info: connect [村上春樹](923)->[田中康夫](588)
+info: connect [村上春樹](923)->[田中康夫](588)
+info: connect [村上春樹](923)->[富岡多恵子](649)
+info: connect [村上春樹](923)->[田中康夫](588)
+info: connect [村上春樹](923)->[村上龍](924)
+info: connect [村上春樹](923)->[村上龍](924)
+info: connect [村上春樹](923)->[夏目漱石](704)
+info: connect [村上春樹](923)->[田中康夫](588)
+info: connect [武者小路実篤](919)->[志賀直哉](459)
+info: connect [武者小路実篤](919)->[有島武郎](69)
+info: connect [武者小路実篤](919)->[志賀直哉](459)
+info: connect [夏目漱石](704)->[森田草平](945)
+info: connect [夏目漱石](704)->[内田百間](148)
+info: connect [夏目漱石](704)->[野上弥生子](729)
+info: connect [夏目漱石](704)->[芥川龍之介](22)
+info: connect [夏目漱石](704)->[久米正雄](343)
+info: connect [夏目漱石](704)->[芥川龍之介](22)
+info: connect [夏目漱石](704)->[久米正雄](343)
+info: connect [夏目漱石](704)->[森田草平](945)
+info: connect [夏目漱石](704)->[芥川龍之介](22)
+info: connect [夏目漱石](704)->[内田百間](148)
+info: connect [夏目漱石](704)->[久米正雄](343)
+info: connect [夏目漱石](704)->[中勘助](661)
+info: connect [夏目漱石](704)->[野上弥生子](729)
+info: connect [夏目漱石](704)->[古井由吉](836)
+info: connect [夏目漱石](704)->[川端康成](286)
+info: connect [夏目漱石](704)->[三島由紀夫](893)
+info: connect [夏目漱石](704)->[菊池寛](292)
+info: connect [夏目漱石](704)->[水村美苗](898)
+info: connect [井上靖](124)->[山崎豊子](964)
+info: connect [井上靖](124)->[司馬遼太郎](469)
+info: connect [井上靖](124)->[辻邦生](611)
+info: connect [井上靖](124)->[司馬遼太郎](469)
+info: connect [井上靖](124)->[司馬遼太郎](469)
+info: connect [井上靖](124)->[大江健三郎](176)
