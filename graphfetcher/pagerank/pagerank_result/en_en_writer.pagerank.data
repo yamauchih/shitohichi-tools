@@ -1,6 +1,9 @@
-# pagerank computation result data
-# Hitoshi Yamauchi 2012
+#PageRankData 0
+# PageRank computation data result
+# Copyright (C) 2012 Hitoshi Yamauchi
+#
 # result_index pagerank sorted_permulation_index
+#
 2 0.000147049 1480
 4 0.000241597 915
 6 4.37394e-05 1302

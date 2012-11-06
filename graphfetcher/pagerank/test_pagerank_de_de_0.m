@@ -2,10 +2,10 @@
 %
 
 clear
-
 % data
 vector_fname = '/../vectorextractor/baseline/de_de_writer.ascii.vector';
-res_fname    = 'pagerank_result/de_de_writer.pagerank_res.vector'; 
+res_author_fname = 'pagerank_result/de_de_writer.author.vector'; 
+res_data_fname   = 'pagerank_result/de_de_writer.pagerank.data'; 
 
 % author vector
 current_dir = pwd();
@@ -19,6 +19,8 @@ author_vec = read_authorvector(author_vec_fpath);
 % addpath(strcat(current_dir, adj_mat_data_dir));
 %
 madj = de_de_writer_adj_mat();
+
+tic
 
 % create the initial index vector
 [nr, nc] = size(madj);
@@ -50,5 +52,8 @@ ranked_idx = index_vec(sort_perm_idx);
 %ranked_idx(1:100)
 %sorted_pagerank_vec(1:100)
 %res_name_carray(sort_perm_idx(1:50));
+toc
 
-save_authorvector(res_name_carray(sort_perm_idx), res_fname);
+save_authorvector(res_name_carray(sort_perm_idx), res_author_fname);
+save_pagerank_data([res_idx_vec pagerank_vec sort_perm_idx], ...
+    res_data_fname);

@@ -1,5 +1,7 @@
-# pagerank computation author result
-# Hitoshi Yamauchi 2012
+#PageRankAuthor 0
+# Author vector result sorted by pagerank
+# Copyright (C) 2012 Hitoshi Yamauchi
+#
 Johann_Wolfgang_von_Goethe
 Thomas_Mann
 Friedrich_Nietzsche

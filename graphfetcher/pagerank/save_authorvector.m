@@ -8,8 +8,13 @@ function save_authorvector(author_vec, fname)
 [nrows, ncols] = size(author_vec);
 fid = fopen(fname, 'w');
 
-fprintf(fid, '# pagerank computation result\n');
-fprintf(fid, '# Hitoshi Yamauchi 2012\n');
+% add header
+fprintf(fid, '#PageRankAuthor 0\n');
+fprintf(fid, '# Author vector result sorted by pagerank\n');
+fprintf(fid, '# Copyright (C) 2012 Hitoshi Yamauchi\n');
+fprintf(fid, '#\n');
+
+% output the data
 for i = 1:nrows
   fprintf(fid, '%s\n', author_vec{i,1});
 end
