@@ -164,6 +164,19 @@ class GraphExtractor(object):
         \param[in] _input_vector_fpath input vector list file name, fullpath
         """
         infile = codecs.open(_input_vector_fpath, mode='r', encoding='utf-8')
+
+        # Check the file header.
+        header_line  = infile.readline()
+        header_token = header_line.split()
+        if ((len(header_token) < 2)                     or # should be 2
+            (header_token[0] != '#LinkVectorExtractor') or # header keyword
+            (header_token[1] != '0')):                     # version number
+            # This is not a author vector.
+            raise StandardError('Error: The file [' + str(_input_vector_fpath) +
+                                '] does not match an author vector file header.')
+        else:
+            self.info_out('check the input file header... pass.')
+
         idx = 0
         for fline in infile:
             line = fline.strip()
@@ -179,7 +192,7 @@ class GraphExtractor(object):
 
 
         assert len(self.__url_to_index_map) == len(self.__index_to_url_map)
-        self.info_out('# number of entries: ' + str(len(self.__index_to_url_map)))
+        self.info_out('number of entries: ' + str(len(self.__index_to_url_map)))
 
         # initialize adjacent matrix
         for i in xrange(0, len(self.__index_to_url_map)):

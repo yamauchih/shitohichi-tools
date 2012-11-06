@@ -62,3 +62,4 @@
 *** DONE complex eigenvalue について30講を読む
 *** DONE 石原慎太郎のみファイルが壊れている fix. gedit said, it is compressed.
 
+** DONE add a header for the output files, check the header for the input
