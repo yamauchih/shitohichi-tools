@@ -1,0 +1,18 @@
+
+
+
+Pagerank computation result (sixpack)
+
+         elapsed time
+de_de    12.464536
+de_en    0.126335
+de_ja    0.004875
+
+en_de    0.013409
+en_en    7.785258
+en_ja    0.005200
+
+ja_de    0.023152
+ja_en    0.488929
+ja_ja    0.525021
+

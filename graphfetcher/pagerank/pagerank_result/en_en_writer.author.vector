@@ -1,5 +1,7 @@
-# pagerank computation author result
-# Hitoshi Yamauchi 2012
+#PageRankAuthor 0
+# Author vector result sorted by pagerank
+# Copyright (C) 2012 Hitoshi Yamauchi
+#
 William_Shakespeare
 Samuel_Johnson
 Alexander_Pope
