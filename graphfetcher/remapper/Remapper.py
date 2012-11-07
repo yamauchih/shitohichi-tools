@@ -37,6 +37,9 @@ class Remapper(object):
         self.__data_pagerank    = []
         self.__data_sorted_pidx = []
 
+        # result
+        self.__reduced_author_vec = []
+
         # Options
         self.__opt_dict   = _opt_dict
 
@@ -46,6 +49,14 @@ class Remapper(object):
             self.__log_level = _opt_dict['log_level']
         else:
             self.info_out(u'# Option: log_level: ' + str(self.__log_level))
+
+        # is_enable_stdout_utf8_codec
+        if (_opt_dict.has_key('is_enable_stdout_utf8_codec')):
+            if(_opt_dict['is_enable_stdout_utf8_codec'] == True):
+                sys.stdout = codecs.getwriter('utf_8')(sys.stdout)
+                self.info_out(u'# Option: is_enable_stdout_utf8_codec: True')
+            else:
+                self.info_out(u'# Option: is_enable_stdout_utf8_codec: False')
 
 
     def error_out(self, _mes):
@@ -149,6 +160,25 @@ class Remapper(object):
             self.__data_sorted_pidx.append(int  (num[2]))
 
 
+    def __gen_reduce_author_vec(self):
+        """generate reduced (removed source/sink nodes)
+        """
+        assert(len(self.__reduced_author_vec) == 0) # not yet generated
+        assert(len(self.__data_result_idx) > 0)     # the data should have been loaded.
+
+        for valid_author_idx in self.__data_result_idx:
+            adjusted_idx = valid_author_idx - 1
+            assert(adjusted_idx >= 0)
+            self.__reduced_author_vec.append(self.__index_to_author_map[adjusted_idx])
+            # print valid_author_idx, self.__index_to_author_map[adjusted_idx]
+
+        # print len(self.__reduced_author_vec), len(self.__data_result_idx)
+        assert(len(self.__reduced_author_vec) == len(self.__data_result_idx))
+
+        # if save the self.__reduced_author_vec here, reduced map only
+
+
+
     def remap_author(self, _author_vec_fname, _data_fname):
         """remap the author list according to the pagerank result data
 
@@ -158,6 +188,18 @@ class Remapper(object):
         self.__load_input_vector(_author_vec_fname)
         self.__read_data_file(_data_fname)
 
+        self.__gen_reduce_author_vec()
+
+        # print out reduced vector
+        # for valid_author in self.__reduced_author_vec:
+        #     print valid_author
+
+        # print out pagerank sorted vector
+        for pgsorted_idx in self.__data_sorted_pidx :
+            adjusted_idx = pgsorted_idx - 1
+            assert(adjusted_idx >= 0)
+            print self.__reduced_author_vec[adjusted_idx], \
+                  self.__data_pagerank[adjusted_idx]
 
 
 if __name__=="__main__":
