@@ -158,8 +158,8 @@ class GraphExtractor(object):
 
     def __load_input_vector(self, _input_vector_fpath):
         """load input vector. The input file should be created by
-        ListFetcher.  Store the input vector in a bijection map
-        (a forward map and a backword map).
+        LinkVectorExtractor.  Store the input vector in a bijection
+        map (a forward map and a backword map).
 
         \param[in] _input_vector_fpath input vector list file name, fullpath
         """
