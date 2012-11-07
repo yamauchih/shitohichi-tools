@@ -16,38 +16,52 @@
 import os, sys, codecs
 
 class Remapper(object):
-    """FIXME: This is just a copied code.
-    create a vector from a meta web page's link"""
+    """Remap
+    - the input vector to removed sink/source author vector (UTF-8 author vector)
+    - removed sink/source author vector to pagerank permutation vector.
+    """
 
-    def __init__(self, _ignore_href_list, _opt_dict):
+    def __init__(self, _opt_dict):
         """constructor
-        \param[in] _ignore_href_list  ignore hyper link reference list
         \param[in] _opt_dict          option dict
-                    - 'export_encoding': ['utf-8'|'ascii'|'shift_jis']
-                    - 'result_path_split': [True|False'] (optional)
-                       The result sometimes in a relative path, remove
-                       the dirname. Because of subdirectory structure
-                       (ex. de_de) e.g., ../Foo_bar -> Foo_bar
-                    - 'blacklistset': blacklist string set (optional)
-                       Exact match is filtered out.
         """
-        # make stdout utf-8, some problem...
-        #sys.stdout = codecs.getwriter('utf_8')(sys.stdout)
-        #sys.stderr = codecs.getwriter('utf_8')(sys.stderr)
 
-        # this class of 'a' element has no link
-        self.__ignore_link_class_set = {'new', 'noprint', 'image'}
-        self.__ignore_href_substring_list = _ignore_href_list
+        # index to author map. list implementation
+        self.__index_to_author_map = []
+        # author to index map. dict implementation
+        self.__author_to_index_map = {}
+
+        # data entry lists
+        #     result_index, pagerank, sorted_permulation_index
+        self.__data_result_idx  = []
+        self.__data_pagerank    = []
+        self.__data_sorted_pidx = []
+
+        # Options
         self.__opt_dict   = _opt_dict
-        self.__entry_list = []
-        self.__entry_set  = set()        # for duplication check
-        self.__read_file  = []           # record read files
-        # print _opt_dict
-        self.__tag_in_each_link = _opt_dict['tag_in_each_link']
-        assert(self.__tag_in_each_link != None)
-        self.__blacklist_set = None
-        if('blacklistset' in _opt_dict):
-            self.__blacklist_set = _opt_dict['blacklistset']
+
+        self.__log_level = 2
+        if (_opt_dict.has_key('log_level')):
+            self.info_out(u'# Option: log_level: ' + str(_opt_dict['log_level']))
+            self.__log_level = _opt_dict['log_level']
+        else:
+            self.info_out(u'# Option: log_level: ' + str(self.__log_level))
+
+
+    def error_out(self, _mes):
+        """errlr level log output"""
+        if(self.__log_level == 0):
+            print u'error:', _mes
+
+    def info_out(self, _mes):
+        """info level log output"""
+        if(self.__log_level >= 1):
+            print u'info:', _mes
+
+    def debug_out(self, _mes):
+        """debug level log output"""
+        if(self.__log_level >= 2):
+            print u'debug:', _mes
 
 
     def __print_str(self, _str):
@@ -61,129 +75,86 @@ class Remapper(object):
             sys.stdout.write(_str + '\n')
 
 
-    def __can_add_entry(self, _link):
-        """check the _link has real link in Wiki
-        \param[in] _link a link entry, i.e. 'a' entry
-        \return True when a link exists
+    def __load_input_vector(self, _input_vector_fpath):
+        """load input vector. The input file should be created by
+        LinkVectorExtractor.  Store the input vector in a list.
+
+        Similar to the GraphExtractor's _load_input_vector(). The data
+        destination differs.
+
+        \param[in] _input_vector_fpath input vector list file name, fullpath
         """
-        # filter out a specific class
-        linkclass = _link.get('class')
-        if ((linkclass != None) and (len(linkclass) > 0) and \
-                (linkclass[0] in self.__ignore_link_class_set)):
-            return False
+        infile = codecs.open(_input_vector_fpath, mode='r', encoding='utf-8')
 
-        # no title means no link
-        linktitle = _link.get('title')
-        if (linktitle == None):
-            return False
+        # Check the file header.
+        header_line  = infile.readline()
+        header_token = header_line.split()
+        if ((len(header_token) < 2)                     or # should be 2
+            (header_token[0] != '#LinkVectorExtractor') or # header keyword
+            (header_token[1] != '0')):                     # version number
+            # This is not a author vector.
+            raise StandardError('Error: The file [' + str(_input_vector_fpath) +
+                                '] does not match an author vector file header.')
+        else:
+            self.info_out('check the input author vector file header... pass.')
 
-        # filter out some specific links in Wikipedia (substring partial match)
-        href_string = _link.get('href')
-        for words in self.__ignore_href_substring_list:
-            if (href_string.find(words) >= 0):
-                return False
-
-        # filter out specific words (exact match)
-        if(self.__blacklist_set != None):
-            if(href_string in self.__blacklist_set):
-                return False
-
-        return True
-
-    def __is_duplicated(self, _entry_set, _href_item):
-        """check the item duplication
-        \param[in] _entry_set entry set they have already submitted.
-        \param[in] _href_item the item to be checked duplication
-        \return True when duplication found
-        """
-        if (_href_item in _entry_set):
-            return True
-        return False
-
-
-    def get_link_list(self, _root_url):
-        """get link list
-        \param[in] _root_url     root file URL
-        """
-        try:
-            data = urllib2.urlopen(_root_url).read()
-            soup = BeautifulSoup(data)
-            linklist = soup.find_all(self.__tag_in_each_link)
-            for link in linklist:
-                atag = link.a
-                if(atag == None):
-                    # print 'Skip:', unicode(str(link), encoding='utf-8')
-                    continue
-                # print atag['href']
-                # print unicode(str(atag['href']), encoding='utf-8', errors='replace')
-                if (self.__can_add_entry(atag) == False):
-                    # print 'ignore: ' + str(atag)
-                    pass
+        idx = 0
+        for fline in infile:
+            line = fline.strip()
+            if ((len(line) > 0) and (line[0] != '#')):
+                # non null and not started # line ... add to the map
+                if (not self.__author_to_index_map.has_key(line)):
+                    self.__author_to_index_map[line] = idx
+                    self.__index_to_author_map.append(line)
+                    idx = idx + 1
                 else:
-                    href_item = atag.get('href')
-                    # check duplication
-                    if (self.__is_duplicated(self.__entry_set, href_item) == False):
-                        # Adding to the output entry list
-                        self.__entry_list.append(href_item)
-                        self.__entry_set.add(href_item)
-                    else:
-                        dupstr = u'info: found duplication [{0}]'.format(href_item)
-                        self.__print_str(dupstr)
+                    # duplication should not be allowed for graph extraction.
+                    raise StandardError('Error: duplication found [' + str(line) + '] at ' + str(idx))
 
-            # record read file
-            self.__read_file.append(_root_url)
-
-        except IOError as (errno, strerror):
-            print "# I/O error({0}): {1}".format(errno, strerror)
-            print '# Also you need LC_ALL setting to utf-8, e.g., en_US.utf-8, ja_JP.utf-8.'
-
-        # Uncaught exception goes up.
+        assert len(self.__author_to_index_map) == len(self.__index_to_author_map)
+        self.info_out('number of entries: ' + str(len(self.__index_to_author_map)))
 
 
-    def export_to_file(self, _output_fname):
-        """export entry list to a file.
-        \param[in] _output_fname output filename
+    def __read_data_file(self, _data_fname):
+        """read pagerank data file name
+        \param[in] _data_fname data file path name
         """
-        try:
-            if len(self.__read_file) == 0:
-                raise StandardError('No file has been read.')
+        infile = codecs.open(_data_fname, mode='r', encoding='ascii')
 
-            # open output file with utf-8 codec
-            outfile = codecs.open(_output_fname, mode='w', encoding='utf-8')
+        # Check the file header.
+        header_line  = infile.readline()
+        header_token = header_line.split()
+        if ((len(header_token) < 2)               or # should be 2
+            (header_token[0] != '##PageRankData') or # header keyword
+            (header_token[1] != '0')):               # version number
+            # This is not a author vector.
+            raise StandardError('Error: The file [' + str(_data_fname) +
+                                '] does not match a pagerank data file header.')
+        else:
+            self.info_out('check the pagerank data file header... pass.')
 
-            outfile.write(u'#Remapper 0\n');
-            outfile.write(u'# generated by Remapper. (C) Hitoshi 2012\n');
-            outfile.write(u'# number of input files ' + str(len(self.__read_file)) + '\n');
-            for f in self.__read_file:
-                outfile.write(u'# input [' + f + ']\n');
-            outfile.write(u'# item size: ' + str(len(self.__entry_list)) + '\n');
+        # result_index pagerank sorted_permulation_index
+        for fline in infile:
+            line = fline.strip()
+            if (line[0] == '#'):
+                continue
 
-            export_encoding = 'utf-8'
-            if ('export_encoding' in self.__opt_dict):
-                export_encoding = self.__opt_dict['export_encoding']
-            outfile.write(u'# export encoding: ' + export_encoding + '\n');
+            assert(len(line) == 3)
+            # three data at a line
+            self.__data_result_idx .append(int  (line[0]))
+            self.__data_pagerank   .append(float(line[1]))
+            self.__data_sorted_pidx.append(int  (line[2]))
+            print 'data: ', line
 
-            # if optional result_path_split exists, filter
-            if('result_path_split' in self.__opt_dict):
-                if(self.__opt_dict['result_path_split'] == True):
-                    for i in xrange(0, len(self.__entry_list)):
-                        (dir, fname) = os.path.split(self.__entry_list[i])
-                        self.__entry_list[i] = fname
+    def remap_author(self, _author_vec_fname, _data_fname):
+        """remap the author list according to the pagerank result data
 
-            if (export_encoding != 'utf-8'):
-                for i in self.__entry_list:
-                    outfile.write(i.encode(export_encoding, 'replace') + '\n');
-            else:
-                for i in self.__entry_list:
-                    outfile.write(i + '\n');
+        \parm[in] _author_vec_fname author vector filename (usually UTF-8 file)
+        \parm[in] _data_fname       pagerank result data file
+        """
+        self.__load_input_vector(_author_vec_fname)
+        self.__read_data_file(_data_fname)
 
-
-            outfile.close()
-
-        except IOError as (errno, strerror):
-            print "# I/O error({0}): {1}".format(errno, strerror)
-            print '# Does output directory exist?'
-            print '# Also you need LC_ALL setting to utf-8, e.g., en_US.utf-8, ja_JP.utf-8.'
 
 
 if __name__=="__main__":
