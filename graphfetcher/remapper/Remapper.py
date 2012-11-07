@@ -124,9 +124,9 @@ class Remapper(object):
         # Check the file header.
         header_line  = infile.readline()
         header_token = header_line.split()
-        if ((len(header_token) < 2)               or # should be 2
-            (header_token[0] != '##PageRankData') or # header keyword
-            (header_token[1] != '0')):               # version number
+        if ((len(header_token) < 2)              or # should be 2
+            (header_token[0] != '#PageRankData') or # header keyword
+            (header_token[1] != '0')):              # version number
             # This is not a author vector.
             raise StandardError('Error: The file [' + str(_data_fname) +
                                 '] does not match a pagerank data file header.')
@@ -139,12 +139,15 @@ class Remapper(object):
             if (line[0] == '#'):
                 continue
 
-            assert(len(line) == 3)
+            num = line.split(' ')
+
+            assert(len(num) == 3)
             # three data at a line
-            self.__data_result_idx .append(int  (line[0]))
-            self.__data_pagerank   .append(float(line[1]))
-            self.__data_sorted_pidx.append(int  (line[2]))
-            print 'data: ', line
+            # print 'data: ', num, num[0], num[1], num[2]
+            self.__data_result_idx .append(int  (num[0]))
+            self.__data_pagerank   .append(float(num[1]))
+            self.__data_sorted_pidx.append(int  (num[2]))
+
 
     def remap_author(self, _author_vec_fname, _data_fname):
         """remap the author list according to the pagerank result data
