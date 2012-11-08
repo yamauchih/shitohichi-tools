@@ -5,7 +5,8 @@
 ** TODO Remapper
 *** DONE read data and removed sink source node
 *** DONE remap the utf-8 data
-*** TODO save the pageranked data
+*** DONE save the pageranked data
+*** TODO baseline check
 
 **** TODO Duplication check and change the Wikipedia
 **** TODO Yoshino_Hideo の Wiki に間違いがある．Ryōkan が Ryokan になっている．多くの Wiki Page がそうらしい．Link が切れている

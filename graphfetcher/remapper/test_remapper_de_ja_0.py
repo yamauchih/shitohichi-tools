@@ -19,10 +19,9 @@ class TestRemapper(unittest.TestCase):
 
     def remapper_sub(self,  _data_prefix):
         """test remapper subroutine.
-        \param[in] _data_prefix data prefix. e.g., en_de
+        \param[in] _data_prefix data prefix. e.g., en_de, ja_ja, ...
         """
 
-        # data_prefix        = u'de_ja'
         graphfetcherdir    = u'/home/hitoshi/data/project/shitohichi-tools/graphfetcher/'
         in_vector_rpath    = u'vectorextractor/baseline/'
         in_rankdata_rpath  = u'pagerank/pagerank_result/'
@@ -32,20 +31,19 @@ class TestRemapper(unittest.TestCase):
         in_vector_fpath    = graphfetcherdir + in_vector_rpath   + in_vector_fname
         in_rankdata_fpath  = graphfetcherdir + in_rankdata_rpath + in_rankdata_fname
 
-        print
-        print u'# input vector file   [' + in_vector_fpath   + u']'
-        print u'# input rankdata file [' + in_rankdata_fpath + u']'
+        out_save_rpath     = graphfetcherdir + u'remapper/'
+        out_save_fpath     = out_save_rpath + _data_prefix + u'_writer_ranked.vector'
 
         # options
         opt_dict = {
             # log level: int. 0 ... error, 1 ... info, 2 ... debug
             'log_level': 1,
             # enable stdout utf8 codec
-            'is_enable_stdout_utf8_codec': True,
+            'is_enable_stdout_utf8_codec': False,
             }
 
         rmap = Remapper.Remapper(opt_dict)
-        rmap.remap_author(in_vector_fpath, in_rankdata_fpath)
+        rmap.remap_author(in_vector_fpath, in_rankdata_fpath, out_save_fpath)
 
         # compare to the baseline file
         # ref_fname = os.path.join(graphfetcherdir,
