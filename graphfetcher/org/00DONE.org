@@ -3,37 +3,37 @@
 ** Output connection visualized html directory
 *** DONE Annotated original file: connected entry has different color.
 
-** DONE Option: remove self link.
-** DONE Adjacent matrix (can be read by matlab)
+** General
+*** DONE add a header for the output files, check the header for the input
+*** DONE matrix は full rank ではない．どこかに sink loop がある．これはどうも避けられない
+*** DONE complex eigenvalue について30講を読む
+*** DONE 石原慎太郎のみファイルが壊れている fix. gedit said, it is compressed.
 
-** DONE How to detect the corrupted utf-8 file: checkutf8file.sh
-** DONE How to fix the corrupted utf-8 file: FixUtf8File.py. But wget's problem did not solved.
+** utf-8 related
+*** DONE How to detect the corrupted utf-8 file: checkutf8file.sh
+*** DONE How to fix the corrupted utf-8 file: FixUtf8File.py. But wget's problem did not solved.
 
 ** FileVectorExtractor
 *** DONE : How many files remains (add progress)
 *** DONE : Blacklist
 *** DONE : Elapsed time
 
-** DONE LinkVectorExtractor
+** LinkVectorExtractor
 *** DONE output with specifying encoding.
-**** DONE test_linkvectorextractor_en_en_0.py
-**** DONE test_linkvectorextractor_en_de_0.py
-**** DONE test_linkvectorextractor_en_ja_0.py
-**** DONE test_linkvectorextractor_de_en_0.py
-**** DONE test_linkvectorextractor_de_de_0.py
-**** DONE test_linkvectorextractor_de_ja_0.py
-**** DONE test_linkvectorextractor_ja_en_0.py
-**** DONE test_linkvectorextractor_ja_de_0.py
-**** DONE test_linkvectorextractor_ja_ja_0.py
+*** DONE test_linkvectorextractor_en_en_0.py
+*** DONE test_linkvectorextractor_en_de_0.py
+*** DONE test_linkvectorextractor_en_ja_0.py
+*** DONE test_linkvectorextractor_de_en_0.py
+*** DONE test_linkvectorextractor_de_de_0.py
+*** DONE test_linkvectorextractor_de_ja_0.py
+*** DONE test_linkvectorextractor_ja_en_0.py
+*** DONE test_linkvectorextractor_ja_de_0.py
+*** DONE test_linkvectorextractor_ja_ja_0.py
 
-** DONE GraphExtractor
+** GraphExtractor
+*** DONE Adjacent matrix (can be read by matlab)
+*** DONE Option: remove self link.
 *** DONE export M_{adj} file should return a matrix.
-
-** DONE pagerank
-*** DONE sort the pagerank and show the decedent order.
-*** DONE sink loop is avoided by the same method of PageRank
-
-** DONE GraphExtractor
 *** DONE en_en graphextractor, add baseline
 *** DONE en_de graphextractor, add baseline
 *** DONE en_ja graphextractor, add baseline
@@ -44,8 +44,9 @@
 *** DONE ja_de graphextractor, add baseline
 *** DONE ja_ja graphextractor, add baseline
 
-
-** DONE pagerank
+** pagerank
+*** DONE sort the pagerank and show the decedent order.
+*** DONE sink loop is avoided by the same method of PageRank
 *** DONE en_en pagerank computation
 *** DONE en_de pagerank computation
 *** DONE en_ja pagerank computation
@@ -56,10 +57,10 @@
 *** DONE ja_de pagerank computation
 *** DONE ja_ja pagerank computation
 
+** Remapper
+*** DONE read data and removed sink source node
+*** DONE remap the utf-8 data
+*** DONE save the pageranked data
+*** DONE baseline check
 
-** DONE misc
-*** DONE matrix は full rank ではない．どこかに sink loop がある．これはどうも避けられない
-*** DONE complex eigenvalue について30講を読む
-*** DONE 石原慎太郎のみファイルが壊れている fix. gedit said, it is compressed.
 
-** DONE add a header for the output files, check the header for the input
