@@ -2,12 +2,6 @@
 
 ** Improvements
 
-** TODO Remapper
-*** DONE read data and removed sink source node
-*** DONE remap the utf-8 data
-*** DONE save the pageranked data
-*** TODO baseline check
-
 **** TODO Duplication check and change the Wikipedia
 **** TODO Yoshino_Hideo の Wiki に間違いがある．Ryōkan が Ryokan になっている．多くの Wiki Page がそうらしい．Link が切れている
 
@@ -15,14 +9,12 @@
 *** TODO sink and source の話を書く
 *** TODO Impact factor で page rank を使っているものを探して mention
 
-
 *** TODO English wikipedia update ... sent email.
 
 *** TODO French (Daniel L.)
 *** TODO Romanian (Adriana)
 *** TODO Italian (Enzo)
 *** TODO Russian (Alexander Belyev, Olga)
-
 
 15 min exercises
 Think about the things that are important to you. Perhaps you care
