@@ -8,7 +8,7 @@
 #
 """
 \file
-\brief Remapper: de_ja (Deutsche writer on Japanese wiki)
+\brief Remapper test
 """
 
 import Remapper
@@ -22,22 +22,28 @@ class TestRemapper(unittest.TestCase):
         \param[in] _data_prefix data prefix. e.g., en_de, ja_ja, ...
         """
 
+        # Rebecca, this is the root directory.
         graphfetcherdir    = u'/home/hitoshi/data/project/shitohichi-tools/graphfetcher/'
+
+        # rpath is relative path from the graphfetcher (= root)
         in_vector_rpath    = u'vectorextractor/baseline/'
         in_rankdata_rpath  = u'pagerank/pagerank_result/'
+        out_save_rpath     = graphfetcherdir + u'remapper/'
+
+        # fname is only the file name
         in_vector_fname    = _data_prefix + u'_writer.utf-8.vector'
         in_rankdata_fname  = _data_prefix + u'_writer.pagerank.data'
+        out_save_fname     = _data_prefix + u'_writer_ranked.vector'
 
+        # fpath is full path of the file.
         in_vector_fpath    = graphfetcherdir + in_vector_rpath   + in_vector_fname
         in_rankdata_fpath  = graphfetcherdir + in_rankdata_rpath + in_rankdata_fname
-
-        out_save_rpath     = graphfetcherdir + u'remapper/'
-        out_save_fpath     = out_save_rpath + _data_prefix + u'_writer_ranked.vector'
+        out_save_fpath     = out_save_rpath + out_save_fname
 
         # options
         opt_dict = {
             # log level: int. 0 ... error, 1 ... info, 2 ... debug
-            'log_level': 1,
+            'log_level': 0,
             # enable stdout utf8 codec
             'is_enable_stdout_utf8_codec': False,
             }
@@ -46,16 +52,18 @@ class TestRemapper(unittest.TestCase):
         rmap.remap_author(in_vector_fpath, in_rankdata_fpath, out_save_fpath)
 
         # compare to the baseline file
-        # ref_fname = os.path.join(graphfetcherdir,
-        #                          'graphextractor/baseline/' + output_madj_fname)
-        # if(os.path.isfile(ref_fname)):
-        #     self.assertEqual(filecmp.cmp(output_madj_fpath, ref_fname), True)
-        # else:
-        #     print 'not found basefile [' + ref_fname + ']'
+        ref_fpath = os.path.join(graphfetcherdir,
+                                 'remapper/baseline/' + out_save_fname)
+        if(os.path.isfile(ref_fpath)):
+            self.assertEqual(filecmp.cmp(out_save_fpath, ref_fpath), True)
+        else:
+            print 'not found basefile [' + ref_fpath + ']'
+            # When generate the baseline, comment the following line out.
+            self.assertTrue(False)
 
 
     def test_remapper(self):
-        """test remapper."""
+        """test remapper all language, all wiki."""
 
         data_prefix_list = [
             u'de_de',
@@ -71,6 +79,7 @@ class TestRemapper(unittest.TestCase):
 
         for i in data_prefix_list:
             self.remapper_sub(i)
+            print 'testing [' + i + ']... passed.'
 
 #
 # main test
