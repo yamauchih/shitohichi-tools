@@ -44,6 +44,7 @@ save_fbase_list = {
     };
      
 for i = 1:length(madj_list)
+%for i = 1:1
     save_one_figure(madj_list{i}, title_list{i}, save_fbase_list{i});
 end
 
@@ -57,7 +58,7 @@ hold on;
 spy(mat_gen_func_handle());
 title(fig_title);
 
-saveas(h, save_fpath, 'eps');
+saveas(h, save_fpath, 'epsc');
 saveas(h, save_fpath, 'png');
 
 close(h)
