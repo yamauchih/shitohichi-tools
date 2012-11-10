@@ -100,9 +100,9 @@ class Remapper(object):
         # Check the file header.
         header_line  = infile.readline()
         header_token = header_line.split()
-        if ((len(header_token) < 2)                     or # should be 2
-            (header_token[0] != '#LinkVectorExtractor') or # header keyword
-            (header_token[1] != '0')):                     # version number
+        if ((len(header_token) < 2)              or # should be 2
+            (header_token[0] != '#AuthorVector') or # header keyword
+            (header_token[1] != '0')):              # version number
             # This is not a author vector.
             raise StandardError('Error: The file [' + str(_input_vector_fpath) +
                                 '] does not match an author vector file header.')
