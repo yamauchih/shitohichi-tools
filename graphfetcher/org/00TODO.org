@@ -5,11 +5,24 @@
 **** TODO Duplication check and change the Wikipedia
 **** TODO Yoshino_Hideo の Wiki に間違いがある．Ryōkan が Ryokan になっている．多くの Wiki Page がそうらしい．Link が切れている
 
+*** TODO Remapper
+**** TODO Result header should be AuthorRankVector
+
+*** TODO CrossRank tool
+*** TODO Mix-in the log system?
+
+
 ** TODO Blog contents
 *** TODO sink and source の話を書く
 *** TODO Impact factor で page rank を使っているものを探して mention
 
 *** TODO English wikipedia update ... sent email.
+
+
+*** TODO Tips
+**** Emacs (prefer-coding-system 'utf-8)
+**** python re umlaut replace
+
 
 *** TODO French (Daniel L.)
 *** TODO Romanian (Adriana)
