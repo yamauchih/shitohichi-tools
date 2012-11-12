@@ -17,15 +17,13 @@ import CrossRank
 class TestCrossRank(unittest.TestCase):
     """cross rank."""
 
-    def test_cross_rank_inout(self):
+    def cross_rank_sub(self, _base_code, _ref_code):
         """test cross rank input/output."""
 
         data_dir   = '../remapper/baseline'
-        base_code  = 'de_de'
-        ref_code   = 'de_en'
-        out_fpath  = base_code + '_ref_' + ref_code + '.txt'
-        base_fname = base_code + '_writer_ranked.vector'
-        ref_fname  = ref_code  + '_writer_ranked.vector'
+        out_fpath  = _base_code + '_ref_' + _ref_code + '.txt'
+        base_fname = _base_code + '_writer_author.vector'
+        ref_fname  = _ref_code  + '_writer_author.vector'
         base_fpath = os.path.join(data_dir, base_fname)
         ref_fpath  = os.path.join(data_dir, ref_fname)
 
@@ -52,7 +50,21 @@ class TestCrossRank(unittest.TestCase):
             print 'not found basefile [' + ref_fpath + ']'
 
 
+    def test_cross_rank(self):
+        """cross ranking test"""
 
+        # ja can not use without Japanese Katakana -> Latin name map
+        code_list = [
+            # de pages cross reference
+            ['de_de', 'de_en'],
+            ['de_en', 'de_de'],
+            # en pages cross reference
+            ['en_en', 'en_de'],
+            ['en_de', 'en_en']
+            ]
+
+        for code in code_list:
+            self.cross_rank_sub(code[0], code[1])
 
 #
 # main test
