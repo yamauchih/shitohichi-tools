@@ -9,10 +9,7 @@
 **** TODO Result header should be AuthorRankVector
 
 *** TODO CrossRank tool
-*** TODO Mix-in the log system?
-
-
-
+**** TODO preprocess the input file with gawk '{print $1}'
 
 ** TODO Blog contents
 *** TODO sink and source の話を書く
