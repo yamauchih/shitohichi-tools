@@ -9,6 +9,7 @@
 
 import os, sys, re
 import codecs
+from ILog import ILog
 
 class CrossRank(object):
     """Report the cross ranking result."""
@@ -17,6 +18,9 @@ class CrossRank(object):
         """constructor
 
         Options:
+
+        - 'log_level': int
+        See ILog.
 
         - 'base_fname': str
         input filename for the base data. All the lines are in the
@@ -83,6 +87,10 @@ class CrossRank(object):
         """
 
         # option handling
+        if (_opt_dict.has_key('log_level')):
+            ILog.set_output_level_with_dict(_opt_dict)
+        ILog.info(u'Option: log_level: ' + str(ILog.get_output_level()))
+
         if ('base_fname' not in  _opt_dict):
             raise StandardError, ('base_fname is not specified.')
 
@@ -90,35 +98,43 @@ class CrossRank(object):
             raise StandardError, ('ref_fname is not specified.')
 
         self.__base_fname = _opt_dict['base_fname']
+        ILog.info(u'Option: base_fname: ' + self.__base_fname)
+
         self.__ref_fname  = _opt_dict['ref_fname']
+        ILog.info(u'Option: ref_fname: ' + self.__ref_fname)
+
         self.__out_fname  = '-'
         if ('out_fname' in  _opt_dict):
             self.__out_fname  = _opt_dict['out_fname']
+        ILog.info(u'Option: out_fname: ' + self.__out_fname)
 
         self.__is_tex_umlaut = False
         if ('is_tex_umlaut' in  _opt_dict):
             self.__is_tex_umlaut = _opt_dict['is_tex_umlaut']
+        ILog.info(u'Option: is_tex_umlaut: ' + str(self.__is_tex_umlaut))
 
         self.__is_tex_table = False
         if ('is_tex_table' in  _opt_dict):
             self.__is_tex_table  = _opt_dict['is_tex_table']
+        ILog.info(u'Option: is_tex_table: ' + str(self.__is_tex_table))
 
         self.__is_add_line_number = False
         if ('is_add_line_number' in  _opt_dict):
             self.__is_add_line_number = _opt_dict['is_add_line_number']
+        ILog.info(u'Option: is_add_line_number: ' + str(self.__is_add_line_number))
 
         self.__is_rank_out = True
         if ('is_rank_out' in  _opt_dict):
             self.__is_rank_out = _opt_dict['is_rank_out']
+        ILog.info(u'Option: is_rank_out: ' + str(self.__is_rank_out))
 
         # is_enable_stdout_utf8_codec
         if ('is_enable_stdout_utf8_codec' in _opt_dict):
             if(_opt_dict['is_enable_stdout_utf8_codec'] == True):
                 sys.stdout = codecs.getwriter('utf_8')(sys.stdout)
-                # self.info_out(u'# Option: is_enable_stdout_utf8_codec: True')
-            # else:
-                # self.info_out(u'# Option: is_enable_stdout_utf8_codec: False')
-
+                ILog.info(u'Option: is_enable_stdout_utf8_codec: True')
+            else:
+                ILog.info(u'Option: is_enable_stdout_utf8_codec: False')
 
         self.__opt_dict = _opt_dict
 

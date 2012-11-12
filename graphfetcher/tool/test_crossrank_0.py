@@ -85,6 +85,7 @@ class TestCrossRank(unittest.TestCase):
         out_fname = 'test_crossrank_res.txt'
 
         opt_dict = {
+            'log_level': 1,
             'base_fname': 'baseline/test_de_de_writer_ranked.vector',
             'ref_fname':  'baseline/test_de_en_writer_ranked.vector',
             'out_fname':  out_fname,
