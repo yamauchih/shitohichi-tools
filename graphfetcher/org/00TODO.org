@@ -12,9 +12,14 @@
 *** TODO Mix-in the log system?
 
 
+
+
 ** TODO Blog contents
 *** TODO sink and source の話を書く
 *** TODO Impact factor で page rank を使っているものを探して mention
+
+*** TODO Japanese result -> Latin charactor. later
+
 
 *** TODO English wikipedia update ... sent email.
 

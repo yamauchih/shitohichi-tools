@@ -7,7 +7,7 @@
 # report the cross ranking from the author vector set
 #
 
-import os, sys
+import os, sys, re
 import codecs
 
 class CrossRank(object):
@@ -129,6 +129,16 @@ class CrossRank(object):
         # max author name length
         self.__max_author_name_len = 0
 
+        # precompiled regex for search and replace
+        self.__re_uml_A   = re.compile(u'Ä', re.UNICODE)
+        self.__re_uml_a   = re.compile(u'ä', re.UNICODE)
+        self.__re_uml_O   = re.compile(u'Ö', re.UNICODE)
+        self.__re_uml_o   = re.compile(u'ö', re.UNICODE)
+        self.__re_uml_U   = re.compile(u'Ü', re.UNICODE)
+        self.__re_uml_u   = re.compile(u'ü', re.UNICODE)
+        self.__re_szet    = re.compile(u'ß', re.UNICODE)
+        self.__re_uml_all = re.compile(u'[ÄäÖöÜüß]', re.UNICODE)
+
 
     def __load_file(self):
         """load base and ref files"""
@@ -200,12 +210,19 @@ class CrossRank(object):
 
         if (self.__is_tex_umlaut):
             # s = u'AE = Ä, ae = ä, OE = Ö, oe = ö, UE = Ü, ue = ü, ss = ß'
-            tmpstr = _author_str
-            tmpstr = re.sub(u'Ä', u'\\"{AE}', tmpstr, 0, re.UNICODE)
-            # tmpstr = re.sub(u'Ä', u'\\"{AE}', tmpstr, 0, re.UNICODE)
-            # FIXME
+            if(self.__re_uml_all.search(_author_str) != None):
+                _author_str = self.__re_uml_A.sub(u'\\"{AE}', _author_str)
+                _author_str = self.__re_uml_a.sub(u'\\"{ae}', _author_str)
+                _author_str = self.__re_uml_O.sub(u'\\"{OE}', _author_str)
+                _author_str = self.__re_uml_o.sub(u'\\"{oe}', _author_str)
+                _author_str = self.__re_uml_U.sub(u'\\"{UE}', _author_str)
+                _author_str = self.__re_uml_u.sub(u'\\"{ue}', _author_str)
+                _author_str = self.__re_szet .sub(u'{\\ss}',  _author_str)
 
-
+            pack_space_num = (self.__max_author_name_len - len(_author_str))
+            if (pack_space_num < 1):
+                pack_space_num = 1      # in case there are a few umlauts
+            _outfile.write(_author_str + (u' ' * pack_space_num))
 
 
     def __print_out_cross_rank(self):
