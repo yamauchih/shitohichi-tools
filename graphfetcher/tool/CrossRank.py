@@ -7,7 +7,7 @@
 # report the cross ranking from the author vector set
 #
 
-import os, sys, re
+import os, sys, re, math
 import codecs
 from ILog import ILog
 
@@ -22,15 +22,15 @@ class CrossRank(object):
         - 'log_level': int
         See ILog.
 
-        - 'base_fname': str
-        input filename for the base data. All the lines are in the
-        output.
+        - 'base_fpath': str
+        input file full path for the base data. All the lines are in
+        the output.
 
-        - 'ref_fname': str
-        reference filename.
+        - 'ref_fpath': str
+        reference file full path.
 
-        - 'out_fname': str
-        output filename.
+        - 'out_fpath': str
+        output file full path.
 
         - 'is_tex_umlaut': bool
         When True, umlaut charactor is converted with TeX style, e.g., ü -> \"{u}.
@@ -91,22 +91,22 @@ class CrossRank(object):
             ILog.set_output_level_with_dict(_opt_dict)
         ILog.info(u'Option: log_level: ' + str(ILog.get_output_level()))
 
-        if ('base_fname' not in  _opt_dict):
-            raise StandardError, ('base_fname is not specified.')
+        if ('base_fpath' not in  _opt_dict):
+            raise StandardError, ('base_fpath is not specified.')
 
-        if ('ref_fname' not in  _opt_dict):
-            raise StandardError, ('ref_fname is not specified.')
+        if ('ref_fpath' not in  _opt_dict):
+            raise StandardError, ('ref_fpath is not specified.')
 
-        self.__base_fname = _opt_dict['base_fname']
-        ILog.info(u'Option: base_fname: ' + self.__base_fname)
+        self.__base_fpath = _opt_dict['base_fpath']
+        ILog.info(u'Option: base_fpath: ' + self.__base_fpath)
 
-        self.__ref_fname  = _opt_dict['ref_fname']
-        ILog.info(u'Option: ref_fname: ' + self.__ref_fname)
+        self.__ref_fpath  = _opt_dict['ref_fpath']
+        ILog.info(u'Option: ref_fpath: ' + self.__ref_fpath)
 
-        self.__out_fname  = '-'
-        if ('out_fname' in  _opt_dict):
-            self.__out_fname  = _opt_dict['out_fname']
-        ILog.info(u'Option: out_fname: ' + self.__out_fname)
+        self.__out_fpath  = '-'
+        if ('out_fpath' in  _opt_dict):
+            self.__out_fpath  = _opt_dict['out_fpath']
+        ILog.info(u'Option: out_fpath: ' + self.__out_fpath)
 
         self.__is_tex_umlaut = False
         if ('is_tex_umlaut' in  _opt_dict):
@@ -161,7 +161,7 @@ class CrossRank(object):
         # open base file with utf-8 codec
         try:
             # read the author list
-            basefile = codecs.open(self.__base_fname, mode='r', encoding='utf-8')
+            basefile = codecs.open(self.__base_fpath, mode='r', encoding='utf-8')
             for fline in basefile:
                 line = fline.strip()
                 if ((len(line) > 0) and (line[0] == '#')):
@@ -170,7 +170,7 @@ class CrossRank(object):
                 self.__base_author_list.append(line)
 
             # read the reference list
-            reffile  = codecs.open(self.__ref_fname,  mode='r', encoding='utf-8')
+            reffile  = codecs.open(self.__ref_fpath,  mode='r', encoding='utf-8')
             ref_rank_num = 1
             for fline in reffile:
                 line = fline.strip()
@@ -182,7 +182,7 @@ class CrossRank(object):
         except IOError as (errno, strerror):
             print "# I/O error({0}): {1}".format(errno, strerror)
             print '# Also you need LC_ALL setting to utf-8, e.g., en_US.utf-8, ja_JP.utf-8.'
-            print '# Do input files exist?', self.__base_fname, self.__ref_fname
+            print '# Do input files exist?', self.__base_fpath, self.__ref_fpath
 
 
     def __out_tex_table_sep(self, _outfile):
@@ -214,7 +214,14 @@ class CrossRank(object):
         if (not self.__is_add_line_number):
             return
 
-        _outfile.write(str(_line_number) + ' ')
+        # A hack. But I think we will not analyze more than 999999
+        # people.
+        max_digit = 6
+        use_digit = int(math.log10(_line_number))
+        num_digit = max_digit - use_digit
+        if (num_digit < 0):
+            num_digit = 0
+        _outfile.write(str(_line_number) + (' ' * num_digit))
         self.__out_tex_table_sep(_outfile)
 
     def __out_author_name(self, _author_str, _outfile):
@@ -245,7 +252,7 @@ class CrossRank(object):
         """print out the cross rank with looking up the map
         """
         # open the output file
-        outfile = codecs.open(self.__out_fname, mode='w', encoding='utf-8')
+        outfile = codecs.open(self.__out_fpath, mode='w', encoding='utf-8')
 
         # get the max column (author name) length of the base
         max_col_len = 0

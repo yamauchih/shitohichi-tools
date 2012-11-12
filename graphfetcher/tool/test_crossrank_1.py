@@ -20,19 +20,20 @@ class TestCrossRank(unittest.TestCase):
     def test_cross_rank_inout(self):
         """test cross rank input/output."""
 
-        out_fname = 'test_crossrank_res.txt'
-
-        base_prefix
-
-        base_fname = '../remapper/baseline/de_de_writer_ranked.vector'
-        ref0_fname = '../remapper/baseline/de_en_writer_ranked.vector'
-        ref1_fname = '../remapper/baseline/de_ja_writer_ranked.vector'
-
+        data_dir   = '../remapper/baseline'
+        base_code  = 'de_de'
+        ref_code   = 'de_en'
+        out_fpath  = base_code + '_ref_' + ref_code + '.txt'
+        base_fname = base_code + '_writer_ranked.vector'
+        ref_fname  = ref_code  + '_writer_ranked.vector'
+        base_fpath = os.path.join(data_dir, base_fname)
+        ref_fpath  = os.path.join(data_dir, ref_fname)
 
         opt_dict = {
-            'base_fname': 'baseline/test_de_de_writer_ranked.vector',
-            'ref_fname':  'baseline/test_de_en_writer_ranked.vector',
-            'out_fname':  out_fname,
+            'base_fpath': base_fpath,
+            'ref_fpath':  ref_fpath,
+            'out_fpath':  out_fpath,
+            'log_level':  4,
             'is_tex_table':                True,
             'is_tex_umlaut':               True,
             'is_add_line_number':          True,
@@ -44,11 +45,11 @@ class TestCrossRank(unittest.TestCase):
         cr.show_cross_rank()
 
         # compare to the baseline file
-        ref_fname = os.path.join('baseline/' + out_fname)
-        if(os.path.isfile(ref_fname)):
-            self.assertEqual(filecmp.cmp(out_fname, ref_fname), True)
+        ref_fpath = os.path.join('baseline/' + out_fpath)
+        if(os.path.isfile(ref_fpath)):
+            self.assertEqual(filecmp.cmp(out_fpath, ref_fpath), True)
         else:
-            print 'not found basefile [' + ref_fname + ']'
+            print 'not found basefile [' + ref_fpath + ']'
 
 
 
