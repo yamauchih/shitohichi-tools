@@ -33,7 +33,7 @@ class TestRemapper(unittest.TestCase):
         # fname is only the file name
         in_vector_fname    = _data_prefix + u'_writer.utf-8.vector'
         in_rankdata_fname  = _data_prefix + u'_writer.pagerank.data'
-        out_save_fname     = _data_prefix + u'_writer_ranked.vector'
+        out_save_fname     = _data_prefix + u'_writer_author_rank.vector'
 
         # fpath is full path of the file.
         in_vector_fpath    = graphfetcherdir + in_vector_rpath   + in_vector_fname
