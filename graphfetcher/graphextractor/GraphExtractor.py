@@ -13,6 +13,7 @@
 
 import os, sys, urllib, urllib2, codecs
 import SoupUtil
+from ILog import ILog
 from bs4 import BeautifulSoup
 
 
@@ -25,8 +26,7 @@ class GraphExtractor(object):
 
         Options:
 
-        - 'log_level': int. 0 ... error, 1 ... info, 2 ... debug level
-          log output
+        - 'log_level': int. see ILog.
 
         - 'is_print_connectivity': bool. when True, print out the
           detected connectivity.
@@ -82,47 +82,43 @@ class GraphExtractor(object):
         #------------------------------------------------------------
         # options
         #------------------------------------------------------------
-        self.__log_level = 2
         if (_opt_dict.has_key('log_level')):
-            self.info_out(u'# Option: log_level: ' + str(_opt_dict['log_level']))
-            self.__log_level = _opt_dict['log_level']
-        else:
-            self.info_out(u'# Option: log_level: ' + str(self.__log_level))
-
+            ILog.set_output_level_with_dict(_opt_dict)
+        ILog.info(u'# Option: log_level: ' + str(_opt_dict['log_level']))
 
         # is_enable_stdout_utf8_codec
         if (_opt_dict.has_key('is_enable_stdout_utf8_codec')):
             if(_opt_dict['is_enable_stdout_utf8_codec'] == True):
                 sys.stdout = codecs.getwriter('utf_8')(sys.stdout)
-                self.info_out(u'# Option: is_enable_stdout_utf8_codec: True')
+                ILog.info(u'# Option: is_enable_stdout_utf8_codec: True')
             else:
-                self.info_out(u'# Option: is_enable_stdout_utf8_codec: False')
+                ILog.info(u'# Option: is_enable_stdout_utf8_codec: False')
 
         # is_print_connectivity
         self.__is_print_connectivity = False;
         if (_opt_dict.has_key('is_print_connectivity')):
             self.__is_print_connectivity = _opt_dict['is_print_connectivity']
-        self.info_out(u'# Option: is_print_connectivity: ' + str(self.__is_print_connectivity))
+        ILog.info(u'# Option: is_print_connectivity: ' + str(self.__is_print_connectivity))
 
         # dot file generation
         if (_opt_dict.has_key('dot_file_name')):
             self.__dot_file_name = _opt_dict['dot_file_name'].strip()
         if (len(self.__dot_file_name) > 0):
             self.__is_generate_dotfile = True
-        self.info_out(u'# Option: is_generate_dotfile: ' + str(self.__is_generate_dotfile) +
+        ILog.info(u'# Option: is_generate_dotfile: ' + str(self.__is_generate_dotfile) +
                       u' [' + self.__dot_file_name + u']')
 
         # is_generate_annotated_html
         self.__is_generate_annotated_html = False;
         if (_opt_dict.has_key('is_generate_annotated_html')):
             self.__is_generate_annotated_html = _opt_dict['is_generate_annotated_html']
-        self.info_out(u'# Option: is_generate_annotated_html: ' + str(self.__is_generate_annotated_html))
+        ILog.info(u'# Option: is_generate_annotated_html: ' + str(self.__is_generate_annotated_html))
 
         # is_remove_self_link
         self.__is_remove_self_link = False;
         if (_opt_dict.has_key('is_remove_self_link')):
             self.__is_remove_self_link = _opt_dict['is_remove_self_link']
-        self.info_out(u'# Option: is_remove_self_link:' + str(self.__is_remove_self_link))
+        ILog.info(u'# Option: is_remove_self_link:' + str(self.__is_remove_self_link))
 
         # output matrix type
         self.__output_matrix_type = 'python';
@@ -131,29 +127,13 @@ class GraphExtractor(object):
         valid_matrix_type_list = ['python', 'matlab']
         if (self.__output_matrix_type not in valid_matrix_type_list):
             raise StandardError, ('Unknown outout matrix type [' + self.__output_matrix_type + ']')
-        self.info_out(u'# Option: output_matrix_type: ' + self.__output_matrix_type)
+        ILog.info(u'# Option: output_matrix_type: ' + self.__output_matrix_type)
 
         # remove <table class='navbox'></table> entries?
         self.__is_remove_navbox = False
         if (_opt_dict.has_key('is_remove_navbox')):
             self.__is_remove_navbox = _opt_dict['is_remove_navbox']
-            self.info_out(u'# Option: is_remove_navbox:' + str(self.__is_remove_navbox))
-
-
-    def error_out(self, _mes):
-        """errlr level log output"""
-        if(self.__log_level == 0):
-            print u'error:', _mes
-
-    def info_out(self, _mes):
-        """info level log output"""
-        if(self.__log_level >= 1):
-            print u'info:', _mes
-
-    def debug_out(self, _mes):
-        """debug level log output"""
-        if(self.__log_level >= 2):
-            print u'debug:', _mes
+            ILog.info(u'# Option: is_remove_navbox:' + str(self.__is_remove_navbox))
 
 
     def __load_input_vector(self, _input_vector_fpath):
@@ -175,7 +155,7 @@ class GraphExtractor(object):
             raise StandardError('Error: The file [' + str(_input_vector_fpath) +
                                 '] does not match an author vector file header.')
         else:
-            self.info_out('check the input file header... pass.')
+            ILog.info('check the input file header... pass.')
 
         idx = 0
         for fline in infile:
@@ -192,7 +172,7 @@ class GraphExtractor(object):
 
 
         assert len(self.__url_to_index_map) == len(self.__index_to_url_map)
-        self.info_out('number of entries: ' + str(len(self.__index_to_url_map)))
+        ILog.info('number of entries: ' + str(len(self.__index_to_url_map)))
 
         # initialize adjacent matrix
         for i in xrange(0, len(self.__index_to_url_map)):
@@ -268,7 +248,7 @@ class GraphExtractor(object):
         \param[in] _fname file name to output
         """
         out_full_path = os.path.join(self.__output_dir, _fname)
-        self.info_out(u'Writing [' + out_full_path + u']')
+        ILog.info(u'Writing [' + out_full_path + u']')
         if (os.path.isfile(out_full_path)):
             raise StandardError, ('Output file exists')
 
@@ -311,7 +291,7 @@ class GraphExtractor(object):
 
                 # Show connection
                 if (self.__is_print_connectivity == True):
-                    self.info_out(u'connect [' + _url + u'](' + \
+                    ILog.info(u'connect [' + _url + u'](' + \
                                   str(self.__url_to_index_map[_url]) + ')->[' + \
                                   dst + u'](' + str(self.__url_to_index_map[dst]) +')')
 
@@ -354,11 +334,11 @@ class GraphExtractor(object):
             # test mode
             for url in self.__test_url_list:
                 rec_link_count = self.__get_one_page_connectivity(url)
-                self.debug_out(u'analyzed [' + url + u'] found ' + str(rec_link_count) +
-                               u' links.')
+                ILog.debug(u'analyzed [' + url + u'] found ' + str(rec_link_count) +
+                           u' links.')
                 if (rec_link_count == 0):
-                    self.debug_out(u'Warning! ' + url +
-                                   u' has no recognizable links. Check the URL input.')
+                    ILog.debug(u'Warning! ' + url +
+                               u' has no recognizable links. Check the URL input.')
 
         else:
             cur_i = 0
@@ -366,13 +346,13 @@ class GraphExtractor(object):
             for url in self.__index_to_url_map:
                 cur_i = cur_i + 1
                 rec_link_count = self.__get_one_page_connectivity(url)
-                self.debug_out(u'analyzed [' + url + u'] ' + str(cur_i) + u'/' + total_len_str +
+                ILog.debug(u'analyzed [' + url + u'] ' + str(cur_i) + u'/' + total_len_str +
                                u' found ' + str(rec_link_count) + u' links.')
                 if (rec_link_count == 0):
-                    self.debug_out(u'Warning! ' + url +
-                                   u' has no recognizable links. Check the URL input.')
+                    ILog.debug(u'Warning! ' + url +
+                               u' has no recognizable links. Check the URL input.')
                 if ((cur_i % 100) == 0):
-                    self.info_out('progress ' + str(cur_i) + u'/' + total_len_str)
+                    ILog.info('progress ' + str(cur_i) + u'/' + total_len_str)
 
 
     def __output_matlab_sparse_marix(self, _ostream, _output_fname):

@@ -14,6 +14,7 @@
 #
 
 import os, sys, codecs
+from ILog import ILog
 
 class Remapper(object):
     """Remap
@@ -43,37 +44,17 @@ class Remapper(object):
         # Options
         self.__opt_dict   = _opt_dict
 
-        self.__log_level = 2
         if (_opt_dict.has_key('log_level')):
-            self.__log_level = _opt_dict['log_level']
-            self.info_out(u'Option: log_level: ' + str(_opt_dict['log_level']))
-        else:
-            self.info_out(u'Option: log_level: ' + str(self.__log_level))
+            ILog.set_output_level_with_dict(_opt_dict)
+        ILog.info(u'Option: log_level: ' + str(ILog.get_output_level()))
 
         # is_enable_stdout_utf8_codec
         if (_opt_dict.has_key('is_enable_stdout_utf8_codec')):
             if(_opt_dict['is_enable_stdout_utf8_codec'] == True):
                 sys.stdout = codecs.getwriter('utf_8')(sys.stdout)
-                self.info_out(u'Option: is_enable_stdout_utf8_codec: True')
+                ILog.info(u'Option: is_enable_stdout_utf8_codec: True')
             else:
-                self.info_out(u'Option: is_enable_stdout_utf8_codec: False')
-
-
-    def error_out(self, _mes):
-        """errlr level log output"""
-        if(self.__log_level == 0):
-            print u'error:', _mes
-
-    def info_out(self, _mes):
-        """info level log output"""
-        if(self.__log_level >= 1):
-            print u'info:', _mes
-
-    def debug_out(self, _mes):
-        """debug level log output"""
-        if(self.__log_level >= 2):
-            print u'debug:', _mes
-
+                ILog.info(u'Option: is_enable_stdout_utf8_codec: False')
 
     def __print_str(self, _str):
         """convenient function for print unicode or string using utf-8
@@ -107,7 +88,7 @@ class Remapper(object):
             raise StandardError('Error: The file [' + str(_input_vector_fpath) +
                                 '] does not match an author vector file header.')
         else:
-            self.info_out('check the input author vector file header... pass.')
+            ILog.info('check the input author vector file header... pass.')
 
         idx = 0
         for fline in infile:
@@ -123,7 +104,7 @@ class Remapper(object):
                     raise StandardError('Error: duplication found [' + str(line) + '] at ' + str(idx))
 
         assert len(self.__author_to_index_map) == len(self.__index_to_author_map)
-        self.info_out('number of entries: ' + str(len(self.__index_to_author_map)))
+        ILog.info('number of entries: ' + str(len(self.__index_to_author_map)))
 
 
     def __read_data_file(self, _data_fname):
@@ -142,7 +123,7 @@ class Remapper(object):
             raise StandardError('Error: The file [' + str(_data_fname) +
                                 '] does not match a pagerank data file header.')
         else:
-            self.info_out('check the pagerank data file header... pass.')
+            ILog.info('check the pagerank data file header... pass.')
 
         # result_index pagerank sorted_permulation_index
         for fline in infile:
@@ -220,9 +201,9 @@ class Remapper(object):
         \parm[in] _data_fname       pagerank result data file
         \parm[in] _save_fname       save result filename
         """
-        self.info_out(u'input vector file     [' + _author_vec_fname + u']')
-        self.info_out(u'input rankdata file   [' + _data_fname       + u']')
-        self.info_out(u'output rankedata file [' + _save_fname       + u']')
+        ILog.info(u'input vector file     [' + _author_vec_fname + u']')
+        ILog.info(u'input rankdata file   [' + _data_fname       + u']')
+        ILog.info(u'output rankedata file [' + _save_fname       + u']')
 
         self.__load_input_vector(_author_vec_fname)
         self.__read_data_file(_data_fname)
