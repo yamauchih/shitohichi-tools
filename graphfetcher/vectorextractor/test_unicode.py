@@ -39,27 +39,39 @@ class TestUnicode(unittest.TestCase):
         print 'This type is unicode: ', type(utf_8_unicode)
 
         utf_8_unicode_str = utf_8_unicode.encode('utf-8', 'ignore')
-        print 'This type is str: ', type(utf_8_unicode_str)
+        print 'This type is str:     ', type(utf_8_unicode_str)
 
         # print always convert to str. If the unicode is given, it
-        # will be encoded. Therefore, the next failes.
-        # print utf_8_unicode
+        # will be encoded. Therefore, the next failes with
+        #
+        # UnicodeEncodeError ascii' codec can't encode character
+        # u'\xe4' in position 1: ordinal not in range(128)
+        #
+        try:
+            print utf_8_unicode
+        except UnicodeEncodeError as e:
+            print 'UnicodeEncodeError raised: ' + str(e)
 
-        # But this works
+        # But this works, since it has already encoded to str type.
         print utf_8_unicode.encode('utf-8', 'ignore')
 
         # Here is a convenient function.
-        print_str('print_str: ' + utf_8_unicode)
+        # print_str('print_str: ' + utf_8_unicode)
 
-        # However this doesn't work.
-        # print u'unicode with format works: {0}'.format(utf_8_unicode.encode('utf-8', 'ignore'))
+        # However this doesn't work. unicode is encoded to string in
+        # format(), but it becomes type str, then formet try to decode
+        # to unicode. This failed.
+        try:
+            print u'unicode with format: {0}'.format(utf_8_unicode.encode('utf-8', 'ignore'))
+        except UnicodeDecodeError as e:
+            print 'UnicodeDecodeError raised: ' + str(e)
 
         # Because, u'string' is type unicode. print will convert to type str.
         # Therefore, the next works. Note, this is very small difference.
         print u'unicode with format works: {0}'.format(utf_8_unicode).encode('utf-8', 'ignore')
 
-        ustr = u'unicode with format works: {0}'.format(utf_8_unicode)
-        print_str(ustr)
+        # ustr = u'unicode with format works: {0}'.format(utf_8_unicode)
+        # print_str(ustr)
 
 
         # 78 111 235 108 ... This is utf-8. Not the Unicode (code point).
@@ -74,6 +86,32 @@ class TestUnicode(unittest.TestCase):
             print ord(c),
         print
         print type(unicode_internal_str)
+
+
+
+        # short form for explanation
+        uc = u'Wächter'
+        print type(uc)
+
+        s = uc.encode('utf-8', 'ignore')
+        print type(s)
+        try:
+            print uc
+        except UnicodeEncodeError as e:
+            print 'UnicodeEncodeError raised: ' + str(e)
+
+        print uc.encode('utf-8', 'ignore')
+
+        try:
+            print u'{0}'.format(uc.encode('utf-8', 'ignore'))
+        except UnicodeDecodeError as e:
+            print 'UnicodeDecodeError raised: ' + str(e)
+
+        print u'{0}'.format(uc).encode('utf-8', 'ignore')
+
+
+
+
 
 
     #def test_unicode_file(self):
