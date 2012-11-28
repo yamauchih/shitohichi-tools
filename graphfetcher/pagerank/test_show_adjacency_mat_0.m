@@ -15,6 +15,7 @@ madj_list = {
     @ja_en_writer_adj_mat
     @ja_de_writer_adj_mat
     @ja_ja_writer_adj_mat
+    @ja_ja_writer_adj_mat_with_navbox
 };
 title_list = {
     'German author adjacency matrix in en.wikipedia.org'
@@ -28,7 +29,8 @@ title_list = {
     'Japanese author adjacency matrix in en.wikipedia.org'
     'Japanese author adjacency matrix in de.wikipedia.org'
     'Japanese author adjacency matrix in ja.wikipedia.org'
-};
+    'Japanese author adjacency matrix (with navbox) in ja.wikipedia.org'
+    };
 save_fbase_list = {
     'de_en_madj'
     'de_de_madj'
@@ -41,6 +43,7 @@ save_fbase_list = {
     'ja_en_madj'
     'ja_de_madj'
     'ja_ja_madj'
+    'ja_ja_madj_with_navbox'
     };
      
 for i = 1:length(madj_list)
