@@ -74,7 +74,8 @@ class TestRemapper(unittest.TestCase):
             u'en_ja',
             u'ja_de',
             u'ja_en',
-            u'ja_ja'
+            u'ja_ja',
+            u'ja_ja_with_navbox'
             ]
 
         for i in data_prefix_list:
