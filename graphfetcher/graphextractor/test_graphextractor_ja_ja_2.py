@@ -24,7 +24,9 @@ class TestGraphExtractor(unittest.TestCase):
         input_rpath        = u'data/japanese_writer/ja.wikipedia.org/'
         output_rpath       = u'data/japanese_writer/ja.wikipedia.org/'
         input_vector_fname = u'ja_ja_writer.utf-8.vector'
-        output_madj_fname  = u'ja_ja_writer_adj_mat_with_navbox.m'
+        # The prefix is ja_ja en_en, .., so here the prefix is
+        # ja_ja_with_navbox with compatible to other tools.
+        output_madj_fname  = u'ja_ja_with_navbox_writer_adj_mat.m'
 
         input_html_dir     = graphfetcherdir + input_rpath  + 'wiki/'
         input_vector_fpath = graphfetcherdir + input_rpath  + input_vector_fname
