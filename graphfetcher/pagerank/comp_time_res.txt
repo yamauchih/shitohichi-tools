@@ -83,3 +83,9 @@ remove_sink_source_node: 3 iters. size(578,578)
 warn: M_adj is not full rank (522 of 578)
 max eigenvalue = 1+0i
 Elapsed time is 0.496393 seconds.
+>> test_pagerank_ja_ja_2
+remove_sink_source_node: 1 iters. size(635,635)
+remove_sink_source_node: 2 iters. size(627,627)
+warn: M_adj is not full rank (591 of 627)
+max eigenvalue = 1+0i
+Elapsed time is 0.950165 seconds.
