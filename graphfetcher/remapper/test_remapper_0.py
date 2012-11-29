@@ -55,6 +55,8 @@ class TestRemapper(unittest.TestCase):
         ref_fpath = os.path.join(graphfetcherdir,
                                  'remapper/baseline/' + out_save_fname)
         if(os.path.isfile(ref_fpath)):
+            print out_save_fpath, ref_fpath
+
             self.assertEqual(filecmp.cmp(out_save_fpath, ref_fpath), True)
         else:
             print 'not found basefile [' + ref_fpath + ']'
@@ -79,8 +81,9 @@ class TestRemapper(unittest.TestCase):
             ]
 
         for i in data_prefix_list:
-            self.remapper_sub(i)
             print 'testing [' + i + ']... passed.'
+            self.remapper_sub(i)
+
 
 #
 # main test
