@@ -1,0 +1,248 @@
+test_linkvectorextractor_ascii (__main__.TestLinkVectorExtractor) ... ok
+test_linkvectorextractor_utf8 (__main__.TestLinkVectorExtractor) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 3.502s
+
+OK
+
+# input [file:////home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/english_writer/en.wikipedia.org/wiki/List_of_English_writers]
+# output[/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/english_writer/en.wikipedia.org/en_en_writer.ascii.vector]
+info: found duplication [Noël_Coward]
+info: found duplication [Pierce_Egan]
+info: found duplication [Douglas_William_Jerrold]
+info: found duplication [Jane_Marcet]
+info: found duplication [Henry_Peacham]
+info: found duplication [Adelaide_Anne_Procter]
+info: found duplication [Mary_Sidney]
+info: found duplication [Lisa_St_Aubin_de_Terán]
+info: found duplication [Anne_Isabella_Thackeray_Ritchie]
+info: found duplication [William_Wycherley]
+
+# input [file:////home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/english_writer/en.wikipedia.org/wiki/List_of_English_writers]
+# output[/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/english_writer/en.wikipedia.org/en_en_writer.utf-8.vector]
+info: found duplication [Noël_Coward]
+info: found duplication [Pierce_Egan]
+info: found duplication [Douglas_William_Jerrold]
+info: found duplication [Jane_Marcet]
+info: found duplication [Henry_Peacham]
+info: found duplication [Adelaide_Anne_Procter]
+info: found duplication [Mary_Sidney]
+info: found duplication [Lisa_St_Aubin_de_Terán]
+info: found duplication [Anne_Isabella_Thackeray_Ritchie]
+info: found duplication [William_Wycherley]
+
+real	0m3.636s
+user	0m3.288s
+sys	0m0.040s
+test_linkvectorextractor_ascii (__main__.TestLinkVectorExtractor) ... ok
+test_linkvectorextractor_utf8 (__main__.TestLinkVectorExtractor) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.163s
+
+OK
+
+# input [file:////home/hitoshi/data/project/shitohichi-tools/graphfetcher/vectorextractor/en_en_testdata_0.html]
+# output[/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/english_writer/en.wikipedia.org/wiki/en_en_2_writer.ascii.vector]
+info: found duplication [Noël_Coward]
+
+# input [file:////home/hitoshi/data/project/shitohichi-tools/graphfetcher/vectorextractor/en_en_testdata_0.html]
+# output[/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/english_writer/en.wikipedia.org/wiki/en_en_2_writer.utf-8.vector]
+info: found duplication [Noël_Coward]
+
+real	0m0.241s
+user	0m0.088s
+sys	0m0.052s
+test_linkvectorextractor_ascii (__main__.TestLinkVectorExtractor) ... ok
+test_linkvectorextractor_utf8 (__main__.TestLinkVectorExtractor) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 1.150s
+
+OK
+
+# input [file:////home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/english_writer/de.wikipedia.org/wiki/Liste_britischer_Schriftsteller]
+# output[/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/english_writer/de.wikipedia.org/en_de_writer.ascii.vector]
+info: found duplication [George_Mackay_Brown]
+info: found duplication [William_Sharp]
+
+# input [file:////home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/english_writer/de.wikipedia.org/wiki/Liste_britischer_Schriftsteller]
+# output[/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/english_writer/de.wikipedia.org/en_de_writer.utf-8.vector]
+info: found duplication [George_Mackay_Brown]
+info: found duplication [William_Sharp]
+
+real	0m1.279s
+user	0m1.064s
+sys	0m0.024s
+test_linkvectorextractor_utf8 (__main__.TestLinkVectorExtractor) ... ERROR
+
+======================================================================
+ERROR: test_linkvectorextractor_utf8 (__main__.TestLinkVectorExtractor)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_linkvectorextractor_en_ja_0.py", line 79, in test_linkvectorextractor_utf8
+    (output_full_path, output_fname) = self.linkvectorextractor(opt_dict)
+  File "test_linkvectorextractor_en_ja_0.py", line 40, in linkvectorextractor
+    print u'# input [' + root_url    + u']'
+UnicodeEncodeError: 'ascii' codec can't encode characters in position 116-125: ordinal not in range(128)
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)
+
+
+real	0m0.127s
+user	0m0.068s
+sys	0m0.004s
+test_linkvectorextractor_ascii (__main__.TestLinkVectorExtractor) ... ok
+test_linkvectorextractor_utf8 (__main__.TestLinkVectorExtractor) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.788s
+
+OK
+
+# input [file:////home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/german_writer/en.wikipedia.org/wiki/List_of_German-language_authors]
+# output[/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/german_writer/en.wikipedia.org/de_en_writer.ascii.vector]
+
+# input [file:////home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/german_writer/en.wikipedia.org/wiki/List_of_German-language_authors]
+# output[/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/german_writer/en.wikipedia.org/de_en_writer.utf-8.vector]
+
+real	0m0.896s
+user	0m0.760s
+sys	0m0.016s
+test_linkvectorextractor_ascii (__main__.TestLinkVectorExtractor) ... ok
+test_linkvectorextractor_utf8 (__main__.TestLinkVectorExtractor) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 8.525s
+
+OK
+
+# output[/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/german_writer/de.wikipedia.org/de_de_writer.ascii.vector]
+info: found duplication [../Anna_Bernard]
+info: found duplication [../Albrecht_von_Eyb]
+info: found duplication [../Günter_Görlich]
+info: found duplication [../Guido_Görres]
+info: found duplication [../Bess_Brenck-Kalischer]
+info: found duplication [../Gorch_Fock_(Schriftsteller)]
+info: found duplication [../Helene_Luise_Köppel]
+info: found duplication [../Horst_Bosetzky]
+info: found duplication [../Christine_Lehmann]
+info: found duplication [../Konrad_Merz]
+info: found duplication [../Franz_Nissel]
+info: found duplication [../Dolores_Viesèr]
+info: found duplication [../Hans_Henning_von_Voigt]
+info: found duplication [../Leontine_von_Winterfeld-Platen]
+info: found duplication [../Ursula_Wölfel]
+info: found duplication [../Sophie_Wörishöffer]
+# export [/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/german_writer/de.wikipedia.org/de_de_writer.ascii.vector]
+
+# output[/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/german_writer/de.wikipedia.org/de_de_writer.utf-8.vector]
+info: found duplication [../Anna_Bernard]
+info: found duplication [../Albrecht_von_Eyb]
+info: found duplication [../Günter_Görlich]
+info: found duplication [../Guido_Görres]
+info: found duplication [../Bess_Brenck-Kalischer]
+info: found duplication [../Gorch_Fock_(Schriftsteller)]
+info: found duplication [../Helene_Luise_Köppel]
+info: found duplication [../Horst_Bosetzky]
+info: found duplication [../Christine_Lehmann]
+info: found duplication [../Konrad_Merz]
+info: found duplication [../Franz_Nissel]
+info: found duplication [../Dolores_Viesèr]
+info: found duplication [../Hans_Henning_von_Voigt]
+info: found duplication [../Leontine_von_Winterfeld-Platen]
+info: found duplication [../Ursula_Wölfel]
+info: found duplication [../Sophie_Wörishöffer]
+# export [/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/german_writer/de.wikipedia.org/de_de_writer.utf-8.vector]
+
+real	0m8.658s
+user	0m8.233s
+sys	0m0.064s
+test_linkvectorextractor_utf8 (__main__.TestLinkVectorExtractor) ... ERROR
+
+======================================================================
+ERROR: test_linkvectorextractor_utf8 (__main__.TestLinkVectorExtractor)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_linkvectorextractor_de_ja_0.py", line 79, in test_linkvectorextractor_utf8
+    (output_full_path, output_fname) = self.linkvectorextractor(opt_dict)
+  File "test_linkvectorextractor_de_ja_0.py", line 40, in linkvectorextractor
+    print u'# input [' + root_url    + u']'
+UnicodeEncodeError: 'ascii' codec can't encode characters in position 115-123: ordinal not in range(128)
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)
+
+
+real	0m0.089s
+user	0m0.076s
+sys	0m0.004s
+test_linkvectorextractor_ascii (__main__.TestLinkVectorExtractor) ... ok
+test_linkvectorextractor_utf8 (__main__.TestLinkVectorExtractor) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 2.366s
+
+OK
+
+# output[/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/japanese_writer/en.wikipedia.org/ja_en_writer.ascii.vector]
+info: found duplication [Kikuchi_Kan]
+
+# output[/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/japanese_writer/en.wikipedia.org/ja_en_writer.utf-8.vector]
+info: found duplication [Kikuchi_Kan]
+
+real	0m2.468s
+user	0m2.156s
+sys	0m0.036s
+test_linkvectorextractor_ascii (__main__.TestLinkVectorExtractor) ... ok
+test_linkvectorextractor_utf8 (__main__.TestLinkVectorExtractor) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.952s
+
+OK
+
+# input [file:////home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/japanese_writer/de.wikipedia.org/wiki/Liste_japanischer_Schriftsteller]
+# output[/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/japanese_writer/de.wikipedia.org/ja_de_writer.ascii.vector]
+info: found duplication [Isozaki_Kenichirō]
+info: found duplication [Shimaki_Kensaku]
+info: found duplication [Henjō]
+info: found duplication [Sechs_beste_Waka-Dichter]
+
+# input [file:////home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/japanese_writer/de.wikipedia.org/wiki/Liste_japanischer_Schriftsteller]
+# output[/home/hitoshi/data/project/shitohichi-tools/graphfetcher/data/japanese_writer/de.wikipedia.org/ja_de_writer.utf-8.vector]
+info: found duplication [Isozaki_Kenichirō]
+info: found duplication [Shimaki_Kensaku]
+info: found duplication [Henjō]
+info: found duplication [Sechs_beste_Waka-Dichter]
+
+real	0m1.078s
+user	0m0.760s
+sys	0m0.016s
+test_linkvectorextractor_utf8 (__main__.TestLinkVectorExtractor) ... ERROR
+
+======================================================================
+ERROR: test_linkvectorextractor_utf8 (__main__.TestLinkVectorExtractor)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_linkvectorextractor_ja_ja_0.py", line 83, in test_linkvectorextractor_utf8
+    (output_full_path, output_fname) = self.linkvectorextractor(opt_dict)
+  File "test_linkvectorextractor_ja_ja_0.py", line 40, in linkvectorextractor
+    print u'# input [' + root_url    + u']'
+UnicodeEncodeError: 'ascii' codec can't encode characters in position 117-124: ordinal not in range(128)
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)
+
+
+real	0m0.103s
+user	0m0.076s
+sys	0m0.008s

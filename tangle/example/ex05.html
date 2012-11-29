@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Example 05</title>
+
+<!-- Basic style -->
+<link rel="stylesheet" href="style.css" type="text/css">
+
+<!-- Tangle -->
+<script type="text/javascript" src="../Tangle/Tangle.js"></script>
+
+<!-- TangleKit (optional) -->
+<link rel="stylesheet" href="../Tangle/TangleKit/TangleKit.css" type="text/css">
+<script type="text/javascript" src="../Tangle/TangleKit/mootools.js"></script>
+<script type="text/javascript" src="../Tangle/TangleKit/sprintf.js"></script>
+<script type="text/javascript" src="../Tangle/TangleKit/BVTouchable.js"></script>
+<script type="text/javascript" src="../Tangle/TangleKit/TangleKit.js"></script>
+
+
+<link rel="stylesheet" href="ex04_style.css" type="text/css">
+<link rel="stylesheet" href="ex05_style.css" type="text/css">
+
+<!-- example 05 canvas -->
+<script type="text/javascript" src="./ex05.js"></script>
+</head>
+
+<!-- if you do setUpTangle() call here, don't do it in js file. You will -->
+<!-- see strange TKAdjustableNumber (duplication) effect. -->
+<!-- <body onload="setUpTangle();"> DELETEME -->
+
+<h1>Tangle: Example 05</h1>
+
+<h2>Drag a point (Using BVTouchable)</h2>
+
+<ul>
+ <li><p>When mouse down, the point move to the mouse down point.</p>
+ <li><p>Drag a point. While you are dragging, the coordinate hint is shown.</p>
+ <li><p>When mouse up, the coordinates hint will be disappeared.</p>
+</ul>
+
+<!-- div is division of the page. It's a kind of section. Use this -->
+<!-- section for id to lookup from JavaScript. -->
+<div id="point_drag_example">
+  <!-- In point_drag_example, one tangle there. if the -->
+  <!-- point_dynamic_text is outside of this div, then these are not
+  <!-- shared the tangle. -->
+  <div class="TKCanvasArea" id="point_drag_canvas">
+      <!-- View panel -->
+      <canvas class="TKCanvasControl" data-var="px py"
+       width="300" height="300">This browser doesn't support a canvas.
+      </canvas>
+  </div>
+  <!-- point_drag_canvas -->
+  <!-- Here id is in the p tag. -->
+  <p id="point_dynamic_text">
+  Point [
+  <!-- The data-var name is very important. Depends on that, link is -->
+  <!-- done. -->
+  <span class="TKAdjustableNumber" data-var="px" data-min="0" data-max="300"></span>,
+  <span class="TKAdjustableNumber" data-var="py" data-min="0" data-max="300"></span>
+  ]
+  </p>
+</div>                          <!-- point_drag_example -->
+
+</body>
+</html>

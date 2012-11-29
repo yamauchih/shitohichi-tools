@@ -1,0 +1,17 @@
+// -*- encoding: utf-8 -*-
+//
+// Copyright (C) 2012 Yamauchi, Hitoshi
+// For Rebecca from Hitoshi the fool
+//
+// dot -Tsvg ex02.dot -o a.svg
+digraph G {
+        夏目漱石 -> 三島由紀夫;
+        三島由紀夫 -> 川端康成;
+        夏目漱石 -> 加納朋子;
+        夏目漱石 -> cleanup;
+        川端康成 -> 村上春樹;
+        川端康成 -> printf
+        加納朋子 -> 村上春樹;
+        夏目漱石 -> printf;
+        川端康成 -> compare;
+}

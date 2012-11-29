@@ -1,0 +1,125 @@
+%
+% Copyright (C) 2012 Yamauchi Hitoshi
+%
+%defparentheses	【 】
+%defswap	|
+%defdelete	/
+%defcomment	;
+%defescape
+%deforder	older-first
+%defversion	0.9.5-current
+%%% Local Variables:
+%%% coding: euc-japan
+%%% End:
+
+%--- begin for platex
+% \documentclass[a4paper]{article}
+%--- end for platex
+%--- begin for latex
+\documentclass[12pt]{scrartcl}\usepackage{CJK}
+%--- end for latex
+
+\usepackage{amsmath}
+\usepackage{a4wide}
+\usepackage{graphicx}
+\usepackage{cite}
+\usepackage{color}
+%\usepackage{authblk}
+%\usepackage{footmisc}
+% \usepackage{hyperref} % Unfortunately, this does not work with CJK
+\usepackage[ngerman, american]{babel}
+\graphicspath{{./fig/}}
+% \href{URL}{text}
+
+\sloppy
+
+%%--- begin for latex
+%% latex には kanjiskip がない．kanjiskip は platex の拡張
+\newlength{\kanjiskip}
+\setlength{\kanjiskip}{0pt}
+%%--- end for latex
+%%----------------------------------------------------------------------
+%% Ruby  Hitoshi Yamauchi
+%%
+\def\ruby#1#2{%
+    \leavevmode
+    \setbox0=\hbox{#1}\setbox1=\hbox{\tiny#2}%
+    \ifdim\wd0>\wd1 \dimen0=\wd0 \else \dimen0=\wd1 \fi
+    \hbox{\kanjiskip=\fill
+        \vbox{\hbox to \dimen0{\tiny \hfil#2\hfil}%
+        \nointerlineskip
+        \hbox to \dimen0{\hfil#1\hfil}}}}
+%%----------------------------------------------------------------------
+
+\begin{document}
+
+%--- begin for latex
+\begin{CJK*}[dnp]{JIS}{min}
+%--- end for latex
+
+%
+% Japanese, English, and German mixture text has a bit difficult
+%
+% \begin{CJK*}[dnp]{JIS}{min}
+\title{Why normal transformation is a inverse transpose?}
+\date{2012-3-18(Sun)}
+
+\author{Yamauchi, Hitoshi}
+\maketitle
+
+xdvi: Zoom factor 5.
+
+\begin{eqnarray*}
+ \left[
+  \begin{array}{cc}
+   10 & 10 \\
+   10 & 10 \\
+  \end{array}
+ \right]
+\end{eqnarray*}
+
+\begin{eqnarray*}
+ \left[
+  \begin{array}{cc}
+   \cos(300) & -\sin(300) \\
+   \sin(300) &  \cos(300) \\
+  \end{array}
+ \right]
+\end{eqnarray*}
+
+\begin{eqnarray*}
+ \left[
+  \begin{array}{c}
+   10 \\
+   10 \\
+  \end{array}
+ \right] +
+ \left[
+  \begin{array}{c}
+   10 \\
+   10 \\
+  \end{array}
+ \right] =
+ x
+\end{eqnarray*}
+
+
+\bibliographystyle{plain}
+\bibliography{bib}
+
+% \section*{参考文献}
+% \begin{enumerate}
+%  \item Matt Pharr, Greg Humphreys, ``Physically Based Rendering,''
+%        Second Edition: From Theory To Implementation, Morgan
+%        Kaufmann, 2012
+%  \item Tomas Akenine-Moller, Eric Haines, Naty Hoffman， ``Real-Time
+%        Rendering'' (2nd Edition)， A K Peters/CRC Press， 2002
+% \end{enumerate}
+
+%--- begin for latex
+\end{CJK*}
+%--- end for latex
+
+\end{document}
+
+

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Example 03</title>
+
+<!-- basic style -->
+<link rel="stylesheet" href="style.css" type="text/css">
+
+<!-- Tangle -->
+<script type="text/javascript" src="../Tangle/Tangle.js"></script>
+
+<!-- TangleKit (optional) -->
+<link rel="stylesheet" href="../Tangle/TangleKit/TangleKit.css" type="text/css">
+<script type="text/javascript" src="../Tangle/TangleKit/mootools.js"></script>
+<script type="text/javascript" src="../Tangle/TangleKit/sprintf.js"></script>
+<script type="text/javascript" src="../Tangle/TangleKit/BVTouchable.js"></script>
+<script type="text/javascript" src="../Tangle/TangleKit/TangleKit.js"></script>
+
+<!-- example 03 canvas -->
+<script type="text/javascript" src="./ex03.js"></script>
+</head>
+
+<!-- if you do setUpTangle() call here, don't do it in js file. You will -->
+<!-- see strange TKAdjustableNumber (duplication) effect. -->
+<body onload="setUpTangle();">
+
+<h1>Example 03.</h1>
+
+<h2>Drag a point (non-BVTouchable version)</h2>
+
+<ul>
+ <li><p>This is rather mouse event hard-coded version.</p>
+</ul>
+
+<div>
+<canvas id="canvas" width="300" height="300">It seems this browser
+doesn't support the canvas element. This demo doesn't work in that case.</canvas>
+</div>
+
+<p id="point">
+Point [
+<span class="TKAdjustableNumber" data-var="p0x" data-min="0" data-max="300"></span>,
+<span class="TKAdjustableNumber" data-var="p0y" data-min="0" data-max="300"></span>
+]
+</p>
+
+</body>
+</html>

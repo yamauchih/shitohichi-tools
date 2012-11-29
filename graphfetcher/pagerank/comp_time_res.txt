@@ -1,0 +1,91 @@
+
+
+
+Pagerank computation result (sixpack)
+
+         elapsed time
+de_de    12.464536
+de_en    0.126335
+de_ja    0.004875
+
+en_de    0.013409
+en_en    7.785258
+en_ja    0.005200
+
+ja_de    0.023152
+ja_en    0.488929
+ja_ja    0.525021
+
+>> run('/a/brax/home/hitoshi/project/shitohichi-tools/graphfetcher/pagerank/test_pagerank_de_de_0.m')
+remove_sink_source_node: 1 iters. size(2253,2253)
+remove_sink_source_node: 2 iters. size(2093,2093)
+remove_sink_source_node: 3 iters. size(2075,2075)
+remove_sink_source_node: 4 iters. size(2074,2074)
+warn: M_adj is not full rank (1775 of 2074)
+max eigenvalue = 1+0i
+Elapsed time is 13.917903 seconds.
+>> run('/a/brax/home/hitoshi/project/shitohichi-tools/graphfetcher/pagerank/test_pagerank_de_en_0.m')
+remove_sink_source_node: 1 iters. size(315,315)
+remove_sink_source_node: 2 iters. size(287,287)
+remove_sink_source_node: 3 iters. size(286,286)
+warn: M_adj is not full rank (251 of 286)
+max eigenvalue = 1+0i
+Elapsed time is 0.089304 seconds.
+>> run('/a/brax/home/hitoshi/project/shitohichi-tools/graphfetcher/pagerank/test_pagerank_de_ja_0.m')
+remove_sink_source_node: 1 iters. size(38,38)
+remove_sink_source_node: 2 iters. size(33,33)
+remove_sink_source_node: 3 iters. size(31,31)
+warn: M_adj is not full rank (28 of 31)
+max eigenvalue = 1+0i
+Elapsed time is 0.005500 seconds.
+>> run('/a/brax/home/hitoshi/project/shitohichi-tools/graphfetcher/pagerank/test_pagerank_en_de_0.m')
+remove_sink_source_node: 1 iters. size(96,96)
+remove_sink_source_node: 2 iters. size(89,89)
+remove_sink_source_node: 3 iters. size(88,88)
+remove_sink_source_node: 4 iters. size(87,87)
+warn: M_adj is not full rank (77 of 87)
+max eigenvalue = 1+0i
+Elapsed time is 0.016452 seconds.
+>> run('/a/brax/home/hitoshi/project/shitohichi-tools/graphfetcher/pagerank/test_pagerank_en_en_0.m')
+remove_sink_source_node: 1 iters. size(1900,1900)
+remove_sink_source_node: 2 iters. size(1825,1825)
+remove_sink_source_node: 3 iters. size(1818,1818)
+warn: M_adj is not full rank (1659 of 1818)
+max eigenvalue = 1+0i
+Elapsed time is 7.763671 seconds.
+>> run('/a/brax/home/hitoshi/project/shitohichi-tools/graphfetcher/pagerank/test_pagerank_en_ja_0.m')
+remove_sink_source_node: 1 iters. size(39,39)
+remove_sink_source_node: 2 iters. size(32,32)
+remove_sink_source_node: 3 iters. size(29,29)
+warn: M_adj is not full rank (25 of 29)
+max eigenvalue = 1+0i
+Elapsed time is 0.005414 seconds.
+>> run('/a/brax/home/hitoshi/project/shitohichi-tools/graphfetcher/pagerank/test_pagerank_ja_de_0.m')
+remove_sink_source_node: 1 iters. size(151,151)
+remove_sink_source_node: 2 iters. size(126,126)
+remove_sink_source_node: 3 iters. size(119,119)
+remove_sink_source_node: 4 iters. size(116,116)
+warn: M_adj is not full rank (104 of 116)
+max eigenvalue = 1+0i
+Elapsed time is 0.017453 seconds.
+>> run('/a/brax/home/hitoshi/project/shitohichi-tools/graphfetcher/pagerank/test_pagerank_ja_en_0.m')
+remove_sink_source_node: 1 iters. size(83,83)
+remove_sink_source_node: 2 iters. size(56,56)
+remove_sink_source_node: 3 iters. size(53,53)
+remove_sink_source_node: 4 iters. size(52,52)
+warn: M_adj is not full rank (47 of 52)
+max eigenvalue = 1+0i
+Elapsed time is 0.005631 seconds.
+>> run('/a/brax/home/hitoshi/project/shitohichi-tools/graphfetcher/pagerank/test_pagerank_ja_ja_0.m')
+remove_sink_source_node: 1 iters. size(589,589)
+remove_sink_source_node: 2 iters. size(579,579)
+remove_sink_source_node: 3 iters. size(578,578)
+warn: M_adj is not full rank (522 of 578)
+max eigenvalue = 1+0i
+Elapsed time is 0.496393 seconds.
+>> test_pagerank_ja_ja_2
+remove_sink_source_node: 1 iters. size(635,635)
+remove_sink_source_node: 2 iters. size(627,627)
+warn: M_adj is not full rank (591 of 627)
+max eigenvalue = 1+0i
+Elapsed time is 0.950165 seconds.

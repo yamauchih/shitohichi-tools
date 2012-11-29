@@ -1,0 +1,153 @@
+<!DOCTYPE HTML  PUBLIC  "-//W3C//DTD HTML 4.01//EN">
+<!-- Copyright (C) 2012 By Yamauchi Hitoshi -->
+<html lang="ja">
+<head>
+<title>A mini STL performance Benchmark</title>
+<meta name="GENERATOR" content="User-Agent: yahtml">
+<meta http-equiv="Content-type" content="text/html;charset=utf-8">
+<meta name="Author" content="Yamauchi Hitoshi">
+<link rev="MADE" href="mailto:foo@kein.spam">
+<link rel="Start" href="index.shtml">
+<link rel="Next"  href="index.shtml">
+<link rel="Prev"  href="index.shtml">
+<link rel="Contents" href="index.shtml">
+<link rel="Index" href="index.shtml">
+</head>
+<body>
+<!-- for Tagebuch entry input,  html-yam-input-date  -->
+<!--#config timefmt="%Y/%m/%d (%A)" -->
+
+<hr>
+<h2>A mini STL performance benchmark (ミニ STL 性能ベンチマーク)
+(<a href="stl_performance_benchmark.html">In English</a>)
+</h2>
+
+<h4>実際の開発では Big O 記法のみでは十分でない場合がある．ここでは特定の条件下でのいくつかの STL クラスの性能評価を示す．これがある指標となれば幸いである．斉</h4>
+
+<ul>
+ <li>それぞれの C++ STL (Standard template library) には Big O 記法によってどのような性能が期待されるかの情報がある．しかし実際の実装では時にこの記法に示されない定数項が効いてくる場合がある．もちろんまずはBigO 記法がアルゴリズムを選択する際の最初の良き指針となるが，私は時にこの定数項に驚かされたことがある．(例えば dqueue のrandom access 性能)．<br>
+
+     そこで時々私は小さなプログラムを作って特定の問題，特定の条件下でどのように振る舞うかを調べることがある．性能の定数項の効果は問題と環境に依存するからである．以前はそのようなプログラムを作っては捨てていた．なぜならば，問題と環境に依存するからである．しかしそうであってもこのようなプログラムの性能評価は最初の指針として役に立つことに気がついた．そこで必要に応じで作成したそのようなプログラムを Web のどこかに置いておくことにする．もしあなたがこの結果を使おうという場合には，問題と環境の違いに注意すべきである．そしてあなたの問題に対して調整する必要がある．<strong>ここで示したベンチマークは最初の指針に過ぎないことに注意して欲しい．使い方を誤れば無意味な数値しか出てこないだろう．</strong>全てのソースコードはこのページから入手できる．これらの情報はあなたの知りたい情報を得る助けになることを願う．斉
+</ul>
+
+<hr>
+<h2>ライセンス</h2>
+<p>New BSD License. <a href="http://en.wikipedia.org/wiki/BSD_licenses">
+http://en.wikipedia.org/wiki/BSD_licenses</a></p>
+
+<hr>
+<h2>ベンチマーク結果</h2>
+
+<h3>ベンチマーク環境</h3>
+<ul>
+ <li>CPU: Intel(R) Core(TM) i7-2720QM CPU @ 2.20GHz
+ <li>OS: 3.2.0-29-generic #46-Ubuntu SMP Fri Jul 27 17:03:23 UTC
+     2012 x86_64 x86_64 x86_64 GNU/Linux
+ <li>Compiler: gcc (Ubuntu/Linaro 4.6.3-1ubuntu5) 4.6.3
+ <li>Compiler option: <code>-O6 -DNDEBUG -fomit-frame-pointer
+     -fexpensive-optimizations -fschedule-insns2 -finline-functions
+     -funroll-loops -fPIC -march=native</code>
+ <li>経過時間の測定は <code>gettimeofday()</code> システムコールを用いた.
+     そのコードは <a href="StopWatch.hh">
+     <code>StopWatch.hh</code> である．</a>
+ <li>結果として示されている数値はもちろん環境に依存する．例えば CPU が違えばもちろんかかる時間が異なるのが普通である．最初の指針として利用して欲しい．
+</ul>
+
+<H3>
+<code>std::map</code> 生成とコピー (<code><a
+href="perf_map_copy.cpp">perf_map_copy.cpp</a></code>)
+</H3>
+<p>繰り返しの数 = 100000．結果の経過時間はこの平均を示す．(10万回試してその平均時間を示した．)</p>
+<table border="1">
+ <tr>
+  <td>Key の数</td>
+  <td></td>
+ </tr>
+ <tr>
+  <td>50 keys</td>
+  <td>14 micro seconds (1.4x10<sup>-6</sup> sec)</td>
+ </tr>
+ <tr>
+  <td>100 keys</td>
+  <td>33 micro seconds (3.3x10<sup>-6</sup> sec)</td>
+ </tr>
+</table>
+<p>コメント: 私は数ミリセカンドかかる関数の結果の報告に map を使っている．この計測によって結果の報告のオーバーヘッドは無視できるものとわかった．最初に心配したのは，結果の報告の部分が，実際に必要な計算に対して重大な割合を占めていたらどうしようというものであった．実はこの関数を python のインタープリタに bind して python から 10万回 呼び出してみたが，bind によってもう一度 map (python dict) を作成する時間のオーバーヘッドのみであることがわかった．(ここでは，boost::python 1.48 を使った．)</p>
+
+<H3>
+Median の計算: nth_element() vs sort() (<a
+href="perf_nth_element.cpp"><code>perf_nth_element.cpp</code></a>)
+</H3>
+
+<p>繰り返しの数 = 100000. (それぞれの操作を 100000 回繰り返したものの経過時間を示す．)</p>
+<table border="1">
+ <tr>
+  <td>Array の大きさ(要素数)</td>
+  <td>sort</td>
+  <td>nth_element</td>
+ </tr>
+ <tr>
+  <td>4096</td>
+  <td>4.20 sec</td>
+  <td>1.18 sec</td>
+ </tr>
+ <tr>
+  <td>8192</td>
+  <td>8.98 sec</td>
+  <td>2.30 sec</td>
+ </tr>
+ <tr>
+  <td>16384</td>
+  <td>19.2 sec</td>
+  <td>4.59 sec</td>
+ </tr>
+ <tr>
+  <td>32768</td>
+  <td>40.9 sec</td>
+  <td>9.32 sec</td>
+ </tr>
+ <tr>
+  <td>65536</td>
+  <td>88.1 sec</td>
+  <td>18.7 sec</td>
+ </tr>
+</table>
+<p>コメント: median の値を小さな array に対して求める必要があった．nth_element の実装は予想された通り，sort したものより高速であることが確認された．</p>
+
+<H3>
+<code>set</code> と <code>hash_set</code> の性能比較. (<a
+href="perf_set_hash_set.cpp"><code>perf_set_hash_set.cpp</code></a>)
+</H3>
+<p>繰り返しの数 = 1000000. (百万回の insert を行い，続いて継いで百万回の
+find, そして最後に継いで百万回の remove を行なった．経過時間を示す．</p>
+<table border="1">
+ <tr>
+  <td>Method</td>
+  <td>set</td>
+  <td>hash_set</td>
+ </tr>
+ <tr>
+  <td>insert()</td>
+  <td>7.31 sec</td>
+  <td>922  millisec</td>
+ </tr>
+ <tr>
+  <td>find()</td>
+  <td>4.95 sec</td>
+  <td>255  millisec</td>
+ </tr>
+ <tr>
+  <td>erase()</td>
+  <td>2.12 sec</td>
+  <td>301  millisec</td>
+ </tr>
+</table>
+<p>コメント: コードの入力のシーケンスに注意して欲しい．これらのクラスのメソッドの性能は入力のシーケンスに依存する可能性がある．ここで示したものは連続したシーケンスで人工的である．もし特定のパターンが入力されることがわかっている場合には，その入力でテストするべきである．ここでの結果は set の方が常に遅いことが示されている．しかし，私の好みは遅くても setである．なぜなら，入力が任意の場合，どんな hash 関数でも最悪の振舞いが表れる場合があるためである．たとえ，randomize なものを使うことができても，時に最悪のケースを顧客がみつけて文句を言う場合がある．我々の顧客はそのようなケースをみつけることが上手い．set の性能がクリティカルでない場合，より安定した性能を示す set を使う方が私は多い．驚きが少ないし，hash の最悪のケースを修正することはできても，いつまた顧客が他の最悪のケースをみつけてくるかもしれないからである．同じようなバグが何回も出てくるのは顧客との関係にはあまりよくないことである．</p>
+
+<hr>
+<address>
+Copyright (C) 2012 Yamauchi Hitoshi<BR>
+Most recent update : <!--#echo var="LAST_MODIFIED" --> :
+</address>
+</body>
+</html>
