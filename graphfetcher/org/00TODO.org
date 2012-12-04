@@ -2,29 +2,72 @@
 
 ** Improvements
 
-**** TODO Duplication check and change the Wikipedia
+Add revision numbers
+
+*** TODO Duplication check and change the Wikipedia
+**** TODO de_de (Liste deutschsprachiger Schriftsteller)
+***** DONE Anna_Bernard                  ... Fixed 2012-12-2(Sun)
+***** DONE Albrecht_von_Eyb in Al and Ev ... Did not fixed. There are other Albrecht in Al entries
+***** DONE Günter_Görlich                ... Fixed 2012-12-3(Mon)
+***** DONE Guido_Görres                  ... Fixed 2012-12-3(Mon)
+***** DONE Bess_Brenck-Kalischer         ... Did not fixed. not clear Brenck or Kalischer.
+***** DONE Gorch_Fock_(Schriftsteller)   ... Pseudonym Johann Wilhelm Kinau
+***** DONE Helene_Luise_Köppel           ... Has been fixed
+***** DONE Horst_Bosetzky                ... Pseudonym of -ky
+***** DONE Christine_Lehmann             ... Fixed 2012-12-5(Wed)
+***** DONE Konrad_Merz                   ... Link fom Kurt Lehmann, urspr. Name von Konrad Merz
+***** DONE Franz_Nissel                  ... Fixed 2012-12-5(Wed)
+***** DONE Dolores_Viesère               ... eigentlich Wilhelmine Maria Aichbichler
+***** DONE Hans_Henning_von_Voigt        ... Pseudonym Alastair
+***** DONE Leontine_von_Winterfeld-Platen... The entry in the P and W. Not clear which should be removed.
+***** DONE Ursula_Wölfel                 ... Fixed 2012-12-5(Wed)
+***** TODO Sophie_Wörishöffer            ... Waiting for the review.
+
+**** DONE en_de (Liste britischer Schriftsteller)
+***** DONE George_Mackay_Brown  ... Fixed 2012-12-3(Mon)
+***** DONE William_Sharp ... One of the display name is Fiona Macleod, which is his Pseudonym, so this is correct.
+
+**** DONE ja_de (Liste japanischer Schriftsteller)
+***** DONE Isozaki_Kenichirō        ... Fixed 2012-12-3(Mon)
+***** DONE Shimaki_Kensaku          ... Fixed 2012-12-3(Mon)
+***** DONE Henjō                    ... synonym Yoshimine no Munesada
+***** DONE Sechs_beste_Waka-Dichter ... synonym Rokkasen
+
+**** TODO en_en duplication (List of English writers)
+***** DONE Noël_Coward
+***** DONE Pierce_Egan              ... 2012-12-2(Sun)
+***** TODO Douglas_William_Jerrold
+***** TODO Jane_Marcet
+***** TODO Henry_Peacham
+***** TODO Adelaide_Anne_Procter
+***** TODO Mary_Sidney
+***** TODO Lisa_St_Aubin_de_Terán
+***** TODO Anne_Isabella_Thackeray_Ritchie
+***** TODO William_Wycherley
+
+**** DONE ja_en (List of Japanese writers)
+***** DONE Kikuchi_Kan ... Fixed 2012-12-2(Sun)
+
+**** DONE en_ja (イギリスの小説家一覧)
+***** DONE トーマス・ハーディ ... Fixed 2012-12-3(Mon)
+
+**** DONE ja_ja (日本の小説家一覧)
+***** DONE 色川武大 ... 阿佐田哲也のペンネームあり．正しい
+***** DONE 赤瀬川原平 ... 尾辻克彦 のペンネームあり．正しい
+***** DONE 長谷川海太郎 ... 林不忘,牧逸馬,谷譲次のペンネームあり．正しい
+
+
 **** TODO Yoshino_Hideo の Wiki に間違いがある．Ryōkan が Ryokan になっている．多くの Wiki Page がそうらしい．Link が切れている
-
-*** TODO Remapper
-**** TODO Result header should be AuthorRankVector
-
-*** TODO CrossRank tool
-**** TODO preprocess the input file with gawk '{print $1}'
 
 ** TODO Blog contents
 *** TODO sink and source の話を書く
 *** TODO Impact factor で page rank を使っているものを探して mention
 
-*** TODO Japanese result -> Latin charactor. later
-
-
-*** TODO English wikipedia update ... sent email.
-
+*** TODO Japanese result -> Latin charactor map. later
 
 *** TODO Tips
 **** Emacs (prefer-coding-system 'utf-8)
 **** python re umlaut replace
-
 
 *** TODO French (Daniel L.)
 *** TODO Romanian (Adriana)
@@ -37,6 +80,3 @@ about creativity, family relationships, your career, or having a sense
 of humour. Pick two or three of these values and write a few sentences
 about why they are important to you. You have fifteen minutes. It
 could change your life.
-
-
-

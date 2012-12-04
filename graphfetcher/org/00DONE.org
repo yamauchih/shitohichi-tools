@@ -63,5 +63,5 @@
 *** DONE remap the utf-8 data
 *** DONE save the pageranked data
 *** DONE baseline check
-
-
+*** DONE Result header should be AuthorRankVector
+*** DONE preprocess the input file with gawk '{print $1}'
