@@ -33,17 +33,17 @@ Add revision numbers
 ***** DONE Henjè´◊                    ... synonym Yoshimine no Munesada
 ***** DONE Sechs_beste_Waka-Dichter ... synonym Rokkasen
 
-**** TODO en_en duplication (List of English writers)
+**** DONE en_en duplication (List of English writers)
 ***** DONE Noè´≥l_Coward
-***** DONE Pierce_Egan              ... 2012-12-2(Sun)
-***** TODO Douglas_William_Jerrold
-***** TODO Jane_Marcet
-***** TODO Henry_Peacham
-***** TODO Adelaide_Anne_Procter
-***** TODO Mary_Sidney
-***** TODO Lisa_St_Aubin_de_Terè´°n
-***** TODO Anne_Isabella_Thackeray_Ritchie
-***** TODO William_Wycherley
+***** DONE Pierce_Egan              ... Fixed 2012-12-2(Sun)
+***** DONE Douglas_William_Jerrold  ... Fixed 2012-12-6(Thu)
+***** DONE Jane_Marcet              ... Already fixed
+***** DONE Henry_Peacham            ... Two people shared one entry
+***** DONE Adelaide_Anne_Procter    ... Already fixed
+***** DONE Mary_Sidney              ... synonym Mary Herbert
+***** DONE Lisa_St_Aubin_de_Terè´°n   ... in D and T entry. I don't know which is correct.
+***** DONE Anne_Isabella_Thackeray_Ritchie ... in R and T entry.
+***** DONE William_Wycherley        ... Fixed 2012-12-6(Thu)
 
 **** DONE ja_en (List of Japanese writers)
 ***** DONE Kikuchi_Kan ... Fixed 2012-12-2(Sun)
