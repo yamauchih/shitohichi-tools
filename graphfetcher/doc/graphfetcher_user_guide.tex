@@ -1,0 +1,169 @@
+%
+% Copyright (C) 2013 Yamauchi Hitoshi
+%
+%defparentheses	【 】
+%defswap	|
+%defdelete	/
+%defcomment	;
+%defescape
+%deforder	older-first
+%defversion	0.9.5-current
+%%% Local Variables:
+%%% coding: euc-japan
+%%% End:
+
+%--- begin for platexj
+% \documentclass[a4paper]{article}
+%--- end for platex
+%--- begin for latex
+\documentclass[12pt]{scrartcl}
+\usepackage{CJK}
+%--- end for latex
+
+%\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage{a4wide}
+\usepackage{graphicx}
+\usepackage{cite}
+\usepackage{color}
+\usepackage{blkarray}
+%\usepackage{authblk}
+%\usepackage{footmisc}
+% \usepackage{hyperref} % Unfortunately, this does not work with CJK
+% \usepackage[ngerman, american]{babel}
+\usepackage[american]{babel}
+\graphicspath{{./fig/}}
+% \href{URL}{text}
+
+\sloppy
+
+%%--- begin for latex
+%% latex には kanjiskip がない．kanjiskip は platex の拡張
+\newlength{\kanjiskip}
+\setlength{\kanjiskip}{0pt}
+%%--- end for latex
+%%----------------------------------------------------------------------
+%% Ruby  Hitoshi Yamauchi
+%%
+\def\ruby#1#2{%
+    \leavevmode
+    \setbox0=\hbox{#1}\setbox1=\hbox{\tiny#2}%
+    \ifdim\wd0>\wd1 \dimen0=\wd0 \else \dimen0=\wd1 \fi
+    \hbox{\kanjiskip=\fill
+        \vbox{\hbox to \dimen0{\tiny \hfil#2\hfil}%
+        \nointerlineskip
+        \hbox to \dimen0{\hfil#1\hfil}}}}
+%%----------------------------------------------------------------------
+% math vector
+\def\vec#1{\mbox{\boldmath {$#1$}} }
+
+\begin{document}
+
+%--- begin for latex
+\begin{CJK*}[dnp]{JIS}{min}
+%--- end for latex
+
+\title{Graphfetcher user guide}
+\date{2013-1-20(Sun)}
+
+\author{Hitoshi Yamauchi}
+
+%\twocolumn[]
+\maketitle
+\tableofcontents
+
+%\begin{multicols}{2}
+
+%\begin{abstract}
+\paragraph{Abstract}
+This is a user guide of graphfetcher tools. graphfetcher tools is for
+analyze a Wiki's graph structure and compute the rank of the web pages
+by eigenanalysis (also known as Google PageRank). I use this tool for a
+computational research project. Though, it can be used any area that is
+written in Wikipedia, e.g., ranking of the musician, ranking of
+politician, and so on.
+%\end{abstract}
+
+\section{Introduction}
+
+One of my friends who studies literature asked me how I would analyze
+the relationships between authors. For instance, ``How can we measure
+the influence of Shakespeare in English literature compared to other
+writers?''
+
+This question inspired me to develop these tools. The detail of the
+story is published as an article ``Authors in a Markov matrix: Which
+author do people find most inspiring?''~\cite{bib:wikianalysis}.
+
+You can find the following tools.
+\begin{itemize}
+ \item \verb|Link_Vector_Extractor|: Generate the author vector from the
+       data.
+ \item \verb|Graph_Extractor|: Generate the adjacency matrix from the
+       data and the author vector.
+ \item \verb|Page_Rank|: Compute page rank.
+ \item \verb|Remapper|: Re-map the author vector according to the page
+       rank result.
+\end{itemize}
+These tools are developed and tested on a notebook computer, CPU:
+Intel(R) Core(TM) DUO CPU P8400, 2 Cores, OS: 64bit Linux 3.2.0.32,
+Kubuntu 12.04. The programming environment is: Python 2.7.3, Beautiful
+Soup 4.0.2, matlab R2006a, octave 3.2.4.
+
+\section{A step by step example}
+
+I visited Pisa to join my friend's wedding. I told this project and then
+he requested me to show the Italian writer's rank in the sense of
+Wikipedia graph structure. Here I will show you an example using Italian
+writes.
+
+\subsection{Download the writes pages}
+
+I first need download the writer Wiki pages. I can do it manually, but,
+I am lazy, so I will do it automatically as possible. I found a list of
+Italian author Wekipage,
+\verb|http://en.wikipedia.org/wiki/| \verb|List_of_Italian_writers|, so
+I use this as the root page for the download.
+
+\begin{verbatim}
+% cd graphfetcher
+% mkdir -p data/italian_writer
+% cd data/italian_writer
+% cp ../english_writer/ wget_download_en_wiki_en_writer.sh \
+  wget_download_en_wiki_de_writer.sh
+\end{verbatim}
+Then edit the \verb|wget_download_en_wiki_de_writer.sh| to change the
+Italian writers list and run the program.
+
+\subsection{Getting the author vector}
+
+To get a graph, we first need the author vector. To extract this vector,
+we use the vectorextractor tool. One easy way is reuse one of the
+\verb|test_linkvectorextractor_*.py| file.
+\begin{verbatim}
+% cd ../graphextractor
+% cp test_linkvectorextractor_en_en_0.py test_linkvectorextractor_it_en_0.py
+\end{verbatim}
+
+These files are also unit tests. There is a baseline file comparison
+test in the test methods: \verb|test_linkvectorextractor_ascii|,
+\verb|test_linkvectorextractor_utf8|. For the first time, you should
+disable these comparison test functions, otherwise you will get test
+failed errors.
+
+\subsection{Getting the adjacency matrix}
+
+
+
+
+% \(M_c: A \mapsto C\)
+
+\bibliographystyle{plain}
+\bibliography{bib}
+
+%\end{multicols}
+%--- begin for latex
+\end{CJK*}
+%--- end for latex
+
+\end{document}
