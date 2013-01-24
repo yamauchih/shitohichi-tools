@@ -2,7 +2,7 @@
 #
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2010-2012 Hitoshi Yamauchi
+# Copyright (C) 2010-2013 Hitoshi Yamauchi
 #
 """ifgi logger
 \file

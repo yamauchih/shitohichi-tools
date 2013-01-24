@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2012 Yamauchi, Hitoshi
+# Copyright (C) 2012-2013 Yamauchi, Hitoshi
 #
 # FileVectorExtractor test for English wiki of English writers
 #

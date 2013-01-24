@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Run all the tests
-# Copyright (C) 2012 Yamauchi, Hitoshi
+# Copyright (C) 2012-2013 Yamauchi, Hitoshi
 # For Rebecca from Hitoshi the fool
 #
 
@@ -31,6 +31,7 @@ test_linkvectorextractor_de_ja_0.py		\
 test_linkvectorextractor_ja_en_0.py		\
 test_linkvectorextractor_ja_de_0.py		\
 test_linkvectorextractor_ja_ja_0.py		\
+test_linkvectorextractor_italian_en_0.py	\
 "
 
 for tpy in ${TEST_PY}
