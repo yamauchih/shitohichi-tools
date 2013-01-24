@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2012 Yamauchi, Hitoshi
+# Copyright (C) 2012-2013 Yamauchi, Hitoshi
 #
 # LinkVectorExtractor test: ja_ja (English Writer, English Wiki)
 #

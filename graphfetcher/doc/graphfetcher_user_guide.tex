@@ -141,8 +141,8 @@ To get a graph, we first need the author vector. To extract this vector,
 we use the vectorextractor tool. One easy way is reuse one of the
 \verb|test_linkvectorextractor_*.py| file.
 \begin{verbatim}
-% cd ../graphextractor
-% cp test_linkvectorextractor_en_en_0.py test_linkvectorextractor_it_en_0.py
+% cd ../vectorextractor
+% cp test_linkvectorextractor_en_en_0.py test_linkvectorextractor_italian_en_0.py
 \end{verbatim}
 
 These files are also unit tests. There is a baseline file comparison
@@ -152,6 +152,33 @@ disable these comparison test functions, otherwise you will get test
 failed errors.
 
 \subsection{Getting the adjacency matrix}
+
+From the author vector and all the wiki pages, we can analyze the link
+structure for each authors. We generate an adjacency matrix as a
+result. We use graphextractor to get the matrix. Same as the
+vectorextractor, it is easy to copy the one of graphextractor test and
+modify it.
+\begin{verbatim}
+% cd ../graphextractor
+% cp test_graphextractor_en_en_0.py test_graphextractor_italy_en_0.py
+\end{verbatim}
+
+The default options are very silent. You can find the option settings in
+the v\verb|test_graphextractor_italy_en_0.py| file, search
+\verb|opt_dict| definition.  If you want to know what is processed,
+change the following parameters:
+\begin{itemize}
+ \item \verb|'log_level'|: 3
+ \item \verb|'is_print_connectivity'|: True
+\end{itemize}
+This settings reports the analysis result of each page's link structure.
+This program is also a unit test program. Therefore, the result
+comparison is performed. For the first time run, there is no baseline,
+so you will see the error in that case.
+
+\subsection{Compute the Eigenvector}
+
+
 
 
 
