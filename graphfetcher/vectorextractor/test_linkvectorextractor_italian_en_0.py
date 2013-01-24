@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2012 Yamauchi, Hitoshi
+# Copyright (C) 2012-2013 Yamauchi, Hitoshi
 #
-# LinkVectorExtractor test: it_en (Italian Writer, English Wiki)
+# LinkVectorExtractor test: italian_en (Italian Writer, English Wiki)
 #
 """
 \file
-\brief LinkVectorExtractor test: it_en (Italian Writer, English Wiki)
+\brief LinkVectorExtractor test: italian_en (Italian Writer, English Wiki)
 """
 
 import os
@@ -19,21 +19,29 @@ class TestLinkVectorExtractor(unittest.TestCase):
 
     def linkvectorextractor(self, _opt_dict):
         """test generate URL list by List of Italian writers from
-        Deutsche wiki (it_de).  The export encoding option 'ascii'
+        Deutsche wiki (italian_de).  The export encoding option 'ascii'
         gives you matlab readable author vector.
         """
-        # print u'# Need LC_ALL setting to utf-8, e.g., en_US.utf-8, ja_JP.utf-8.'
-        graphfetcherdir = u'/home/hitoshi/data/project/shitohichi-tools/graphfetcher/'
-
-        input_rpath       = u'data/italian_writer/en.wikipedia.org/wiki/'
+        # basic configuration
+        data_lang         = u'italian'
+        wiki_lang         = u'en'
         author_root_fname = u'List_of_Italian_writers'
+
+        #
+        # directory set up
+        #
+        # print u'# Need LC_ALL setting to utf-8, e.g., en_US.utf-8, ja_JP.utf-8.'
+        graphfetcherdir   = u'/home/hitoshi/data/project/shitohichi-tools/graphfetcher/'
+
+        data_dir          = u'data/' + data_lang + u'_writer/'
+        input_rpath       = data_dir + wiki_lang + u'.wikipedia.org/wiki/'
 
         indir = os.path.join(graphfetcherdir, input_rpath)
         input_fullpath = os.path.join(indir, author_root_fname)
         root_url    = u'file:///' + input_fullpath
 
-        output_rpath         = u'data/italian_writer/en.wikipedia.org/'
-        output_list_basename = u'it_en_writer'
+        output_rpath         = data_dir + wiki_lang + u'.wikipedia.org/'
+        output_list_basename = data_lang + '_' + wiki_lang + u'_writer'
         outdir = os.path.join(graphfetcherdir, output_rpath)
 
         print
