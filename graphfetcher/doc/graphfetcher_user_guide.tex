@@ -215,6 +215,17 @@ author names.
 
 Please see \verb|test_remapper_0.py|.
 
+\section{Tips}
+
+\begin{itemize}
+ \item If you see UnicodeEncodeError (e.g. UnicodeEncodeError: 'ascii'
+       codec can't encode character u'\textbackslash{}xf2' in position
+       *: ordinal not in range(*)), set utf-8 environment. For instance,
+       environment variable, \verb|export LC_ALL=en_US.utf-8| in bash.
+       You usually should be able to read the utf-8 file name in your
+       terminal.
+\end{itemize}
+
 
 \section{Conclusion}
 

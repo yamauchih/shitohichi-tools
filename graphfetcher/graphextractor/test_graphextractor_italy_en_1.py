@@ -24,6 +24,7 @@ class TestGraphExtractor(unittest.TestCase):
         data_lang         = u'italian'
         wiki_lang         = u'en'
         author_root_fname = u'List_of_Italian_writers'
+        is_remove_navbox  = True
 
         #
         # directory set up
@@ -35,7 +36,11 @@ class TestGraphExtractor(unittest.TestCase):
         input_rpath        = data_dir + wiki_lang + u'.wikipedia.org/'
         output_rpath       = data_dir + wiki_lang + u'.wikipedia.org/'
         input_vector_fname = data_lang + '_' + wiki_lang + u'_writer.utf-8.vector'
-        output_madj_fname  = data_lang + '_' + wiki_lang + u'_writer_adj_mat.m'
+        navbox = u''
+        if (is_remove_navbox == True):
+            navbox = u'_no_navbox'
+
+        output_madj_fname  = data_lang + '_' + wiki_lang + navbox + u'_writer_adj_mat.m'
 
         input_html_dir     = graphfetcherdir + input_rpath  + 'wiki/'
         input_vector_fpath = graphfetcherdir + input_rpath  + input_vector_fname
@@ -65,8 +70,8 @@ class TestGraphExtractor(unittest.TestCase):
             # Output matrix type ['python', 'matlab']
             'output_matrix_type': 'matlab',
             # do you want to remove the navbox entries?
-            # Note: This is the main difference with test_graphextractor_italy_en_1.py
-            'is_remove_navbox': False
+            # Note: This is the main difference with test_graphextractor_italy_en_0.py
+            'is_remove_navbox': is_remove_navbox
             }
 
         tracelist = []
