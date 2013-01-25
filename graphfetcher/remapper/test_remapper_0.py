@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2012 Yamauchi, Hitoshi
+# Copyright (C) 2012-2013 Yamauchi, Hitoshi
 # For Rebecca from Hitoshi the fool
 #
 # Remapper test
@@ -43,7 +43,7 @@ class TestRemapper(unittest.TestCase):
         # options
         opt_dict = {
             # log level: int. 0 ... error, 1 ... info, 2 ... debug
-            'log_level': 0,
+            'log_level': 3,
             # enable stdout utf8 codec
             'is_enable_stdout_utf8_codec': False,
             }
@@ -64,7 +64,7 @@ class TestRemapper(unittest.TestCase):
             self.assertTrue(False)
 
 
-    def test_remapper(self):
+    def test_remapper_all(self):
         """test remapper all language, all wiki."""
 
         data_prefix_list = [
@@ -80,9 +80,16 @@ class TestRemapper(unittest.TestCase):
             u'ja_ja_with_navbox'
             ]
 
+        data_prefix_list = []
+
         for i in data_prefix_list:
             print 'testing [' + i + ']... passed.'
             self.remapper_sub(i)
+
+    def test_remapper_one(self):
+        """test one remapper."""
+
+        self.remapper_sub(u'italian_en')
 
 
 #
