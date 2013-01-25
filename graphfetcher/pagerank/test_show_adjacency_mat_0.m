@@ -16,6 +16,8 @@ madj_list = {
     @ja_de_writer_adj_mat
     @ja_ja_writer_adj_mat
     @ja_ja_writer_adj_mat_with_navbox
+
+    @italian_en_writer_adj_mat
 };
 title_list = {
     'German author adjacency matrix in en.wikipedia.org'
@@ -30,6 +32,8 @@ title_list = {
     'Japanese author adjacency matrix in de.wikipedia.org'
     'Japanese author adjacency matrix in ja.wikipedia.org'
     'Japanese author adjacency matrix (with navbox) in ja.wikipedia.org'
+
+    'Italian author adjacency matrix in en.wikipedia.org'
     };
 save_fbase_list = {
     'de_en_madj'
@@ -44,10 +48,12 @@ save_fbase_list = {
     'ja_de_madj'
     'ja_ja_madj'
     'ja_ja_madj_with_navbox'
+
+    'italian_en_madj_with_navbox'
     };
      
-for i = 1:length(madj_list)
-%for i = 1:1
+% for i = 1:length(madj_list)
+for i = 11:11
     save_one_figure(madj_list{i}, title_list{i}, save_fbase_list{i});
 end
 
