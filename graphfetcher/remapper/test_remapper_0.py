@@ -17,7 +17,7 @@ import os, unittest, filecmp
 class TestRemapper(unittest.TestCase):
     """test: Remapper test."""
 
-    def remapper_sub(self,  _data_prefix):
+    def remapper_sub(self,  _data_prefix, _opt_dict):
         """test remapper subroutine.
         \param[in] _data_prefix data prefix. e.g., en_de, ja_ja, ...
         """
@@ -31,7 +31,10 @@ class TestRemapper(unittest.TestCase):
         out_save_rpath     = graphfetcherdir + u'remapper/'
 
         # fname is only the file name
-        in_vector_fname    = _data_prefix + u'_writer.utf-8.vector'
+        if ('vecname_prefix' in  _opt_dict):
+            in_vector_fname = _opt_dict['vecname_prefix'] + u'_writer.utf-8.vector'
+        else:
+            in_vector_fname = _data_prefix + u'_writer.utf-8.vector'
         in_rankdata_fname  = _data_prefix + u'_writer.pagerank.data'
         out_save_fname     = _data_prefix + u'_writer_author_rank.vector'
 
@@ -68,28 +71,29 @@ class TestRemapper(unittest.TestCase):
         """test remapper all language, all wiki."""
 
         data_prefix_list = [
-            u'de_de',
-            u'de_en',
-            u'de_ja',
-            u'en_de',
-            u'en_en',
-            u'en_ja',
-            u'ja_de',
-            u'ja_en',
-            u'ja_ja',
-            u'ja_ja_with_navbox'
+            {'de_de': {}},
+            {'de_en': {}},
+            {'de_ja': {}},
+            {'en_de': {}},
+            {'en_en': {}},
+            {'en_ja': {}},
+            {'ja_de': {}},
+            {'ja_en': {}},
+            {'ja_ja': {}},
+            {'ja_ja_with_navbox': {}},
+            {'italian_en': {}},
+            {'italian_en_no_navbox': { 'vecname_prefix': 'italian_en'}}
             ]
 
-        data_prefix_list = []
-
         for i in data_prefix_list:
-            print 'testing [' + i + ']... passed.'
-            self.remapper_sub(i)
+            key = i.keys()[0]
+            print 'testing [' + key + ']... passed.'
+            self.remapper_sub(key, i[key])
 
     def test_remapper_one(self):
         """test one remapper."""
-
-        self.remapper_sub(u'italian_en')
+        pass
+        # self.remapper_sub(u'italian_en_no_navbox', { 'vecname_prefix': 'italian_en'})
 
 
 #
