@@ -62,7 +62,7 @@ class TestGraphExtractor(unittest.TestCase):
             # When the entry is UTF8 and conversion failed, try set this.
             'is_enable_stdout_utf8_codec': False,
             # When output the dot (graphviz) file, set non empty file name (e.g., a.dot)
-            'dot_file_name': data_lang + '_' + wiki_lang + '_writer_adj_mat.dot',
+            'dot_file_name': data_lang + '_' + wiki_lang + navbox + '_writer_adj_mat.dot',
             # When True, generate annotated html file
             'is_generate_annotated_html': False,
             # When True, remove self link

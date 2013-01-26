@@ -133,7 +133,15 @@ use this as the root page for the download.
   wget_download_en_wiki_de_writer.sh
 \end{verbatim}
 I edit the \verb|wget_download_en_wiki_de_writer.sh| to change the list
-and run the program.
+and run the program. After download the pages, please create an output
+directory, \verb|wiki_out| at the downloaded directory. For instance, if
+you are at \verb|graphfetcher/data/italian_writer|, and English wiki
+pages are downloaded, you have \texttt{en.wikipedia.org} directory,
+\begin{verbatim}
+% mkdir -p en.wikipedia.org/wiki_out
+  # path: graphfetcher/data/italian_writer/en.wikipedia.org/wiki_out
+\end{verbatim}
+
 
 \subsection{Getting the author vector}
 
