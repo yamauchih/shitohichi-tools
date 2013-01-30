@@ -1,0 +1,190 @@
+<!DOCTYPE HTML  PUBLIC  "-//W3C//DTD HTML 4.01//EN">
+<!-- Copyright (C) 2012 By Yamauchi Hitoshi -->
+<html lang="en">
+<head>
+<title>A mini STL performance Benchmark</title>
+<meta name="GENERATOR" content="User-Agent: yahtml">
+<meta http-equiv="Content-type" content="text/html;charset=ISO-8859-1">
+<meta name="Author" content="Yamauchi Hitoshi">
+<link rev="MADE" href="mailto:foo@kein.spam">
+<link rel="Start" href="index.shtml">
+<link rel="Next"  href="index.shtml">
+<link rel="Prev"  href="index.shtml">
+<link rel="Contents" href="index.shtml">
+<link rel="Index" href="index.shtml">
+</head>
+<body>
+<!-- for Tagebuch entry input,  html-yam-input-date  -->
+<!--#config timefmt="%Y/%m/%d (%A)" -->
+
+<hr>
+<h2>A mini STL performance benchmark (<a
+href="stl_performance_benchmark_j.html">Nihongo, In Japanese</a>)</h2>
+<h4>Sometimes a measured STL performance is needed in addition to big O
+ notation information. This page has a few of such result. I hope this
+ is a good starting point. Hitoshi</h4>
+
+<ul>
+ <li>Each class of C++ STL (Standard template library) has big O
+     notation for the performance indicator, but the real implementation
+     sometimes affected by the invisible constant factor.  Still big O
+     notation helps when we choose the algorithm a lot, I was sometimes
+     surprised how large this constant factor (e.g., random access
+     performance of dqueue).<br>
+
+     Therefore I sometimes measured some code performance under a
+     specific environment and a specific circumstances. The effect of
+     constant factor is depends on problem size and environment. Before,
+     I just made such programs and trash them. However, even its depends
+     on the problem and environment, I found those results are useful
+     and put this to somewhere on the Web space. If you want to use
+     this, you need to compare your problem and environment, and adjust,
+     or re-measure the performance when you needed.
+     <strong>This benchmark is just a starting point. If you didn't
+     aware the difference between your problem and this code, this only
+     generate garbage.  </strong> Although, I hope this measurement
+     shown here would be useful to start with. All the source code are
+     also available in this page for your adjustment. Hitoshi
+</ul>
+
+<hr>
+<h2>License</h2>
+<p>New BSD License. <a href="http://en.wikipedia.org/wiki/BSD_licenses">
+http://en.wikipedia.org/wiki/BSD_licenses</a></p>
+
+<hr>
+<h2>Benchmark result</h2>
+
+<h3>Environment</h3>
+<ul>
+ <li>CPU: Intel(R) Core(TM) i7-2720QM CPU @ 2.20GHz
+ <li>OS: 3.2.0-29-generic #46-Ubuntu SMP Fri Jul 27 17:03:23 UTC
+     2012 x86_64 x86_64 x86_64 GNU/Linux
+ <li>Compiler: gcc (Ubuntu/Linaro 4.6.3-1ubuntu5) 4.6.3
+ <li>Compiler option: <code>-O6 -DNDEBUG -fomit-frame-pointer
+     -fexpensive-optimizations -fschedule-insns2 -finline-functions
+     -funroll-loops -fPIC -march=native</code>
+ <li>Elapsed time is measured by <code>gettimeofday()</code> system
+     call. The source code is <a href="StopWatch.hh">
+     <code>StopWatch.hh</code></a>
+ <li>The resulting numbers may of course differ depends on various
+     reasons. For instance, if your CPU is faster, the result may
+     differ. These are just indicators.
+</ul>
+
+<H3>
+<code>std::map</code> creation and copy (<code><a
+href="perf_map_copy.cpp">perf_map_copy.cpp</a></code>)
+</H3>
+<p>Number of iterations = 100000 and averaged elapsed times are shown.</p>
+<table border="1">
+ <tr>
+  <td>Key size</td>
+  <td></td>
+ </tr>
+ <tr>
+  <td>50 keys</td>
+  <td>14 micro seconds (1.4x10<sup>-6</sup> sec)</td>
+ </tr>
+ <tr>
+  <td>100 keys</td>
+  <td>33 micro seconds (3.3x10<sup>-6</sup> sec)</td>
+ </tr>
+</table>
+<p>Comment: I have a function that consumes a few millisecond. I use
+std::map to report the resulting status. Now I know the status report
+doesn't cost too much. I was afraid this copy took most of the time. I
+also bind this creation and copy to boost::python. The overhead is one
+more copy and creation to get information to python interpreter. (boost
+1.48)</p>
+
+<H3>
+Median computation: nth_element() vs sort() (<a
+href="perf_nth_element.cpp"><code>perf_nth_element.cpp</code></a>)
+</H3>
+<p>
+Number of iterations = 100000. (each operation is performed 100000 times
+the elapsed times are shown.)</p>
+<table border="1">
+ <tr>
+  <td>Array size</td>
+  <td>sort</td>
+  <td>nth_element</td>
+ </tr>
+ <tr>
+  <td>4096</td>
+  <td>4.20 sec</td>
+  <td>1.18 sec</td>
+ </tr>
+ <tr>
+  <td>8192</td>
+  <td>8.98 sec</td>
+  <td>2.30 sec</td>
+ </tr>
+ <tr>
+  <td>16384</td>
+  <td>19.2 sec</td>
+  <td>4.59 sec</td>
+ </tr>
+ <tr>
+  <td>32768</td>
+  <td>40.9 sec</td>
+  <td>9.32 sec</td>
+ </tr>
+ <tr>
+  <td>65536</td>
+  <td>88.1 sec</td>
+  <td>18.7 sec</td>
+ </tr>
+</table>
+<p>Comment: I need to compute median for a rather small array. The
+nth_element is faster as expected.</p>
+
+<H3>
+Performance comparison between <code>set</code> and
+<code>hash_set</code>. (<a
+href="perf_set_hash_set.cpp"><code>perf_set_hash_set.cpp</code></a>)
+</H3>
+<p>Number of items = 1000000. (One million insertion, then one million find
+test, then remove test.) The elapsed times are shown.</p>
+<table border="1">
+ <tr>
+  <td>Method</td>
+  <td>set</td>
+  <td>hash_set</td>
+ </tr>
+ <tr>
+  <td>insert()</td>
+  <td>7.31 sec</td>
+  <td>922  millisec</td>
+ </tr>
+ <tr>
+  <td>find()</td>
+  <td>4.95 sec</td>
+  <td>255  millisec</td>
+ </tr>
+ <tr>
+  <td>erase()</td>
+  <td>2.12 sec</td>
+  <td>301  millisec</td>
+ </tr>
+</table>
+<p>Comment: If you see the input sequence in the code, it is just a
+continuous sequence. This is quite artificial sequence. You should test
+on your typical input sequence. My preference is set() although all the
+result is slower than hash_set. Since you can fool any hash function and
+you can find quite pathetic case, even randomized method. Instead of
+that, set has less surprise. Actually, our customer is good at to find
+the pathetic case. We can fix somehow the pathetic case of hash
+function, but, we don't know our customer could find another unexpected
+pathetic case. If our software has a similar bug many times, then, our
+relationship between customer becomes worse.</p>
+
+
+<hr>
+<address>
+Copyright (C) 2012 Hitoshi Yamauchi<BR>
+Most recent update : <!--#echo var="LAST_MODIFIED" --> :
+</address>
+</body>
+</html>

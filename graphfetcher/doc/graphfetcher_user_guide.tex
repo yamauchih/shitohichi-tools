@@ -1,0 +1,255 @@
+%
+% Copyright (C) 2013 Yamauchi Hitoshi
+%
+%defparentheses	【 】
+%defswap	|
+%defdelete	/
+%defcomment	;
+%defescape
+%deforder	older-first
+%defversion	0.9.5-current
+%%% Local Variables:
+%%% coding: euc-japan
+%%% End:
+
+%--- begin for platexj
+% \documentclass[a4paper]{article}
+%--- end for platex
+%--- begin for latex
+\documentclass[12pt]{scrartcl}
+\usepackage{CJK}
+%--- end for latex
+
+%\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage{a4wide}
+\usepackage{graphicx}
+\usepackage{cite}
+\usepackage{color}
+\usepackage{blkarray}
+%\usepackage{authblk}
+%\usepackage{footmisc}
+% \usepackage{hyperref} % Unfortunately, this does not work with CJK
+% \usepackage[ngerman, american]{babel}
+\usepackage[american]{babel}
+\graphicspath{{./fig/}}
+% \href{URL}{text}
+
+\sloppy
+
+%%--- begin for latex
+%% latex には kanjiskip がない．kanjiskip は platex の拡張
+\newlength{\kanjiskip}
+\setlength{\kanjiskip}{0pt}
+%%--- end for latex
+%%----------------------------------------------------------------------
+%% Ruby  Hitoshi Yamauchi
+%%
+\def\ruby#1#2{%
+    \leavevmode
+    \setbox0=\hbox{#1}\setbox1=\hbox{\tiny#2}%
+    \ifdim\wd0>\wd1 \dimen0=\wd0 \else \dimen0=\wd1 \fi
+    \hbox{\kanjiskip=\fill
+        \vbox{\hbox to \dimen0{\tiny \hfil#2\hfil}%
+        \nointerlineskip
+        \hbox to \dimen0{\hfil#1\hfil}}}}
+%%----------------------------------------------------------------------
+% math vector
+\def\vec#1{\mbox{\boldmath {$#1$}} }
+
+\begin{document}
+
+%--- begin for latex
+\begin{CJK*}[dnp]{JIS}{min}
+%--- end for latex
+
+\title{Graphfetcher user guide}
+\date{2013-1-26(Sat)}
+
+\author{Hitoshi Yamauchi}
+
+%\twocolumn[]
+\maketitle
+% \tableofcontents
+
+%\begin{multicols}{2}
+
+%\begin{abstract}
+\paragraph{Abstract}
+This is a user guide of graphfetcher tools. graphfetcher tools are for
+analyzing a Wiki's graph structure and computing the rank of the web
+pages by eigenanalysis (also known as Google PageRank). I use this tool
+for my computational literature research project. Though, it can be used
+in any area that is written in Wikipedia, e.g., ranking of the musician,
+ranking of politician, and so on.
+%\end{abstract}
+
+\section{Introduction}
+
+One of my friends who studies literature asked me how I would analyze
+the relationships between authors. For instance, ``How can we measure
+the influence of Shakespeare in English literature compared to other
+writers?''
+
+This question inspired me to develop these tools. The detail of the
+story was published as an article ``Authors in a Markov matrix: Which
+author do people find most inspiring?''~\cite{bib:wikianalysis}.
+
+You can find the following tools here.
+\begin{itemize}
+ \item \verb|Link_Vector_Extractor|: Generate the author vector from the
+       data.
+ \item \verb|Graph_Extractor|: Generate the adjacency matrix from: the
+       data and the author vector.
+ \item \verb|Page_Rank|: Compute PageRank.
+ \item \verb|Remapper|: Re-map the author vector according to the
+       PageRank result.
+\end{itemize}
+These tools are developed on a notebook computer, CPU: Intel(R) Core(TM)
+DUO CPU P8400, 2 Cores, OS: 64bit Linux 3.2.0.32, Kubuntu 12.04. The
+programming environment is: Python 2.7.3, Beautiful Soup 4.0.2, matlab
+R2006a, octave 3.2.4.
+
+\section{A step by step example}
+
+% I visited Pisa to join my friend's wedding. I told him this project and
+% then he requested me to show the Italian writer's rank in the sense of
+% Wikipedia graph structure.
+
+Here I will show you an example using the list of Italian writers.
+
+\subsection{Download the writer's pages}
+
+I first need download the writer's Wiki pages. I found a list of Italian
+writer Wekipage,
+\verb|http://en.wikipedia.org/wiki/|\verb|List_of_Italian_writers|. I
+use this as the root page for the download.
+
+\begin{verbatim}
+% cd graphfetcher
+% mkdir -p data/italian_writer
+% cd data/italian_writer
+% cp ../english_writer/ wget_download_en_wiki_en_writer.sh \
+  wget_download_en_wiki_de_writer.sh
+\end{verbatim}
+I edit the \verb|wget_download_en_wiki_de_writer.sh| to change the list
+and run the program. After download the pages, please create an output
+directory, \verb|wiki_out| at the downloaded directory. For instance, if
+you are at \verb|graphfetcher/data/italian_writer|, and English wiki
+pages are downloaded, you have \texttt{en.wikipedia.org} directory,
+\begin{verbatim}
+% mkdir -p en.wikipedia.org/wiki_out
+  # path: graphfetcher/data/italian_writer/en.wikipedia.org/wiki_out
+\end{verbatim}
+
+
+\subsection{Getting the author vector}
+
+First we need an author vector. To extract this vector, we use the
+\texttt{vectorextractor} tool. One easy way is reuse one of the
+\verb|test_linkvectorextractor_*.py| file.
+\begin{verbatim}
+% cd ../vectorextractor
+% cp test_linkvectorextractor_en_en_0.py \
+  test_linkvectorextractor_italian_en_0.py
+\end{verbatim}
+
+These programs are also unit tests. There are baseline file comparison
+test in the test methods: \verb|test_linkvectorextractor_ascii|,
+\verb|test_linkvectorextractor_utf8|. For the first time run, you should
+disable these comparison test, otherwise you will get test failed
+errors.
+
+\subsection{Getting the adjacency matrix}
+
+From the author vector and all the wiki pages, we can analyze the link
+structure for each authors. We generate an adjacency matrix as a
+result. We use \texttt{graphextractor} to get the matrix. Same as the
+\texttt{vectorextractor}, it is easy to copy the one of
+\texttt{graphextractor} test and modify it.
+\begin{verbatim}
+% cd ../graphextractor
+% cp test_graphextractor_en_en_0.py \
+  test_graphextractor_italy_en_0.py
+\end{verbatim}
+
+The default options are silent. You can find the option settings in the
+\verb|test_graphextractor_italy_en_0.py| file, search \verb|opt_dict|
+definition.  If you want to know what is processed, change the following
+parameters:
+\begin{itemize}
+ \item \verb|'log_level'|\texttt{: 3}
+ \item \verb|'is_print_connectivity'|\texttt{: True}
+\end{itemize}
+This settings reports the analysis result of each page's link structure.
+This program is also a unit test program. Therefore, the result
+comparison is performed. For the first time run, there is no baseline,
+so you will see the error in that case.
+
+This tool can also output a dot graph file. But if the vector size is
+more than 100, it may not help to see the structure of the graph.
+
+There are two kinds of graph output in the current code. matlab's sparse
+matrix format and my own format. If you need another format to support,
+you should develop your exporting code.
+
+
+\subsection{Compute the Eigenvector}
+
+\textbf{Note: This needs matlab software.} This is mathematical analysis
+part. I use matlab. Please see the m-file
+\verb|test_pagerank_italian_en_0.m|. You should update the author vector
+file name and adjacent matrix function in the following \texttt{madj}
+line in the m-file.
+\begin{itemize}
+ \item \texttt{madj =} \verb|italian_en_writer_adj_mat();|
+\end{itemize}
+
+There is also a tool to visualize the sparse matrix. See
+\verb|test_show_adjacency_mat_0.m|.
+
+
+\subsection{Remap the result}
+
+My program use the index of the author vector as identifier. Because the
+PageRank algorithm has the sink link removal. The vector size may change
+during the processing. I used the author name as the identifier in my
+first implementation, but, it turned out the matlab's utf-8 support was
+not sufficient for me. A utf-8 string becomes a number array, so you can
+not see the character. Therefore, I switched the identifier to the index
+of the vector. After PageRank is computed, the PageRank values are
+associated with the indices. The remapper re-maps the indices to the
+author names.
+
+Please see \verb|test_remapper_0.py|.
+
+\section{Tips}
+
+\begin{itemize}
+ \item If you see UnicodeEncodeError (e.g. UnicodeEncodeError: 'ascii'
+       codec can't encode character u'\textbackslash{}xf2' in position
+       *: ordinal not in range(*)), set utf-8 environment. For instance,
+       environment variable, \verb|export LC_ALL=en_US.utf-8| in bash.
+       You usually should be able to read the utf-8 file name in your
+       terminal.
+\end{itemize}
+
+
+\section{Conclusion}
+
+I tested in this document with Italian writers on English wikipedia.
+
+
+
+
+% \(M_c: A \mapsto C\)
+
+\bibliographystyle{plain}
+\bibliography{bib}
+
+%\end{multicols}
+%--- begin for latex
+\end{CJK*}
+%--- end for latex
+
+\end{document}

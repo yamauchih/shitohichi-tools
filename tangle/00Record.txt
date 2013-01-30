@@ -1,0 +1,56 @@
+
+2012-2-21(Tue)
+
+Ruediger が Bret Victor の Inventing on Principle のビデオを勧めていた
+のでそれを見てすばらしいと驚く．
+http://www.adafruit.com/blog/2012/03/02/bret-victor-inventing-on-principle/
+
+
+2012-2-23(Thu)
+
+Andy (Nialen) と Ruediger に Bret Victor の Web page,
+LadderOfAbstraction をhttp://worrydream.com/#!/LadderOfAbstraction を紹
+介してもらい，ますます感動する．丁度，normal の transformation が通常の
+transformation でないことを説明する blog を準備しているので，このような
+説明ができないかを考える．
+
+こういう説明をいかに作成するのか知りたいと Andy に尋ねてみるが，現時点
+では道具が揃っているわけではないので，このような web page を作るのはか
+なりの時間が必要だろうということである．
+
+
+2012-2-27(Mon)
+
+Bret Victor の Web を読んでいるうち Tangle をみつける．Download するが，
+私は JavaScript を書いたことがない．それでもとりあえず読んでみることにする．
+
+
+2012-3-2(Fri)
+
+text の数値を変化させるのは比較的単純にできることがわかった．しかし，今
+やりたいのは，normal の transformation が通常の transformation でないこ
+との説明なので，少なくとも二次元の図を描く必要がある．
+
+Google group に Tangle の discussion があったので参加してみる．
+
+FilterExample.js がそれのようだが，JavaScript を知らないので読めない．
+JavaScript がどんなものか，少し読んでみる．
+
+
+2012-3-3(Sat)
+
+bezier の example を作っている人がいたのでそれを見てみる．
+
+
+2012-3-4(Sun)
+
+点を drag する方法はわかったが，model との分離ができない．
+
+TKAdjustableNumber が一番簡単な example のようだ．他の example は複雑す
+ぎて JavaScript 初心者の私にはわからない．
+
+http://worrydream.com/Tangle/ を starting point にしてみることにする．
+
+2012-3-13(Tue)
+
+まだ JavaScript を勉強中．Bret のコードを元に Slider を書いてみる．

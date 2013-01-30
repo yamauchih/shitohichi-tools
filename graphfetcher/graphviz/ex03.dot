@@ -1,0 +1,11 @@
+// -*- encoding: utf-8 -*-
+//
+// Copyright (C) 2012 Yamauchi, Hitoshi
+// For Rebecca from Hitoshi the fool
+//
+// dot -Tsvg ex02.dot -o a.svg
+digraph G {
+        node_1 [label="夏目漱石"];
+        node_2 [label="三島由紀夫"];
+        node_1 -> node_2;
+}

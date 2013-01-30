@@ -1,0 +1,121 @@
+* Rebecca's bundan related project.
+
+** Output connection visualized html directory
+*** DONE Annotated original file: connected entry has different color.
+
+** General
+*** DONE add a header for the output files, check the header for the input
+*** DONE matrix は full rank ではない．どこかに sink loop がある．これはどうも避けられない
+*** DONE complex eigenvalue について30講を読む
+*** DONE 石原慎太郎のみファイルが壊れている fix. gedit said, it is compressed.
+*** DONE Separated Log.
+
+** utf-8 related
+*** DONE How to detect the corrupted utf-8 file: checkutf8file.sh
+*** DONE How to fix the corrupted utf-8 file: FixUtf8File.py. But wget's problem did not solved.
+
+** FileVectorExtractor
+*** DONE : How many files remains (add progress)
+*** DONE : Blacklist
+*** DONE : Elapsed time
+
+** LinkVectorExtractor
+*** DONE output with specifying encoding.
+*** DONE test_linkvectorextractor_en_en_0.py
+*** DONE test_linkvectorextractor_en_de_0.py
+*** DONE test_linkvectorextractor_en_ja_0.py
+*** DONE test_linkvectorextractor_de_en_0.py
+*** DONE test_linkvectorextractor_de_de_0.py
+*** DONE test_linkvectorextractor_de_ja_0.py
+*** DONE test_linkvectorextractor_ja_en_0.py
+*** DONE test_linkvectorextractor_ja_de_0.py
+*** DONE test_linkvectorextractor_ja_ja_0.py
+
+** GraphExtractor
+*** DONE Adjacent matrix (can be read by matlab)
+*** DONE Option: remove self link.
+*** DONE export M_{adj} file should return a matrix.
+*** DONE en_en graphextractor, add baseline
+*** DONE en_de graphextractor, add baseline
+*** DONE en_ja graphextractor, add baseline
+*** DONE de_en graphextractor, add baseline
+*** DONE de_de graphextractor, add baseline
+*** DONE de_ja graphextractor, add baseline
+*** DONE ja_en graphextractor, add baseline
+*** DONE ja_de graphextractor, add baseline
+*** DONE ja_ja graphextractor, add baseline
+
+** pagerank
+*** DONE sort the pagerank and show the decedent order.
+*** DONE sink loop is avoided by the same method of PageRank
+*** DONE en_en pagerank computation
+*** DONE en_de pagerank computation
+*** DONE en_ja pagerank computation
+*** DONE de_en pagerank computation
+*** DONE de_de pagerank computation
+*** DONE de_ja pagerank computation
+*** DONE ja_en pagerank computation
+*** DONE ja_de pagerank computation
+*** DONE ja_ja pagerank computation
+
+** Remapper
+*** DONE read data and removed sink source node
+*** DONE remap the utf-8 data
+*** DONE save the pageranked data
+*** DONE baseline check
+*** DONE Result header should be AuthorRankVector
+*** DONE preprocess the input file with gawk '{print $1}'
+
+*** DONE Duplication check and change the Wikipedia
+**** DONE de_de (Liste deutschsprachiger Schriftsteller)
+***** DONE Anna_Bernard                  ... Fixed 2012-12-2(Sun)
+***** DONE Albrecht_von_Eyb in Al and Ev ... Did not fixed. There are other Albrecht in Al entries
+***** DONE Günter_Görlich                ... Fixed 2012-12-3(Mon)
+***** DONE Guido_Görres                  ... Fixed 2012-12-3(Mon)
+***** DONE Bess_Brenck-Kalischer         ... Did not fixed. not clear Brenck or Kalischer.
+***** DONE Gorch_Fock_(Schriftsteller)   ... Pseudonym Johann Wilhelm Kinau
+***** DONE Helene_Luise_Köppel           ... Has been fixed
+***** DONE Horst_Bosetzky                ... Pseudonym of -ky
+***** DONE Christine_Lehmann             ... Fixed 2012-12-5(Wed)
+***** DONE Konrad_Merz                   ... Link fom Kurt Lehmann, urspr. Name von Konrad Merz
+***** DONE Franz_Nissel                  ... Fixed 2012-12-5(Wed)
+***** DONE Dolores_Viesère               ... eigentlich Wilhelmine Maria Aichbichler
+***** DONE Hans_Henning_von_Voigt        ... Pseudonym Alastair
+***** DONE Leontine_von_Winterfeld-Platen... The entry in the P and W. Not clear which should be removed.
+***** DONE Ursula_Wölfel                 ... Fixed 2012-12-5(Wed)
+***** DONE Sophie_Wörishöffer            ... Fixed 2012-12-7(Fri)
+
+**** DONE en_de (Liste britischer Schriftsteller)
+***** DONE George_Mackay_Brown  ... Fixed 2012-12-3(Mon)
+***** DONE William_Sharp ... One of the display name is Fiona Macleod, which is his Pseudonym, so this is correct.
+
+**** DONE ja_de (Liste japanischer Schriftsteller)
+***** DONE Isozaki_Kenichirō        ... Fixed 2012-12-3(Mon)
+***** DONE Shimaki_Kensaku          ... Fixed 2012-12-3(Mon)
+***** DONE Henjō                    ... synonym Yoshimine no Munesada
+***** DONE Sechs_beste_Waka-Dichter ... synonym Rokkasen
+
+**** DONE en_en duplication (List of English writers)
+***** DONE Noël_Coward
+***** DONE Pierce_Egan              ... Fixed 2012-12-2(Sun)
+***** DONE Douglas_William_Jerrold  ... Fixed 2012-12-6(Thu)
+***** DONE Jane_Marcet              ... Already fixed
+***** DONE Henry_Peacham            ... Two people shared one entry
+***** DONE Adelaide_Anne_Procter    ... Already fixed
+***** DONE Mary_Sidney              ... synonym Mary Herbert
+***** DONE Lisa_St_Aubin_de_Terán   ... in D and T entry. I don't know which is correct.
+***** DONE Anne_Isabella_Thackeray_Ritchie ... in R and T entry.
+***** DONE William_Wycherley        ... Fixed 2012-12-6(Thu)
+
+**** DONE ja_en (List of Japanese writers)
+***** DONE Kikuchi_Kan ... Fixed 2012-12-2(Sun)
+
+**** DONE en_ja (イギリスの小説家一覧)
+***** DONE トーマス・ハーディ ... Fixed 2012-12-3(Mon)
+
+**** DONE ja_ja (日本の小説家一覧)
+***** DONE 色川武大 ... 阿佐田哲也のペンネームあり．正しい
+***** DONE 赤瀬川原平 ... 尾辻克彦 のペンネームあり．正しい
+***** DONE 長谷川海太郎 ... 林不忘,牧逸馬,谷譲次のペンネームあり．正しい
+
+
