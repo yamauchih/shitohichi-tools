@@ -66,6 +66,8 @@
 \title{Graphfetcher user guide}
 \date{2013-1-26(Sat)}
 
+% 2013-1-30(Wed)
+
 \author{Hitoshi Yamauchi}
 
 %\twocolumn[]
@@ -226,6 +228,8 @@ Please see \verb|test_remapper_0.py|.
 \section{Tips}
 
 \begin{itemize}
+ \item wget version should be >= 1.13.4. (1.12 has a bug of utf-8
+       filename conversion. This has been fixed 1.13.4.)
  \item If you see UnicodeEncodeError (e.g. UnicodeEncodeError: 'ascii'
        codec can't encode character u'\textbackslash{}xf2' in position
        *: ordinal not in range(*)), set utf-8 environment. For instance,
@@ -238,8 +242,6 @@ Please see \verb|test_remapper_0.py|.
 \section{Conclusion}
 
 I tested in this document with Italian writers on English wikipedia.
-
-
 
 
 % \(M_c: A \mapsto C\)
