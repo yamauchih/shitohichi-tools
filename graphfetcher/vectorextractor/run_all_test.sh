@@ -36,5 +36,6 @@ test_linkvectorextractor_italian_en_0.py	\
 
 for tpy in ${TEST_PY}
 do
+    echo "running ... ${tpy}"
     python ${tpy}
 done

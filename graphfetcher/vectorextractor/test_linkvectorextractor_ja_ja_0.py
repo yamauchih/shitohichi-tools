@@ -37,7 +37,7 @@ class TestLinkVectorExtractor(unittest.TestCase):
         outdir = os.path.join(graphfetcherdir, output_rpath)
 
         print
-        print u'# input [' + root_url    + u']'
+        print u'# input [' + root_url.encode('ascii', 'ignore')    + u']'
         # if substring of the following list matches the href, ignore.
         # If exact match filter is needed, use blacklistset option.
         ignore_href_list = [
