@@ -19,7 +19,7 @@ class TestLinkVectorExtractor(unittest.TestCase):
 
     def linkvectorextractor(self, _opt_dict):
         """test generate URL list by List of Italian writers from
-        Deutsche wiki (italian_de).  The export encoding option 'ascii'
+        English wiki (italian_en).  The export encoding option 'ascii'
         gives you matlab readable author vector.
         """
         # basic configuration
