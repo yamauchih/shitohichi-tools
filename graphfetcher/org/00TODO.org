@@ -2,6 +2,14 @@
 
 ** Improvements
 
+** TODO Italian (Enzo, Marco)
+*** TODO Root page analysis. Save Category and otheres add to writer list.
+**** Made category list. category -> writer list
+*** TODO For each category, get the page and get authors
+**** Category name list (Then I can have all the 16 centry writes)
+**** repeat as long as no next page. If new category found, keep them.
+
+
 **** TODO Yoshino_Hideo の Wiki に間違いがある．Ryōkan が Ryokan になっている．多くの Wiki Page がそうらしい．Link が切れている
 
 ** TODO Blog contents
@@ -16,7 +24,6 @@
 
 *** TODO French (Daniel L.)
 *** TODO Romanian (Adriana)
-*** TODO Italian (Enzo)
 *** TODO Russian (Alexander Belyev, Olga)
 
 15 min exercises
